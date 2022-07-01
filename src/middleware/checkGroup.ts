@@ -1,3 +1,3 @@
-import { Request } from 'express';
+import { PayloadRequest } from 'payload/dist/express/types';
 
-export default ({ req: { user } }: { req: Request }, group: string) => user.group === group;
+export default ({ req: { user } }: { req: PayloadRequest }, group: string) => user.group === group;

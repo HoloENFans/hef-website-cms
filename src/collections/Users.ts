@@ -6,6 +6,7 @@ const Users: CollectionConfig = {
 	auth: true,
 	admin: {
 		useAsTitle: 'name',
+		defaultColumns: ['name', 'email', 'group'],
 	},
 	access: {
 		read: (req) => checkGroup(req, 'superadmin'),
@@ -14,8 +15,6 @@ const Users: CollectionConfig = {
 		delete: (req) => checkGroup(req, 'superadmin'),
 	},
 	fields: [
-		// Email added by default
-		// Add more fields as needed
 		{
 			name: 'name',
 			type: 'text',
@@ -41,6 +40,10 @@ const Users: CollectionConfig = {
 				{
 					label: 'Content moderator',
 					value: 'content-moderator',
+				},
+				{
+					label: 'Developer',
+					value: 'developer',
 				},
 				{
 					label: 'Translator',
