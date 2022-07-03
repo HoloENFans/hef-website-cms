@@ -1,5 +1,5 @@
 import { CollectionConfig } from 'payload/types';
-import checkGroup from '../middleware/checkGroup';
+import checkRole from '../middleware/checkRole';
 
 const Users: CollectionConfig = {
 	slug: 'users',
@@ -8,11 +8,15 @@ const Users: CollectionConfig = {
 		useAsTitle: 'name',
 		defaultColumns: ['name', 'email', 'group'],
 	},
+	labels: {
+		singular: 'User',
+		plural: 'Users',
+	},
 	access: {
-		read: (req) => checkGroup(req, 'superadmin'),
-		create: (req) => checkGroup(req, 'superadmin'),
-		update: (req) => checkGroup(req, 'superadmin'),
-		delete: (req) => checkGroup(req, 'superadmin'),
+		read: (req) => checkRole(req, 'superadmin'),
+		create: (req) => checkRole(req, 'superadmin'),
+		update: (req) => checkRole(req, 'superadmin'),
+		delete: (req) => checkRole(req, 'superadmin'),
 	},
 	fields: [
 		{
@@ -23,11 +27,12 @@ const Users: CollectionConfig = {
 			saveToJWT: true,
 		},
 		{
-			name: 'group',
+			name: 'roles',
 			type: 'select',
-			label: 'Group',
+			label: 'Roles',
 			defaultValue: 'admin',
 			required: true,
+			hasMany: true,
 			options: [
 				{
 					label: 'Superadmin',

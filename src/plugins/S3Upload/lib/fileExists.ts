@@ -1,7 +1,7 @@
 import { Payload } from 'payload';
 
 // eslint-disable-next-line max-len
-export async function fileExists(payload: Payload, collection: string, filename: string): Promise<boolean> {
+export default async function fileExists(payload: Payload, collection: string, filename: string): Promise<boolean> {
 	const existingFiles = await payload.find({
 		collection,
 		limit: 1,

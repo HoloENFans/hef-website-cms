@@ -4,6 +4,11 @@ const Guilds: CollectionConfig = {
 	slug: 'guilds',
 	admin: {
 		useAsTitle: 'name',
+		description: 'Server list on the website',
+	},
+	labels: {
+		singular: 'Guild',
+		plural: 'Guilds',
 	},
 	access: {
 		read: ({ req }) => {

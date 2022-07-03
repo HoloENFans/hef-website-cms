@@ -1,8 +1,9 @@
 import { Payload } from 'payload';
 import sanitize from 'sanitize-filename';
-import { fileExists } from './fileExists';
+import fileExists from './fileExists';
 
-export async function getSanitizedName(payload: Payload, collection: string, filename: string) {
+// eslint-disable-next-line max-len
+export default async function getSanitizedName(payload: Payload, collection: string, filename: string) {
 	let modifiedFilename = sanitize(filename.substring(0, filename.lastIndexOf('.')) ?? filename);
 	const extension = filename.split('.').pop();
 	const regex = /(.*)-(\d)$/;
@@ -21,6 +22,7 @@ export async function getSanitizedName(payload: Payload, collection: string, fil
 		}
 	}
 
+	// eslint-disable-next-line no-await-in-loop
 	while (await fileExists(payload, collection, modifiedFilename)) {
 		incrementName();
 	}

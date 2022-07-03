@@ -2,8 +2,8 @@ import { DeleteObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client
 import { Config as PayloadConfig } from 'payload/config';
 import path from 'path';
 import { S3IncomingUploadType, S3UploadConfig } from '../../types/S3Upload';
-import { fileExists } from './lib/fileExists';
-import { getSanitizedName } from './lib/getSanitizedName';
+import fileExists from './lib/fileExists';
+import getSanitizedName from './lib/getSanitizedName';
 
 export default (config: S3UploadConfig) => {
 	const client = new S3Client({
@@ -77,7 +77,9 @@ export default (config: S3UploadConfig) => {
 				const tasks = files.map(async (file) => {
 					let key = file.filename;
 					if (s3.prefix) {
-						key = path.posix.join(s3.prefix, key);
+						key = s3.prefix instanceof Function
+							? path.posix.join(s3.prefix(data), key)
+							: path.posix.join(s3.prefix, key);
 					}
 
 					await client.send(new PutObjectCommand({
@@ -106,7 +108,9 @@ export default (config: S3UploadConfig) => {
 				const tasks = files.map(async (file) => {
 					let key = file.filename;
 					if (s3.prefix) {
-						key = path.posix.join(s3.prefix, key);
+						key = s3.prefix instanceof Function
+							? path.posix.join(s3.prefix(doc), key)
+							: path.posix.join(s3.prefix, key);
 					}
 
 					await client.send(new DeleteObjectCommand({

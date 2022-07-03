@@ -1,17 +1,33 @@
 import { buildConfig } from 'payload/config';
 import path from 'path';
+import S3Upload from './plugins/S3Upload';
+
+// Collections
 import Users from './collections/Users';
 import Guilds from './collections/Guilds';
-import S3Upload from './plugins/S3Upload';
 import Media from './collections/Media';
+import SubmissionMedia from './collections/SubmissionMedia';
+import Projects from './collections/Project';
+import Submissions from './collections/Submissions';
+import FeaturedProjects from './globals/FeaturedProjects';
+import Flags from './collections/Flags';
 
 export default buildConfig({
-	serverURL: 'http://localhost:3001',
+	serverURL: process.env.PUBLIC_URL,
+	csrf: [
+		process.env.PUBLIC_URL,
+		'https://holoen.fans',
+		'https://dev.holoen.fans',
+		'http://localhost:3000',
+	],
 	cors: [
 		'https://holoen.fans',
 		'https://dev.holoen.fans',
 		'http://localhost:3000',
 	],
+	rateLimit: {
+		trustProxy: true,
+	},
 	admin: {
 		user: Users.slug,
 		meta: {
@@ -30,6 +46,13 @@ export default buildConfig({
 		Users,
 		Media,
 		Guilds,
+		SubmissionMedia,
+		Projects,
+		Submissions,
+		Flags,
+	],
+	globals: [
+		FeaturedProjects,
 	],
 	plugins: [
 		S3Upload({
