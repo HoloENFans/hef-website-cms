@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload/types';
+import checkRole from '../middleware/checkRole';
 
 const Guilds: CollectionConfig = {
 	slug: 'guilds',
@@ -24,6 +25,12 @@ const Guilds: CollectionConfig = {
 					equals: 'published',
 				},
 			};
+		},
+		create: (req) => checkRole(req, 'superadmin'),
+		update: (req) => {
+			const isSuperadmin = checkRole(req, 'superadmin');
+			if (isSuperadmin) return true;
+			return req.data.staff ? req.data.staff.includes(req.user) : false;
 		},
 	},
 	versions: {
@@ -62,6 +69,12 @@ const Guilds: CollectionConfig = {
 			type: 'upload',
 			relationTo: 'media',
 			required: true,
+		},
+		{
+			name: 'staff',
+			type: 'relationship',
+			relationTo: 'users',
+			hasMany: true,
 		},
 	],
 };

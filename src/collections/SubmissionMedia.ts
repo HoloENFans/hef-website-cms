@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload/types';
+import { PayloadRequest } from 'payload/dist/express/types';
 import checkRole from '../middleware/checkRole';
 import { S3IncomingUploadType } from '../types/S3Upload';
 
@@ -14,10 +15,26 @@ const Media: CollectionConfig = {
 	},
 	access: {
 		read: () => true,
-		create: (req) => checkRole(req, 'admin') || checkRole(req, 'superadmin'),
-		update: () => false,
+		create: (req) => checkRole(req, 'admin'),
+		update: async (req) => {
+			if (checkRole(req, 'superadmin')) return true;
+
+			if (!checkRole(req, 'admin') || !checkRole(req, 'content-moderator')) return false;
+
+			const { req: { payload }, id }: { req: PayloadRequest, id: string } = req;
+			const results = await payload.find({
+				collection: 'submissions',
+				where: {
+					media: {
+						equals: id,
+					},
+				},
+			});
+
+			return true;
+		},
 		// TODO: Add check for content moderators and if they are assigned to a project
-		delete: (req) => checkRole(req, 'admin') || checkRole(req, 'superadmin'),
+		delete: (req) => checkRole(req, 'admin'),
 	},
 	upload: {
 		disableLocalStorage: process.env.NODE_ENV === 'production',

@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload/types';
+import checkRole from '../middleware/checkRole';
 
 const Projects: CollectionConfig = {
 	slug: 'projects',
@@ -162,11 +163,23 @@ const Projects: CollectionConfig = {
 			required: true,
 		},
 		{
+			name: 'collaborators',
+			type: 'relationship',
+			relationTo: 'users',
+			hasMany: true,
+			label: 'Additional collaborators',
+			admin: {
+				description: 'People added here will have the same permissions as project owners',
+			},
+		},
+		{
 			name: 'flags',
 			type: 'relationship',
 			relationTo: 'flags',
 			hasMany: true,
-			admin: {
+			access: {
+				create: (req) => checkRole(req, 'developer'),
+				update: (req) => checkRole(req, 'developer'),
 			},
 		},
 	],
