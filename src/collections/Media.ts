@@ -10,9 +10,9 @@ const Media: CollectionConfig = {
 	},
 	access: {
 		read: () => true,
-		create: (req) => checkRole(req, 'admin') || checkRole(req, 'superadmin'),
+		create: (req) => checkRole(req, 'project-owner'),
 		update: () => false,
-		delete: (req) => checkRole(req, 'admin') || checkRole(req, 'superadmin'),
+		delete: (req) => checkRole(req, 'project-owner'),
 	},
 	upload: {
 		disableLocalStorage: process.env.NODE_ENV === 'production',

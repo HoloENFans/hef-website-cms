@@ -12,6 +12,7 @@ const Flags: CollectionConfig = {
 		create: (req) => checkRole(req, 'developer'),
 		update: (req) => checkRole(req, 'developer'),
 		delete: (req) => checkRole(req, 'developer'),
+
 	},
 	fields: [
 		{

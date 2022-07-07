@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import payload from 'payload';
+import nodemailerSendgrid from 'nodemailer-sendgrid';
 
 const app = express();
 
@@ -16,6 +17,17 @@ payload.init({
 	express: app,
 	onInit: () => {
 		payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
+	},
+	email: {
+		fromName: 'Hololive EN Fan Website - CMS',
+		fromAddress: 'cms@holoen.fans',
+		...(process.env.SENDGRID_KEY ? {
+			transport: nodemailerSendgrid({
+				apiKey: process.env.SENDGRID_KEY,
+			}),
+		} : {
+			logMockCredentials: true,
+		}),
 	},
 });
 

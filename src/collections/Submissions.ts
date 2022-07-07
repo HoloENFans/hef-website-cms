@@ -1,10 +1,16 @@
 import { CollectionConfig } from 'payload/types';
+import { PayloadRequest } from 'payload/dist/express/types';
+import checkRole from '../middleware/checkRole';
+import {
+	Guild, Project, Submission, SubmissionMedia,
+} from '../payload-types';
 
 const Submissions: CollectionConfig = {
 	slug: 'submissions',
 	admin: {
 		useAsTitle: 'author',
 		description: 'Submissions for projects',
+		defaultColumns: ['author', '_status', 'project', 'id'],
 	},
 	access: {
 		read: ({ req }) => {
@@ -21,6 +27,22 @@ const Submissions: CollectionConfig = {
 				},
 			};
 		},
+		create: (req) => checkRole(req, 'project-owner'),
+		update: (req) => checkRole(req, ['project-owner', 'content-moderator']),
+		delete: async (req) => {
+			if (checkRole(req, 'superadmin')) return true;
+			if (!checkRole(req, ['project-owner', 'content-moderator'])) return false;
+
+			const { req: { user, payload }, id }: { req: PayloadRequest, id: string } = req;
+			if (!id) return true;
+			const submission = await payload.findByID<Submission>({
+				collection: 'submissions',
+				id,
+				depth: 2,
+			});
+			const staffList = ((submission.project as Project).organizer as Guild).staff;
+			return staffList?.includes(user.id);
+		},
 	},
 	versions: {
 		drafts: {
@@ -30,6 +52,19 @@ const Submissions: CollectionConfig = {
 	labels: {
 		singular: 'Submission',
 		plural: 'Submissions',
+	},
+	hooks: {
+		afterDelete: [
+			async ({ req, doc }: { req: PayloadRequest, doc: Submission }) => {
+				if (doc.type === 'image' && doc.media) {
+					await req.payload.delete({
+						collection: 'submission-media',
+						id: (doc.media as SubmissionMedia | undefined)?.id ?? doc.media as string,
+						overrideAccess: true,
+					});
+				}
+			},
+		],
 	},
 	fields: [
 		{

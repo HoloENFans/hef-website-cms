@@ -135,6 +135,7 @@ export default (config: S3UploadConfig) => {
 			});
 
 			// Remove the S3 key for typechecking
+			// eslint-disable-next-line @typescript-eslint/naming-convention
 			const { s3: _, ...clonedUpload } = collection.upload as S3IncomingUploadType;
 			return {
 				...collection,

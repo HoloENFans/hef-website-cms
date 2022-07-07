@@ -11,8 +11,10 @@ import Projects from './collections/Project';
 import Submissions from './collections/Submissions';
 import FeaturedProjects from './globals/FeaturedProjects';
 import Flags from './collections/Flags';
+import Notice from './globals/Notice';
 
 export default buildConfig({
+	debug: true,
 	serverURL: process.env.PUBLIC_URL,
 	csrf: [
 		process.env.PUBLIC_URL,
@@ -31,7 +33,7 @@ export default buildConfig({
 	admin: {
 		user: Users.slug,
 		meta: {
-			titleSuffix: '- HoloEN Fan Website',
+			titleSuffix: '- Hololive EN Fan Website',
 		},
 	},
 	localization: {
@@ -53,6 +55,7 @@ export default buildConfig({
 	],
 	globals: [
 		FeaturedProjects,
+		Notice,
 	],
 	plugins: [
 		S3Upload({

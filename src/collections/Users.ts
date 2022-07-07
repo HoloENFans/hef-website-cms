@@ -3,7 +3,10 @@ import checkRole from '../middleware/checkRole';
 
 const Users: CollectionConfig = {
 	slug: 'users',
-	auth: true,
+	auth: {
+		useAPIKey: true,
+		verify: true,
+	},
 	admin: {
 		useAsTitle: 'name',
 		defaultColumns: ['name', 'email', 'group'],

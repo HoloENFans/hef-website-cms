@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload/types';
+import { PayloadRequest } from 'payload/dist/express/types';
 import checkRole from '../middleware/checkRole';
 
 const Guilds: CollectionConfig = {
@@ -6,6 +7,7 @@ const Guilds: CollectionConfig = {
 	admin: {
 		useAsTitle: 'name',
 		description: 'Server list on the website',
+		preview: () => `${process.env.PAYLOAD_PUBLIC_WEBSITE_URL}/guilds`,
 	},
 	labels: {
 		singular: 'Guild',
@@ -30,7 +32,8 @@ const Guilds: CollectionConfig = {
 		update: (req) => {
 			const isSuperadmin = checkRole(req, 'superadmin');
 			if (isSuperadmin) return true;
-			return req.data.staff ? req.data.staff.includes(req.user) : false;
+			const { req: { user } }: { req: PayloadRequest } = req;
+			return req.data.staff ? req.data.staff.includes(user.id) : false;
 		},
 	},
 	versions: {

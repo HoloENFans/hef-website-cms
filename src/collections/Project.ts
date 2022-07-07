@@ -1,5 +1,22 @@
 import { CollectionConfig } from 'payload/types';
+import { PayloadRequest } from 'payload/dist/express/types';
 import checkRole from '../middleware/checkRole';
+import { Guild, Project } from '../payload-types';
+
+async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boolean> {
+	const project = await req.payload.findByID<Project>({
+		collection: 'projects',
+		id,
+		depth: 1,
+	});
+
+	const staffList = ((project.organizer as Guild).staff ?? [])
+		.concat(
+			project.collaborators ?? [],
+		);
+
+	return staffList?.includes(req.user.id);
+}
 
 const Projects: CollectionConfig = {
 	slug: 'projects',
@@ -7,6 +24,13 @@ const Projects: CollectionConfig = {
 		useAsTitle: 'title',
 		description: 'Project list',
 		defaultColumns: ['title', 'shortDescription', 'status', 'date'],
+		preview: (doc) => {
+			if (doc?.slug) {
+				return `${process.env.PAYLOAD_PUBLIC_WEBSITE_URL}/projects/${doc.slug}`;
+			}
+
+			return null;
+		},
 	},
 	access: {
 		read: ({ req }) => {
@@ -23,6 +47,23 @@ const Projects: CollectionConfig = {
 				},
 			};
 		},
+		create: async (req) => {
+			if (checkRole(req, 'superadmin')) return true;
+			if (!checkRole(req, 'project-owner')) return false;
+
+			const { req: payloadReq, id }: { req: PayloadRequest, id: string } = req;
+			if (!id) return true;
+			return checkProjectOwner(payloadReq, id);
+		},
+		update: async (req) => {
+			if (checkRole(req, 'superadmin')) return true;
+			if (!checkRole(req, 'project-owner')) return false;
+
+			const { req: payloadReq, id }: { req: PayloadRequest, id: string } = req;
+			if (!id) return true;
+			return checkProjectOwner(payloadReq, id);
+		},
+		delete: (req) => checkRole(req, 'superadmin'),
 	},
 	labels: {
 		singular: 'Project',
@@ -42,6 +83,14 @@ const Projects: CollectionConfig = {
 			admin: {
 				description: 'Project title',
 			},
+			access: {
+				update: ({ req, data }) => {
+					if (checkRole({ req }, 'translator')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+			},
 		},
 		{
 			name: 'slug',
@@ -59,6 +108,14 @@ const Projects: CollectionConfig = {
 				}
 				return true;
 			},
+			access: {
+				update: ({ req, data }) => {
+					if (checkRole({ req }, 'superadmin')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+			},
 			index: true,
 		},
 		{
@@ -67,18 +124,42 @@ const Projects: CollectionConfig = {
 			required: true,
 			localized: true,
 			label: 'Short description',
+			access: {
+				update: ({ req, data }) => {
+					if (checkRole({ req }, 'translator')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+			},
 		},
 		{
 			name: 'description',
 			type: 'richText',
 			required: true,
 			localized: true,
+			access: {
+				update: ({ req, data }) => {
+					if (checkRole({ req }, 'translator')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+			},
 		},
 		{
 			name: 'organizer',
 			type: 'relationship',
 			relationTo: 'guilds',
 			required: true,
+			access: {
+				update: ({ req, data }) => {
+					if (checkRole({ req }, 'superadmin')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+			},
 		},
 		{
 			name: 'status',
@@ -95,6 +176,14 @@ const Projects: CollectionConfig = {
 					value: 'past',
 				},
 			],
+			access: {
+				update: ({ req, data }) => {
+					if (checkRole({ req }, 'superadmin')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+			},
 		},
 		{
 			name: 'links',
@@ -111,6 +200,20 @@ const Projects: CollectionConfig = {
 					required: true,
 				},
 			],
+			access: {
+				create: ({ req, data }) => {
+					if (checkRole({ req }, 'superadmin')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+				update: ({ req, data }) => {
+					if (checkRole({ req }, 'superadmin')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+			},
 		},
 		{
 			name: 'media',
@@ -149,18 +252,49 @@ const Projects: CollectionConfig = {
 					},
 				},
 			],
+			access: {
+				create: ({ req, data }) => {
+					if (checkRole({ req }, 'superadmin')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+				update: ({ req, data }) => {
+					if (checkRole({ req }, 'superadmin')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+			},
 		},
 		{
 			name: 'date',
 			type: 'date',
 			defaultValue: new Date().toISOString(),
 			required: true,
+			access: {
+				update: ({ req, data }) => {
+					if (checkRole({ req }, 'superadmin')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+			},
 		},
 		{
 			name: 'image',
 			type: 'upload',
 			relationTo: 'media',
 			required: true,
+			access: {
+
+				update: ({ req, data }) => {
+					if (checkRole({ req }, 'superadmin')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
+			},
 		},
 		{
 			name: 'collaborators',
@@ -170,6 +304,15 @@ const Projects: CollectionConfig = {
 			label: 'Additional collaborators',
 			admin: {
 				description: 'People added here will have the same permissions as project owners',
+			},
+			access: {
+
+				update: ({ req, data }) => {
+					if (checkRole({ req }, 'superadmin')) return true;
+					if (!checkRole({ req }, 'project-owner')) return false;
+
+					return checkProjectOwner(req, data.id);
+				},
 			},
 		},
 		{
