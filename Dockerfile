@@ -1,5 +1,5 @@
 # Rebuild the source code only when needed
-FROM node:16-buster-slim AS builder
+FROM node:18-buster-slim AS builder
 WORKDIR /app
 COPY .npmrc package.json pnpm-lock.yaml ./
 
@@ -17,7 +17,7 @@ RUN echo $ENV_FILE | base64 -d > .env \
     && pnpm build
 
 # Production image, copy all the files and run next
-FROM node:16-buster-slim AS runner
+FROM node:18-buster-slim AS runner
 WORKDIR /app
 
 ARG ENV_FILE
