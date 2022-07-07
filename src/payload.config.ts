@@ -14,7 +14,6 @@ import Flags from './collections/Flags';
 import Notice from './globals/Notice';
 
 export default buildConfig({
-	debug: true,
 	serverURL: process.env.PUBLIC_URL,
 	csrf: [
 		process.env.PUBLIC_URL,

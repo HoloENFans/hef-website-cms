@@ -130,7 +130,14 @@ export default (config: S3UploadConfig) => {
 
 				Object.keys(doc.sizes).forEach((key) => {
 					// eslint-disable-next-line no-param-reassign
-					doc.sizes[key] = `${publicUrl}/${s3.prefix}/${doc.sizes[key].filename}`;
+					doc.sizes[key] = {
+						filename: doc.sizes[key].filename,
+						filesize: doc.sizes[key].filesize,
+						mimeType: doc.sizes[key].mimeType,
+						width: doc.sizes[key].width,
+						height: doc.sizes[key].height,
+						url: `${publicUrl}/${s3.prefix}/${doc.sizes[key].filename}`,
+					};
 				});
 			});
 

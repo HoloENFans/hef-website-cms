@@ -35,6 +35,7 @@ const Media: CollectionConfig = {
 			},
 		],
 		adminThumbnail: 'icon',
+		mimeTypes: ['image/*'],
 	} as S3IncomingUploadType,
 	fields: [],
 };

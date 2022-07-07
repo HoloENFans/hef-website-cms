@@ -3,6 +3,7 @@ import { PayloadRequest } from 'payload/dist/express/types';
 import checkRole from '../middleware/checkRole';
 import { Guild, Project } from '../payload-types';
 
+// Helper functions
 async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boolean> {
 	const project = await req.payload.findByID<Project>({
 		collection: 'projects',
@@ -18,6 +19,16 @@ async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boole
 	return staffList?.includes(req.user.id);
 }
 
+async function fieldCheckProjectOwner(req: PayloadRequest, id?: string): Promise<boolean> {
+	if (checkRole({ req }, 'superadmin')) return true;
+	if (!checkRole({ req }, 'project-owner')) return false;
+
+	if (!id) return true;
+
+	return checkProjectOwner(req, id);
+}
+
+// Collection config
 const Projects: CollectionConfig = {
 	slug: 'projects',
 	admin: {
@@ -34,16 +45,14 @@ const Projects: CollectionConfig = {
 	},
 	access: {
 		read: ({ req }) => {
-			// If there is a user logged in,
-			// let them retrieve all documents
 			if (req.user) return true;
 
-			// If there is no user,
-			// restrict the documents that are returned
-			// to only those where `_status` is equal to `published`
 			return {
 				_status: {
 					equals: 'published',
+				},
+				status: {
+					not_equals: 'draft',
 				},
 			};
 		},
@@ -84,12 +93,7 @@ const Projects: CollectionConfig = {
 				description: 'Project title',
 			},
 			access: {
-				update: ({ req, data }) => {
-					if (checkRole({ req }, 'translator')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},
 		{
@@ -109,12 +113,7 @@ const Projects: CollectionConfig = {
 				return true;
 			},
 			access: {
-				update: ({ req, data }) => {
-					if (checkRole({ req }, 'superadmin')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 			index: true,
 		},
@@ -125,12 +124,7 @@ const Projects: CollectionConfig = {
 			localized: true,
 			label: 'Short description',
 			access: {
-				update: ({ req, data }) => {
-					if (checkRole({ req }, 'translator')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},
 		{
@@ -139,12 +133,7 @@ const Projects: CollectionConfig = {
 			required: true,
 			localized: true,
 			access: {
-				update: ({ req, data }) => {
-					if (checkRole({ req }, 'translator')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},
 		{
@@ -153,12 +142,7 @@ const Projects: CollectionConfig = {
 			relationTo: 'guilds',
 			required: true,
 			access: {
-				update: ({ req, data }) => {
-					if (checkRole({ req }, 'superadmin')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},
 		{
@@ -167,6 +151,10 @@ const Projects: CollectionConfig = {
 			required: true,
 			defaultValue: 'ongoing',
 			options: [
+				{
+					label: 'Draft',
+					value: 'draft',
+				},
 				{
 					label: 'Ongoing',
 					value: 'ongoing',
@@ -177,12 +165,7 @@ const Projects: CollectionConfig = {
 				},
 			],
 			access: {
-				update: ({ req, data }) => {
-					if (checkRole({ req }, 'superadmin')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},
 		{
@@ -201,18 +184,8 @@ const Projects: CollectionConfig = {
 				},
 			],
 			access: {
-				create: ({ req, data }) => {
-					if (checkRole({ req }, 'superadmin')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
-				update: ({ req, data }) => {
-					if (checkRole({ req }, 'superadmin')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
+				create: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},
 		{
@@ -253,18 +226,8 @@ const Projects: CollectionConfig = {
 				},
 			],
 			access: {
-				create: ({ req, data }) => {
-					if (checkRole({ req }, 'superadmin')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
-				update: ({ req, data }) => {
-					if (checkRole({ req }, 'superadmin')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
+				create: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},
 		{
@@ -273,12 +236,7 @@ const Projects: CollectionConfig = {
 			defaultValue: new Date().toISOString(),
 			required: true,
 			access: {
-				update: ({ req, data }) => {
-					if (checkRole({ req }, 'superadmin')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},
 		{
@@ -288,12 +246,15 @@ const Projects: CollectionConfig = {
 			required: true,
 			access: {
 
-				update: ({ req, data }) => {
-					if (checkRole({ req }, 'superadmin')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
+			},
+		},
+		{
+			name: 'submission-url',
+			label: 'Submission link',
+			type: 'text',
+			admin: {
+				description: 'Link where people can submit their message/work',
 			},
 		},
 		{
@@ -307,12 +268,7 @@ const Projects: CollectionConfig = {
 			},
 			access: {
 
-				update: ({ req, data }) => {
-					if (checkRole({ req }, 'superadmin')) return true;
-					if (!checkRole({ req }, 'project-owner')) return false;
-
-					return checkProjectOwner(req, data.id);
-				},
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},
 		{
