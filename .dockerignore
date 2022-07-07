@@ -1,0 +1,6 @@
+storage/
+node_modules/
+build/
+dist/
+.github/
+.idea/
