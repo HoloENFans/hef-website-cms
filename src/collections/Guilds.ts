@@ -1,6 +1,7 @@
 import { CollectionConfig } from 'payload/types';
 import { PayloadRequest } from 'payload/dist/express/types';
-import checkRole from '../middleware/checkRole';
+import checkRole from '../lib/checkRole';
+import revalidatePath from '../lib/revalidatePath';
 
 const Guilds: CollectionConfig = {
 	slug: 'guilds',
@@ -41,6 +42,11 @@ const Guilds: CollectionConfig = {
 			autosave: true,
 		},
 	},
+	hooks: {
+		afterChange: [
+			() => revalidatePath('/'),
+		],
+	},
 	fields: [
 		{
 			name: 'name',
@@ -78,6 +84,9 @@ const Guilds: CollectionConfig = {
 			type: 'relationship',
 			relationTo: 'users',
 			hasMany: true,
+			access: {
+				read: (context) => !!context.req.user,
+			},
 		},
 	],
 };

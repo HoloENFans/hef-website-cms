@@ -65,6 +65,7 @@ export default buildConfig({
 				accessKeyId: process.env.S3_ACCESS_KEY,
 				secretAccessKey: process.env.S3_SECRET_KEY,
 			},
+			publicUrl: process.env.S3_PUBLIC_URL,
 		}),
 	],
 	typescript: {

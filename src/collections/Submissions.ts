@@ -1,9 +1,10 @@
 import { CollectionConfig } from 'payload/types';
 import { PayloadRequest } from 'payload/dist/express/types';
-import checkRole from '../middleware/checkRole';
+import checkRole from '../lib/checkRole';
 import {
 	Guild, Project, Submission, SubmissionMedia,
 } from '../payload-types';
+import revalidatePath from '../lib/revalidatePath';
 
 const Submissions: CollectionConfig = {
 	slug: 'submissions',
@@ -62,6 +63,20 @@ const Submissions: CollectionConfig = {
 						id: (doc.media as SubmissionMedia | undefined)?.id ?? doc.media as string,
 						overrideAccess: true,
 					});
+				}
+			},
+		],
+		afterChange: [
+			async ({ req, doc }) => {
+				if (doc.project instanceof String) {
+					const project: Project = await req.payload.findByID({
+						collection: 'projects',
+						id: doc.project,
+						depth: 0,
+					});
+					await revalidatePath(`/projects/${project.slug}`);
+				} else {
+					await revalidatePath(`/projects/${doc.project.slug}`);
 				}
 			},
 		],

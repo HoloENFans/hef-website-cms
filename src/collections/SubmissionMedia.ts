@@ -1,5 +1,5 @@
 import { CollectionConfig } from 'payload/types';
-import checkRole from '../middleware/checkRole';
+import checkRole from '../lib/checkRole';
 import { S3IncomingUploadType } from '../types/S3Upload';
 
 const Media: CollectionConfig = {
@@ -25,6 +25,12 @@ const Media: CollectionConfig = {
 			prefix: 'submissions',
 		},
 		imageSizes: [
+			{
+				name: 'icon',
+				width: 128,
+				height: null,
+				crop: 'center',
+			},
 			{
 				name: 'thumbnail',
 				width: 1024,

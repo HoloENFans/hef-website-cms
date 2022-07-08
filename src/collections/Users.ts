@@ -1,5 +1,5 @@
 import { CollectionConfig } from 'payload/types';
-import checkRole from '../middleware/checkRole';
+import checkRole from '../lib/checkRole';
 
 const Users: CollectionConfig = {
 	slug: 'users',

@@ -1,7 +1,8 @@
 import { CollectionConfig } from 'payload/types';
 import { PayloadRequest } from 'payload/dist/express/types';
-import checkRole from '../middleware/checkRole';
+import checkRole from '../lib/checkRole';
 import { Guild, Project } from '../payload-types';
+import revalidatePath from '../lib/revalidatePath';
 
 // Helper functions
 async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boolean> {
@@ -82,6 +83,12 @@ const Projects: CollectionConfig = {
 		drafts: {
 			autosave: true,
 		},
+	},
+	hooks: {
+		afterChange: [
+			() => revalidatePath('/projects'),
+			({ doc }) => revalidatePath(`/projects/${doc.slug}`),
+		],
 	},
 	fields: [
 		{
@@ -211,7 +218,7 @@ const Projects: CollectionConfig = {
 				{
 					name: 'media',
 					type: 'upload',
-					relationTo: 'submission-media',
+					relationTo: 'media',
 					admin: {
 						condition: (_, siblingData) => siblingData.type === 'image',
 					},
@@ -267,7 +274,7 @@ const Projects: CollectionConfig = {
 				description: 'People added here will have the same permissions as project owners',
 			},
 			access: {
-
+				read: (context) => !!context.req.user,
 				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},

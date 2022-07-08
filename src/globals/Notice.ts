@@ -1,10 +1,11 @@
 import { GlobalConfig } from 'payload/types';
-import checkRole from '../middleware/checkRole';
+import checkRole from '../lib/checkRole';
 
 const Notice: GlobalConfig = {
 	slug: 'notice',
 	label: 'Notice banner',
 	access: {
+		read: () => true,
 		update: (req) => checkRole(req, 'developer'),
 	},
 	fields: [

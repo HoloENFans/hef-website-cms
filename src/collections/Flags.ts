@@ -1,5 +1,5 @@
 import { CollectionConfig } from 'payload/types';
-import checkRole from '../middleware/checkRole';
+import checkRole from '../lib/checkRole';
 
 const Flags: CollectionConfig = {
 	slug: 'flags',
@@ -12,7 +12,6 @@ const Flags: CollectionConfig = {
 		create: (req) => checkRole(req, 'developer'),
 		update: (req) => checkRole(req, 'developer'),
 		delete: (req) => checkRole(req, 'developer'),
-
 	},
 	fields: [
 		{

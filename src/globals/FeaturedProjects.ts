@@ -1,11 +1,18 @@
 import { GlobalConfig } from 'payload/types';
-import checkRole from '../middleware/checkRole';
+import checkRole from '../lib/checkRole';
+import revalidatePath from '../lib/revalidatePath';
 
 const FeaturedProjects: GlobalConfig = {
 	slug: 'featured-projects',
 	label: 'Featured projects',
 	access: {
+		read: () => true,
 		update: (req) => checkRole(req, 'superadmin'),
+	},
+	hooks: {
+		afterChange: [
+			() => revalidatePath('/'),
+		],
 	},
 	fields: [
 		{
@@ -13,12 +20,6 @@ const FeaturedProjects: GlobalConfig = {
 			type: 'relationship',
 			relationTo: 'projects',
 			hasMany: true,
-			validate: (value) => {
-				if (value.length > 3) {
-					return 'You can select no more than 3 projects to feature.';
-				}
-				return true;
-			},
 		},
 	],
 };
