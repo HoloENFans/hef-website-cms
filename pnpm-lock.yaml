@@ -18,7 +18,7 @@ specifiers:
   nodemailer: ^6.7.7
   nodemailer-sendgrid: ^1.0.3
   nodemon: 2.0.19
-  payload: ^0.18.5
+  payload: ^0.19.0
   process: 0.11.10
   sanitize-filename: ^1.6.3
   ts-node: 10.8.2
@@ -30,7 +30,7 @@ dependencies:
   express: 4.18.1
   nodemailer: 6.7.7
   nodemailer-sendgrid: 1.0.3
-  payload: 0.18.5_bn3y5sn7aa6hsplivwol7ie4em
+  payload: 0.19.0_bn3y5sn7aa6hsplivwol7ie4em
   sanitize-filename: 1.6.3
 
 devDependencies:
@@ -8644,8 +8644,8 @@ packages:
     resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
     dev: false
 
-  /payload/0.18.5_bn3y5sn7aa6hsplivwol7ie4em:
-    resolution: {integrity: sha512-lHr51ue4G/lLpphfvqqT9ItVMlNgQsjwQiCBm+d/Z9QnRvM4T5ar/bFkhMd4j3HuRq5yEl8+R4Tqwq2i5uf1lA==}
+  /payload/0.19.0_bn3y5sn7aa6hsplivwol7ie4em:
+    resolution: {integrity: sha512-eIkzXd38q6GnaOgR2bSG92jSjYnnjXnaPjR+b6mYlyZ1KfmkpmCNNzbtsowDAhTuyM6Hzj03sG+nmwITOmxBOQ==}
     hasBin: true
     dependencies:
       '@babel/cli': 7.18.6_@babel+core@7.18.6
