@@ -4,6 +4,7 @@ WORKDIR /app
 COPY .npmrc package.json pnpm-lock.yaml ./
 
 RUN npm install -g pnpm \
+	&& apt install libvips libvips-dev \
     && pnpm install --frozen-lockfile
 
 WORKDIR /app
@@ -13,7 +14,6 @@ ARG ENV_FILE
 ENV NODE_ENV production
 
 RUN echo $ENV_FILE | base64 -d > .env \
-    && npm i -g pnpm \
     && pnpm build
 
 # Production image, copy all the files and run next
@@ -29,6 +29,7 @@ RUN addgroup --system --gid 1001 nodejs \
 	&& adduser --system --uid 1001 nodejs \
     && echo $ENV_FILE | base64 -d > .env \
 	&& npm i -g pnpm \
+	&& apt install libvips libvips-dev \
     && pnpm install --frozen-lockfile
 
 COPY --from=builder /app/dist ./dist
