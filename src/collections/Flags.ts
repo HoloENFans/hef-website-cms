@@ -5,7 +5,7 @@ const Flags: CollectionConfig = {
 	slug: 'flags',
 	admin: {
 		useAsTitle: 'name',
-		defaultColumns: ['name', 'id'],
+		defaultColumns: ['name', 'code'],
 	},
 	access: {
 		read: () => true,
@@ -15,14 +15,20 @@ const Flags: CollectionConfig = {
 	},
 	fields: [
 		{
-			name: 'id',
+			name: 'code',
 			type: 'text',
 			required: true,
+			admin: {
+				description: 'Flag name as in the code',
+			},
 		},
 		{
 			name: 'name',
 			type: 'text',
 			required: true,
+			admin: {
+				description: 'Flag name in the dashboard',
+			},
 		},
 	],
 };
