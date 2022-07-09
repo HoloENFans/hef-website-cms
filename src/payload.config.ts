@@ -71,6 +71,11 @@ export default buildConfig({
 	graphQL: {
 		disable: true,
 	},
+	upload: {
+		limits: {
+			fileSize: 20_000_000,
+		},
+	},
 	typescript: {
 		outputFile: path.resolve(__dirname, 'payload-types.ts'),
 	},

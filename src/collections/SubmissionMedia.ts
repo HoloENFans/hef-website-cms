@@ -37,6 +37,12 @@ const Media: CollectionConfig = {
 				height: null,
 				crop: 'center',
 			},
+			{
+				name: 'tanabata',
+				width: 400,
+				height: 1280,
+				crop: 'center',
+			},
 		],
 		adminThumbnail: 'thumbnail',
 		mimeTypes: ['image/*'],
