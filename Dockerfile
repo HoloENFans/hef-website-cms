@@ -3,8 +3,8 @@ FROM node:16-bullseye-slim AS builder
 WORKDIR /app
 COPY .npmrc package.json pnpm-lock.yaml ./
 
-RUN npm install -g pnpm \
-	&& apt-get update \
+RUN npm install --location=global pnpm \
+  && apt-get update \
   && pnpm install --frozen-lockfile
 
 WORKDIR /app
@@ -18,22 +18,24 @@ RUN echo $ENV_FILE | base64 -d > .env \
 
 # Production image, copy all the files and run next
 FROM node:16-bullseye-slim AS runner
-WORKDIR /app
-
 ARG ENV_FILE
 ENV NODE_ENV production
-
-COPY .npmrc package.json pnpm-lock.yaml ./
+ENV PAYLOAD_CONFIG_PATH dist/payload.config.js
 
 RUN addgroup --system --gid 1001 nodejs \
-	&& adduser --system --uid 1001 nodejs \
-  && echo $ENV_FILE | base64 -d > .env \
-	&& npm i -g pnpm \
+  && adduser --system --uid 1001 nodejs \
+  && npm install --location=global pnpm
+  
+USER nodejs
+WORKDIR /app
+
+COPY --chown=nodejs:nodejs .npmrc package.json pnpm-lock.yaml ./
+
+RUN echo $ENV_FILE | base64 -d > .env \
   && pnpm install --frozen-lockfile
 
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/build ./build
-COPY --from=builder /app/package.json ./package.json
+COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nodejs:nodejs /app/build ./build
 
 USER nodejs
 
@@ -41,4 +43,4 @@ EXPOSE 3001
 
 ENV PORT 3001
 
-CMD ["pnpm", "serve"]
+CMD ["node", "dist/server.js"]
