@@ -68,6 +68,9 @@ export default buildConfig({
 			publicUrl: process.env.S3_PUBLIC_URL,
 		}),
 	],
+	graphQL: {
+		disable: true,
+	},
 	typescript: {
 		outputFile: path.resolve(__dirname, 'payload-types.ts'),
 	},

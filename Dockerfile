@@ -4,21 +4,17 @@ WORKDIR /app
 COPY .npmrc package.json pnpm-lock.yaml ./
 
 RUN npm install --location=global pnpm \
-  && apt-get update \
   && pnpm install --frozen-lockfile
 
 WORKDIR /app
 COPY . .
 
-ARG ENV_FILE
 ENV NODE_ENV production
 
-RUN echo $ENV_FILE | base64 -d > .env \
-    && pnpm build
+RUN pnpm build
 
 # Production image, copy all the files and run next
 FROM node:16-bullseye-slim AS runner
-ARG ENV_FILE
 ENV NODE_ENV production
 ENV PAYLOAD_CONFIG_PATH dist/payload.config.js
 
@@ -31,8 +27,7 @@ WORKDIR /app
 
 COPY --chown=nodejs:nodejs .npmrc package.json pnpm-lock.yaml ./
 
-RUN echo $ENV_FILE | base64 -d > .env \
-  && pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
 COPY --from=builder --chown=nodejs:nodejs /app/build ./build
