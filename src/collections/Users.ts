@@ -33,7 +33,7 @@ const Users: CollectionConfig = {
 			name: 'roles',
 			type: 'select',
 			label: 'Roles',
-			defaultValue: 'admin',
+			defaultValue: 'project-owner',
 			required: true,
 			hasMany: true,
 			options: [
