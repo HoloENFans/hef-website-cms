@@ -22,20 +22,16 @@ payload.init({
 		fromAddress: 'cms@holoen.fans',
 		...(process.env.SMTP_HOST ? {
 			transportOptions: {
-				host: process.env.SMTP_HOST,
+				service: 'SendGrid',
 				auth: {
 					user: process.env.SMTP_USERNAME,
 					pass: process.env.SMTP_PASSWORD,
 				},
-				port: 587,
-				secure: true,
 			},
 		} : {
 			logMockCredentials: true,
 		}),
 	},
 });
-
-// Add your own express routes here
 
 app.listen(3001);
