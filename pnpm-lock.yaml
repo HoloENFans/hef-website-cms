@@ -14,7 +14,7 @@ specifiers:
   eslint-plugin-import: 2.26.0
   express: ^4.18.1
   nodemon: 2.0.19
-  payload: ^0.19.0
+  payload: ^0.20.0
   process: 0.11.10
   sanitize-filename: ^1.6.3
   ts-node: 10.9.1
@@ -24,7 +24,7 @@ dependencies:
   '@aws-sdk/client-s3': 3.121.0
   dotenv: 16.0.1
   express: 4.18.1
-  payload: 0.19.0_6oasmw356qmm23djlsjgkwvrtm
+  payload: 0.20.0_6oasmw356qmm23djlsjgkwvrtm
   sanitize-filename: 1.6.3
 
 devDependencies:
@@ -2511,18 +2511,6 @@ packages:
       - supports-color
     dev: true
 
-  /@faceless-ui/collapsibles/1.1.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-7tU5CjXUnW7bKthpMgNKs5TirTb+DQVFASnstqlpe+gXl8W76Rq4Z9m6nS3PnnG2B5h9aqtUVaNgroLc1J+i/w==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.2.0
-      react-animate-height: 2.1.2_biqbaboplfbrettd7655fr4n2y
-      react-dom: 18.2.0_react@18.2.0
-      react-transition-group: 4.4.2_biqbaboplfbrettd7655fr4n2y
-    dev: false
-
   /@faceless-ui/modal/1.2.0_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-92LQw1ZIaphzCVaHyhxrzbRtn9LXnm5GOJVXJ4tDUpuz7j1B05QTSOuYWjBd8AZKsBR0MQhgr11BVVgJ70DEhw==}
     peerDependencies:
@@ -3035,6 +3023,13 @@ packages:
 
   /@types/is-hotkey/0.1.7:
     resolution: {integrity: sha512-yB5C7zcOM7idwYZZ1wKQ3pTfjA9BbvFqRWvKB46GFddxnJtHwi/b9y84ykQtxQPg5qhdpg4Q/kWU3EGoCTmLzQ==}
+    dev: false
+
+  /@types/is-plain-object/2.0.4:
+    resolution: {integrity: sha512-najbe//S/ThT7nEh+iLmXNUFMWQHf7x2QUrsMgtF/apA8dJl8rCsfWr9f8XG9nBo+NyT5TbT92IFIJji9ZmsRQ==}
+    deprecated: This is a stub types definition for is-plain-object (https://github.com/jonschlinkert/is-plain-object). is-plain-object provides its own type definitions, so you don't need @types/is-plain-object installed!
+    dependencies:
+      is-plain-object: 5.0.0
     dev: false
 
   /@types/istanbul-lib-coverage/2.0.4:
@@ -8384,12 +8379,13 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: false
 
-  /passport/0.4.1:
-    resolution: {integrity: sha512-IxXgZZs8d7uFSt3eqNjM9NQ3g3uQCW5avD8mRNoXV99Yig50vjuaez6dQK2qC0kVWPRTujxY0dWgGfT09adjYg==}
+  /passport/0.6.0:
+    resolution: {integrity: sha512-0fe+p3ZnrWRW74fe8+SvCyf4a3Pb2/h7gFkQ8yTJpAO50gDzlfjZUZTO1k5Eg9kUct22OxHLqDZoKUWRHOh9ug==}
     engines: {node: '>= 0.4.0'}
     dependencies:
       passport-strategy: 1.0.0
       pause: 0.0.1
+      utils-merge: 1.0.1
     dev: false
 
   /path-browserify/1.0.1:
@@ -8439,8 +8435,8 @@ packages:
     resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
     dev: false
 
-  /payload/0.19.0_6oasmw356qmm23djlsjgkwvrtm:
-    resolution: {integrity: sha512-eIkzXd38q6GnaOgR2bSG92jSjYnnjXnaPjR+b6mYlyZ1KfmkpmCNNzbtsowDAhTuyM6Hzj03sG+nmwITOmxBOQ==}
+  /payload/0.20.0_6oasmw356qmm23djlsjgkwvrtm:
+    resolution: {integrity: sha512-dnkU2GUoAJOzfP1/c1v0rEDKcoAKPLHZ5FkIm3aiQ3Mx1FAduJlhFZoULKQXfYcn/qc4oxrKVa3xQotBhW+1eg==}
     hasBin: true
     dependencies:
       '@babel/cli': 7.18.6_@babel+core@7.18.6
@@ -8454,10 +8450,10 @@ packages:
       '@babel/preset-typescript': 7.18.6_@babel+core@7.18.6
       '@babel/register': 7.18.6_@babel+core@7.18.6
       '@date-io/date-fns': 2.14.0_date-fns@2.28.0
-      '@faceless-ui/collapsibles': 1.1.1_biqbaboplfbrettd7655fr4n2y
       '@faceless-ui/modal': 1.2.0_biqbaboplfbrettd7655fr4n2y
       '@faceless-ui/scroll-info': 1.2.7_biqbaboplfbrettd7655fr4n2y
       '@faceless-ui/window-info': 2.0.4_biqbaboplfbrettd7655fr4n2y
+      '@types/is-plain-object': 2.0.4
       babel-jest: 26.6.3_@babel+core@7.18.6
       babel-loader: 8.2.5_fswvdo7jykdwhfxrdcvghfn6pa
       body-parser: 1.20.0
@@ -8488,6 +8484,7 @@ packages:
       html-webpack-plugin: 5.5.0_webpack@5.73.0
       http-status: 1.5.2
       is-hotkey: 0.2.0
+      is-plain-object: 5.0.0
       isomorphic-fetch: 3.0.0
       jest: 26.6.3_ts-node@10.9.1
       joi: 17.6.0
@@ -8504,7 +8501,7 @@ packages:
       mongoose-paginate-v2: 1.6.3
       nodemailer: 6.7.7
       object-to-formdata: 4.4.2
-      passport: 0.4.1
+      passport: 0.6.0
       passport-anonymous: 1.0.1
       passport-headerapikey: 1.2.2
       passport-jwt: 4.0.0
