@@ -23,8 +23,14 @@ const Media: CollectionConfig = {
 		imageSizes: [
 			{
 				name: 'icon',
-				width: 128,
+				width: 200,
 				height: null,
+				crop: 'center',
+			},
+			{
+				name: 'opengraph',
+				width: null,
+				height: 630,
 				crop: 'center',
 			},
 			{

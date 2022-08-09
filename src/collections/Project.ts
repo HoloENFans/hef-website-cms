@@ -252,7 +252,14 @@ const Projects: CollectionConfig = {
 			relationTo: 'media',
 			required: true,
 			access: {
-
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
+			},
+		},
+		{
+			name: 'ogImage',
+			type: 'upload',
+			relationTo: 'media',
+			access: {
 				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},
@@ -283,6 +290,31 @@ const Projects: CollectionConfig = {
 			type: 'relationship',
 			relationTo: 'flags',
 			hasMany: true,
+			access: {
+				create: (req) => checkRole(req, 'developer'),
+				update: (req) => checkRole(req, 'developer'),
+			},
+		},
+		{
+			name: 'devprops',
+			label: 'Developer properties',
+			labels: {
+				singular: 'property',
+				plural: 'Developer properties',
+			},
+			type: 'array',
+			fields: [
+				{
+					name: 'key',
+					type: 'text',
+					required: true,
+				},
+				{
+					name: 'value',
+					type: 'text',
+					required: true,
+				},
+			],
 			access: {
 				create: (req) => checkRole(req, 'developer'),
 				update: (req) => checkRole(req, 'developer'),

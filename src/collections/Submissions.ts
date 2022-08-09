@@ -121,6 +121,28 @@ const Submissions: CollectionConfig = {
 			],
 		},
 		{
+			name: 'subtype',
+			type: 'select',
+			defaultValue: 'artwork',
+			options: [
+				{
+					label: 'Artwork',
+					value: 'artwork',
+				},
+				{
+					label: 'Picture',
+					value: 'picture',
+				},
+				{
+					label: 'Other',
+					value: 'other',
+				},
+			],
+			admin: {
+				condition: (data) => data.type === 'image',
+			},
+		},
+		{
 			name: 'message',
 			type: 'textarea',
 		},
@@ -138,6 +160,31 @@ const Submissions: CollectionConfig = {
 			admin: {
 				condition: (data) => data.type === 'video',
 				description: 'URL to the video to display',
+			},
+		},
+		{
+			name: 'devprops',
+			label: 'Developer properties',
+			labels: {
+				singular: 'property',
+				plural: 'Developer properties',
+			},
+			type: 'array',
+			fields: [
+				{
+					name: 'key',
+					type: 'text',
+					required: true,
+				},
+				{
+					name: 'value',
+					type: 'text',
+					required: true,
+				},
+			],
+			access: {
+				create: (req) => checkRole(req, 'developer'),
+				update: (req) => checkRole(req, 'developer'),
 			},
 		},
 	],
