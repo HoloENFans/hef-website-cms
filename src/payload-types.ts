@@ -118,12 +118,12 @@ export interface Media {
  */
 export interface User {
   id: string;
-  email?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
   enableAPIKey?: boolean;
   apiKey?: string;
   apiKeyIndex?: string;
+  email?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpiration?: string;
   _verified?: boolean;
   _verificationToken?: string;
   loginAttempts?: number;

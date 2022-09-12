@@ -28,6 +28,10 @@ export default buildConfig({
 	],
 	rateLimit: {
 		trustProxy: true,
+		// ! Below is only for project migration in dev, never, ever do this in production
+		/* max: 500_000_000,
+		window: 10, */
+		skip: (req) => req.headers['X-RateLimit-Bypass'] === process.env.PAYLOAD_BYPASS_RATE_LIMIT_KEY,
 	},
 	admin: {
 		user: Users.slug,
