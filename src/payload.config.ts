@@ -58,14 +58,19 @@ export default buildConfig({
 	],
 	plugins: [
 		S3Upload({
-			region: process.env.S3_REGION,
 			endpoint: process.env.S3_ENDPOINT,
+			region: process.env.S3_REGION,
 			bucket: process.env.S3_BUCKET,
 			credentials: {
 				accessKeyId: process.env.S3_ACCESS_KEY,
 				secretAccessKey: process.env.S3_SECRET_KEY,
 			},
 			publicUrl: process.env.S3_PUBLIC_URL,
+			...(process.env.S3_MINIO === 'true' ? {
+				otherOptions: {
+					forcePathStyle: true,
+				},
+			} : {}),
 		}),
 	],
 	graphQL: {

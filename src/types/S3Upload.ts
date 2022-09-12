@@ -1,16 +1,17 @@
 import { IncomingUploadType } from 'payload/dist/uploads/types';
-import { PutObjectCommandInput } from '@aws-sdk/client-s3';
+import { PutObjectCommandInput, S3ClientConfig } from '@aws-sdk/client-s3';
 
 /* eslint-disable no-unused-vars */
 export interface S3UploadConfig {
-	region: string;
 	endpoint?: string;
+	region: string;
 	credentials: {
 		accessKeyId: string;
 		secretAccessKey: string;
 	}
 	bucket?: string;
 	publicUrl?: string;
+	otherOptions?: S3ClientConfig;
 }
 
 export interface S3IncomingUploadType extends IncomingUploadType {

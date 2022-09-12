@@ -10,6 +10,7 @@ export default (config: S3UploadConfig) => {
 		credentials: config.credentials,
 		region: config.region,
 		endpoint: config.endpoint,
+		...config.otherOptions,
 	});
 
 	return (incomingConfig: PayloadConfig) => {
