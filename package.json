@@ -1,46 +1,55 @@
 {
-  "name": "hef-website-cms",
-  "description": "Blank template - no collections",
-  "version": "1.0.0",
-  "main": "dist/server.js",
-  "license": "MIT",
-  "scripts": {
-    "dev": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon",
-    "build:payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
-    "build:server": "tsc",
-    "build": "pnpm build:payload && pnpm build:server",
-    "serve": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
-    "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types"
-  },
-  "dependencies": {
-    "@aws-sdk/client-s3": "^3.121.0",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "payload": "^1.0.0",
-    "sanitize-filename": "^1.6.3"
-  },
-  "devDependencies": {
-    "@types/express": "4.17.13",
-    "@types/node": "16.11.58",
-    "@typescript-eslint/eslint-plugin": "5.37.0",
-    "@typescript-eslint/parser": "5.37.0",
-    "cross-env": "7.0.3",
-    "eslint": "8.23.1",
-    "eslint-config-airbnb-base": "15.0.0",
-    "eslint-config-airbnb-typescript": "17.0.0",
-    "eslint-plugin-import": "2.26.0",
-    "nodemon": "2.0.19",
-    "process": "0.11.10",
-    "ts-node": "10.9.1",
-    "typescript": "4.8.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GoldElysium/hef-website-cms.git"
-  },
-  "author": "GoldElysium",
-  "bugs": {
-    "url": "https://github.com/GoldElysium/hef-website-cms/issues"
-  },
-  "homepage": "https://github.com/GoldElysium/hef-website-cms#readme"
+	"name": "hef-website-cms",
+	"description": "Blank template - no collections",
+	"version": "1.0.0",
+	"main": "dist/server.js",
+	"license": "MIT",
+	"scripts": {
+		"dev": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon",
+		"build:payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
+		"build:server": "tsc",
+		"build": "pnpm build:payload && pnpm build:server",
+		"serve": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
+		"generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types"
+	},
+	"dependencies": {
+		"@aws-sdk/client-s3": "^3.169.0",
+		"dotenv": "^16.0.2",
+		"express": "^4.18.1",
+		"payload": "1.0.6",
+		"sanitize-filename": "^1.6.3"
+	},
+	"devDependencies": {
+		"@types/express": "4.17.13",
+		"@types/node": "18.7.17",
+		"@typescript-eslint/eslint-plugin": "5.37.0",
+		"@typescript-eslint/parser": "5.37.0",
+		"cross-env": "7.0.3",
+		"eslint": "8.22.0",
+		"eslint-config-airbnb-base": "15.0.0",
+		"eslint-config-airbnb-typescript": "17.0.0",
+		"eslint-plugin-import": "2.26.0",
+		"nodemon": "2.0.19",
+		"process": "0.11.10",
+		"ts-node": "10.9.1",
+		"typescript": "4.8.3"
+	},
+	"pnpm": {
+		"overrides": {
+			"sharp": "0.31.0"
+		}
+	},
+	"engines": {
+		"node": ">=16",
+		"pnpm": ">=7"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/GoldElysium/hef-website-cms.git"
+	},
+	"author": "GoldElysium",
+	"bugs": {
+		"url": "https://github.com/GoldElysium/hef-website-cms/issues"
+	},
+	"homepage": "https://github.com/GoldElysium/hef-website-cms#readme"
 }

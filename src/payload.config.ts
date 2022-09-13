@@ -82,7 +82,7 @@ export default buildConfig({
 	},
 	upload: {
 		limits: {
-			fileSize: 20_000_000,
+			fileSize: 50_000_000,
 		},
 	},
 	typescript: {
