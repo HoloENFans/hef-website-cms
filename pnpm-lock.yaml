@@ -16,7 +16,7 @@ specifiers:
   eslint-config-airbnb-typescript: 17.0.0
   eslint-plugin-import: 2.26.0
   express: ^4.18.1
-  nodemon: 2.0.19
+  nodemon: 2.0.20
   payload: 1.1.2
   process: 0.11.10
   sanitize-filename: ^1.6.3
@@ -40,7 +40,7 @@ devDependencies:
   eslint-config-airbnb-base: 15.0.0_2iahngt3u2tkbdlu6s4gkur3pu
   eslint-config-airbnb-typescript: 17.0.0_pcld5ghped7gjgbsbcgrp2665q
   eslint-plugin-import: 2.26.0_fcj4dwrlsb5xsaov7ow6xxaysy
-  nodemon: 2.0.19
+  nodemon: 2.0.20
   process: 0.11.10
   ts-node: 10.9.1_tjxxr4okrdgzkzqzhfljhcr2hu
   typescript: 4.8.3
@@ -8093,11 +8093,10 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
-  /nodemon/2.0.19:
-    resolution: {integrity: sha512-4pv1f2bMDj0Eeg/MhGqxrtveeQ5/G/UVe9iO6uTZzjnRluSA4PVWf8CW99LUPwGB3eNIA7zUFoP77YuI7hOc0A==}
+  /nodemon/2.0.20:
+    resolution: {integrity: sha512-Km2mWHKKY5GzRg6i1j5OxOHQtuvVsgskLfigG25yTtbyfRGn/GNvIbRyOf1PSCKJ2aT/58TiuUsuOU5UToVViw==}
     engines: {node: '>=8.10.0'}
     hasBin: true
-    requiresBuild: true
     dependencies:
       chokidar: 3.5.3
       debug: 3.2.7_supports-color@5.5.0
