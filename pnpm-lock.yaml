@@ -17,7 +17,7 @@ specifiers:
   eslint-plugin-import: 2.26.0
   express: ^4.18.1
   nodemon: 2.0.20
-  payload: 1.1.3
+  payload: 1.1.4
   process: 0.11.10
   sanitize-filename: ^1.6.3
   ts-node: 10.9.1
@@ -27,7 +27,7 @@ dependencies:
   '@aws-sdk/client-s3': 3.169.0
   dotenv: 16.0.2
   express: 4.18.1
-  payload: 1.1.3_qv3zdqwr5cvvfboiktsp7a3dfa
+  payload: 1.1.4_qv3zdqwr5cvvfboiktsp7a3dfa
   sanitize-filename: 1.6.3
 
 devDependencies:
@@ -8514,8 +8514,8 @@ packages:
     resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
     dev: false
 
-  /payload/1.1.3_qv3zdqwr5cvvfboiktsp7a3dfa:
-    resolution: {integrity: sha512-h2uoZ5Z91DhUYPiHUaTN1iA9DhSdVV2EIMKZ39XCkZafl/ATbHsFn3HD0taPjY3BVwH3cxkLCKekSTQ9TG6dKg==}
+  /payload/1.1.4_qv3zdqwr5cvvfboiktsp7a3dfa:
+    resolution: {integrity: sha512-qbDOSb80KbML2s1b9eAJovKClKp6gMJZuCO93st9e24b6Q7lyLJM8mfbDXZ6gW05rRZj7peU5DJOIMTDmwltSQ==}
     hasBin: true
     dependencies:
       '@babel/cli': 7.18.10_@babel+core@7.19.0
@@ -8613,8 +8613,8 @@ packages:
       react-sortable-hoc: 2.0.0_biqbaboplfbrettd7655fr4n2y
       react-toastify: 8.2.0_biqbaboplfbrettd7655fr4n2y
       sanitize-filename: 1.6.3
-      sass: 1.54.9
-      sass-loader: 12.6.0_sass@1.54.9+webpack@5.74.0
+      sass: 1.55.0
+      sass-loader: 12.6.0_sass@1.55.0+webpack@5.74.0
       sharp: 0.31.0
       slate: 0.72.8
       slate-history: 0.66.0_slate@0.72.8
@@ -10181,7 +10181,7 @@ packages:
     dev: false
     optional: true
 
-  /sass-loader/12.6.0_sass@1.54.9+webpack@5.74.0:
+  /sass-loader/12.6.0_sass@1.55.0+webpack@5.74.0:
     resolution: {integrity: sha512-oLTaH0YCtX4cfnJZxKSLAyglED0naiYfNG1iXfU5w1LNZ+ukoA5DtyDIN5zmKVZwYNJP4KRc5Y3hkWga+7tYfA==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -10202,12 +10202,12 @@ packages:
     dependencies:
       klona: 2.0.5
       neo-async: 2.6.2
-      sass: 1.54.9
+      sass: 1.55.0
       webpack: 5.74.0_webpack-cli@4.10.0
     dev: false
 
-  /sass/1.54.9:
-    resolution: {integrity: sha512-xb1hjASzEH+0L0WI9oFjqhRi51t/gagWnxLiwUNMltA0Ab6jIDkAacgKiGYKM9Jhy109osM7woEEai6SXeJo5Q==}
+  /sass/1.55.0:
+    resolution: {integrity: sha512-Pk+PMy7OGLs9WaxZGJMn7S96dvlyVBwwtToX895WmCpAOr5YiJYEUJfiJidMuKb613z2xNWcXCHEuOvjZbqC6A==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
