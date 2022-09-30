@@ -17,7 +17,7 @@ specifiers:
   eslint-plugin-import: 2.26.0
   express: ^4.18.1
   nodemon: 2.0.20
-  payload: 1.1.4
+  payload: 1.1.5
   process: 0.11.10
   sanitize-filename: ^1.6.3
   ts-node: 10.9.1
@@ -27,7 +27,7 @@ dependencies:
   '@aws-sdk/client-s3': 3.169.0
   dotenv: 16.0.2
   express: 4.18.1
-  payload: 1.1.4_mwhvu7sfp6vq5ryuwb6hlbjfka
+  payload: 1.1.5_mwhvu7sfp6vq5ryuwb6hlbjfka
   sanitize-filename: 1.6.3
 
 devDependencies:
@@ -8514,8 +8514,8 @@ packages:
     resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
     dev: false
 
-  /payload/1.1.4_mwhvu7sfp6vq5ryuwb6hlbjfka:
-    resolution: {integrity: sha512-qbDOSb80KbML2s1b9eAJovKClKp6gMJZuCO93st9e24b6Q7lyLJM8mfbDXZ6gW05rRZj7peU5DJOIMTDmwltSQ==}
+  /payload/1.1.5_mwhvu7sfp6vq5ryuwb6hlbjfka:
+    resolution: {integrity: sha512-Asu8EH36uYFVbZFfXKZWG/aHdBM6hkCvZ1qBN8769eWcWkHZ6SBYdo2K087+jebtLjaaPpVAXd6uysFD2hcv9g==}
     hasBin: true
     dependencies:
       '@babel/cli': 7.18.10_@babel+core@7.19.0
