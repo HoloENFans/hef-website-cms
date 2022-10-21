@@ -17,7 +17,7 @@ specifiers:
   eslint-plugin-import: 2.26.0
   express: ^4.18.1
   nodemon: 2.0.20
-  payload: 1.1.15
+  payload: 1.1.16
   process: 0.11.10
   sanitize-filename: ^1.6.3
   ts-node: 10.9.1
@@ -27,7 +27,7 @@ dependencies:
   '@aws-sdk/client-s3': 3.169.0
   dotenv: 16.0.2
   express: 4.18.1
-  payload: 1.1.15_mwhvu7sfp6vq5ryuwb6hlbjfka
+  payload: 1.1.16_mwhvu7sfp6vq5ryuwb6hlbjfka
   sanitize-filename: 1.6.3
 
 devDependencies:
@@ -8516,8 +8516,8 @@ packages:
     resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
     dev: false
 
-  /payload/1.1.15_mwhvu7sfp6vq5ryuwb6hlbjfka:
-    resolution: {integrity: sha512-+oESj5iwjIzGvd40sIC2lY+1qvy8IcrlXh3IYVgBlpkTPLXK6Rp8LepM1zGQBC5LN3PbUtLtHNAEXTBQpVBt1g==}
+  /payload/1.1.16_mwhvu7sfp6vq5ryuwb6hlbjfka:
+    resolution: {integrity: sha512-2aAhLdxnTAnypFJbpbA3y6Ax0U249PvqQ5oM5qUJ4ramYbZMLO8odxWxM+02vA/Phu44SGBfgl+bp4VghIxF2g==}
     hasBin: true
     dependencies:
       '@babel/cli': 7.18.10_@babel+core@7.19.0
@@ -11415,6 +11415,7 @@ packages:
 
   /w3c-hr-time/1.0.2:
     resolution: {integrity: sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ==}
+    deprecated: Use your platform's native performance.now() and performance.timeOrigin.
     dependencies:
       browser-process-hrtime: 1.0.0
     dev: false
