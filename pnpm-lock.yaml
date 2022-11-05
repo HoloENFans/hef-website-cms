@@ -17,7 +17,7 @@ specifiers:
   eslint-plugin-import: 2.26.0
   express: ^4.18.1
   nodemon: 2.0.20
-  payload: 1.1.19
+  payload: 1.1.21
   process: 0.11.10
   sanitize-filename: ^1.6.3
   ts-node: 10.9.1
@@ -27,7 +27,7 @@ dependencies:
   '@aws-sdk/client-s3': 3.169.0
   dotenv: 16.0.2
   express: 4.18.1
-  payload: 1.1.19_mwhvu7sfp6vq5ryuwb6hlbjfka
+  payload: 1.1.21_mwhvu7sfp6vq5ryuwb6hlbjfka
   sanitize-filename: 1.6.3
 
 devDependencies:
@@ -8527,8 +8527,8 @@ packages:
     resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
     dev: false
 
-  /payload/1.1.19_mwhvu7sfp6vq5ryuwb6hlbjfka:
-    resolution: {integrity: sha512-oZLFKIdevcfDWCGTOb1hUuTL/wFqel5wl2ncvqYGZS0jepH4vVcV4j0HjaxAydK2HrEH2xe/cP4tdAZ4jYV2qA==}
+  /payload/1.1.21_mwhvu7sfp6vq5ryuwb6hlbjfka:
+    resolution: {integrity: sha512-2NS/HFVwwIP1Mbx3h//vlnDA9fOAje9pkPDmQTrMwvGlSWxpYipQaUdtvva6fmrcgl/kq92g3jtNyDSOyOLoaw==}
     engines: {node: '>=14', yarn: '>=1.22 <2'}
     hasBin: true
     dependencies:
