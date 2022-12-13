@@ -1,6 +1,5 @@
 import { CollectionConfig } from 'payload/types';
 import checkRole from '../lib/checkRole';
-import { S3IncomingUploadType } from '../types/S3Upload';
 
 const Media: CollectionConfig = {
 	slug: 'submission-media',
@@ -19,11 +18,7 @@ const Media: CollectionConfig = {
 		delete: () => false,
 	},
 	upload: {
-		disableLocalStorage: process.env.NODE_ENV === 'production',
 		staticDir: '../storage/submissions',
-		s3: {
-			prefix: 'submissions',
-		},
 		imageSizes: [
 			{
 				name: 'icon',
@@ -46,7 +41,7 @@ const Media: CollectionConfig = {
 		],
 		adminThumbnail: 'thumbnail',
 		mimeTypes: ['image/*'],
-	} as S3IncomingUploadType,
+	},
 	fields: [],
 };
 

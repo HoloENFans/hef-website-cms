@@ -1,6 +1,7 @@
 import { buildConfig } from 'payload/config';
 import path from 'path';
-import S3Upload from './plugins/S3Upload';
+import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
+import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
 
 // Collections
 import Users from './collections/Users';
@@ -12,6 +13,19 @@ import Submissions from './collections/Submissions';
 import FeaturedProjects from './globals/FeaturedProjects';
 import Flags from './collections/Flags';
 import Notice from './globals/Notice';
+
+const adapter = s3Adapter({
+	config: {
+		endpoint: process.env.S3_ENDPOINT,
+		credentials: {
+			accessKeyId: process.env.S3_ACCESS_KEY,
+			secretAccessKey: process.env.S3_SECRET_KEY,
+		},
+		forcePathStyle: process.env.S3_PATH_STYLE === 'true',
+		region: process.env.S3_REGION,
+	},
+	bucket: process.env.S3_BUCKET,
+});
 
 export default buildConfig({
 	serverURL: process.env.PUBLIC_URL,
@@ -33,7 +47,7 @@ export default buildConfig({
 	admin: {
 		user: Users.slug,
 		meta: {
-			titleSuffix: '- Hololive EN Fan Website',
+			titleSuffix: '- HoloEN Fan Website',
 		},
 	},
 	localization: {
@@ -58,20 +72,21 @@ export default buildConfig({
 		Notice,
 	],
 	plugins: [
-		S3Upload({
-			endpoint: process.env.S3_ENDPOINT,
-			region: process.env.S3_REGION,
-			bucket: process.env.S3_BUCKET,
-			credentials: {
-				accessKeyId: process.env.S3_ACCESS_KEY,
-				secretAccessKey: process.env.S3_SECRET_KEY,
-			},
-			publicUrl: process.env.S3_PUBLIC_URL,
-			...(process.env.S3_MINIO === 'true' ? {
-				otherOptions: {
-					forcePathStyle: true,
+		cloudStorage({
+			collections: {
+				media: {
+					adapter,
+					prefix: 'media',
+					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
+					disableLocalStorage: process.env.NODE_ENV === 'production',
 				},
-			} : {}),
+				'submission-media': {
+					adapter,
+					prefix: 'submissions',
+					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
+					disableLocalStorage: process.env.NODE_ENV === 'production',
+				},
+			},
 		}),
 	],
 	graphQL: {

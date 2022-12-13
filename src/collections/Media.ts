@@ -1,6 +1,5 @@
 import { CollectionConfig } from 'payload/types';
 import checkRole from '../lib/checkRole';
-import { S3IncomingUploadType } from '../types/S3Upload';
 
 const Media: CollectionConfig = {
 	slug: 'media',
@@ -15,11 +14,7 @@ const Media: CollectionConfig = {
 		delete: ({ req }) => checkRole(req, 'project-owner'),
 	},
 	upload: {
-		disableLocalStorage: process.env.NODE_ENV === 'production',
 		staticDir: '../storage/media',
-		s3: {
-			prefix: 'media',
-		},
 		imageSizes: [
 			{
 				name: 'icon',
@@ -42,7 +37,7 @@ const Media: CollectionConfig = {
 		],
 		adminThumbnail: 'icon',
 		mimeTypes: ['image/*'],
-	} as S3IncomingUploadType,
+	},
 	fields: [],
 };
 
