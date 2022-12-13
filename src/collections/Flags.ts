@@ -9,9 +9,9 @@ const Flags: CollectionConfig = {
 	},
 	access: {
 		read: () => true,
-		create: (req) => checkRole(req, 'developer'),
-		update: (req) => checkRole(req, 'developer'),
-		delete: (req) => checkRole(req, 'developer'),
+		create: ({ req }) => checkRole(req, 'developer'),
+		update: ({ req }) => checkRole(req, 'developer'),
+		delete: ({ req }) => checkRole(req, 'developer'),
 	},
 	fields: [
 		{

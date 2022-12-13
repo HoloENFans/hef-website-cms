@@ -6,7 +6,7 @@ const Notice: GlobalConfig = {
 	label: 'Notice banner',
 	access: {
 		read: () => true,
-		update: (req) => checkRole(req, 'developer'),
+		update: ({ req }) => checkRole(req, 'developer'),
 	},
 	fields: [
 		{

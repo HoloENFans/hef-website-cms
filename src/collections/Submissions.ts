@@ -28,21 +28,20 @@ const Submissions: CollectionConfig = {
 				},
 			};
 		},
-		create: (req) => checkRole(req, 'project-owner'),
-		update: (req) => checkRole(req, ['project-owner', 'content-moderator']),
-		delete: async (req) => {
+		create: ({ req }) => checkRole(req, 'project-owner'),
+		update: ({ req }) => checkRole(req, ['project-owner', 'content-moderator']),
+		delete: async ({ req, id }) => {
 			if (checkRole(req, 'superadmin')) return true;
 			if (!checkRole(req, ['project-owner', 'content-moderator'])) return false;
 
-			const { req: { user, payload }, id }: { req: PayloadRequest, id: string } = req;
 			if (!id) return true;
-			const submission = await payload.findByID<Submission>({
+			const submission = await req.payload.findByID<Submission>({
 				collection: 'submissions',
-				id,
+				id: id as string,
 				depth: 2,
 			});
 			const staffList = ((submission.project as Project).organizer as Guild).staff;
-			return staffList?.includes(user.id);
+			return staffList?.includes(req.user.id);
 		},
 	},
 	versions: {
@@ -178,13 +177,16 @@ const Submissions: CollectionConfig = {
 				},
 				{
 					name: 'value',
-					type: 'text',
+					type: 'code',
 					required: true,
+					admin: {
+						language: 'json',
+					},
 				},
 			],
 			access: {
-				create: (req) => checkRole(req, 'developer'),
-				update: (req) => checkRole(req, 'developer'),
+				create: ({ req }) => checkRole(req, 'developer'),
+				update: ({ req }) => checkRole(req, 'developer'),
 			},
 		},
 	],

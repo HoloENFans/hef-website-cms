@@ -1,6 +1,6 @@
 import { PayloadRequest } from 'payload/dist/express/types';
 
-export default ({ req: { user } }: { req: PayloadRequest }, role: string | string[]) => {
+export default ({ user }: PayloadRequest, role: string | string[]) => {
 	if ((user.roles as string[]).includes('superadmin')) return true;
 
 	if (role instanceof Array) {

@@ -21,8 +21,8 @@ async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boole
 }
 
 async function fieldCheckProjectOwner(req: PayloadRequest, id?: string): Promise<boolean> {
-	if (checkRole({ req }, 'superadmin')) return true;
-	if (!checkRole({ req }, 'project-owner')) return false;
+	if (checkRole(req, 'superadmin')) return true;
+	if (!checkRole(req, 'project-owner')) return false;
 
 	if (!id) return true;
 
@@ -57,27 +57,28 @@ const Projects: CollectionConfig = {
 				},
 			};
 		},
-		create: async (req) => {
+		create: async ({ req, id }) => {
 			if (checkRole(req, 'superadmin')) return true;
 			if (!checkRole(req, 'project-owner')) return false;
 
-			const { req: payloadReq, id }: { req: PayloadRequest, id: string } = req;
 			if (!id) return true;
-			return checkProjectOwner(payloadReq, id);
+			return checkProjectOwner(req, id as string);
 		},
-		update: async (req) => {
+		update: async ({ req, id }) => {
 			if (checkRole(req, 'superadmin')) return true;
 			if (!checkRole(req, 'project-owner')) return false;
 
-			const { req: payloadReq, id }: { req: PayloadRequest, id: string } = req;
 			if (!id) return true;
-			return checkProjectOwner(payloadReq, id);
+			return checkProjectOwner(req, id as string);
 		},
-		delete: (req) => checkRole(req, 'superadmin'),
+		delete: ({ req }) => checkRole(req, 'superadmin'),
 	},
 	labels: {
 		singular: 'Project',
 		plural: 'Projects',
+	},
+	typescript: {
+		interface: 'Project',
 	},
 	versions: {
 		drafts: {
@@ -281,7 +282,7 @@ const Projects: CollectionConfig = {
 				description: 'People added here will have the same permissions as project owners',
 			},
 			access: {
-				read: (context) => !!context.req.user,
+				read: ({ req }) => !!req.user,
 				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},
@@ -291,8 +292,8 @@ const Projects: CollectionConfig = {
 			relationTo: 'flags',
 			hasMany: true,
 			access: {
-				create: (req) => checkRole(req, 'developer'),
-				update: (req) => checkRole(req, 'developer'),
+				create: ({ req }) => checkRole(req, 'developer'),
+				update: ({ req }) => checkRole(req, 'developer'),
 			},
 		},
 		{
@@ -316,8 +317,8 @@ const Projects: CollectionConfig = {
 				},
 			],
 			access: {
-				create: (req) => checkRole(req, 'developer'),
-				update: (req) => checkRole(req, 'developer'),
+				create: ({ req }) => checkRole(req, 'developer'),
+				update: ({ req }) => checkRole(req, 'developer'),
 			},
 		},
 	],

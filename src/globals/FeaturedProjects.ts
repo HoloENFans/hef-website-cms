@@ -7,7 +7,7 @@ const FeaturedProjects: GlobalConfig = {
 	label: 'Featured projects',
 	access: {
 		read: () => true,
-		update: (req) => checkRole(req, 'superadmin'),
+		update: ({ req }) => checkRole(req, 'superadmin'),
 	},
 	hooks: {
 		afterChange: [
@@ -22,6 +22,9 @@ const FeaturedProjects: GlobalConfig = {
 			hasMany: true,
 		},
 	],
+	typescript: {
+		interface: 'FeaturedProject',
+	},
 };
 
 export default FeaturedProjects;

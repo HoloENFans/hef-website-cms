@@ -14,7 +14,7 @@ const Media: CollectionConfig = {
 	},
 	access: {
 		read: () => true,
-		create: (req) => checkRole(req, 'project-owner'),
+		create: ({ req }) => checkRole(req, 'project-owner'),
 		update: () => false,
 		delete: () => false,
 	},

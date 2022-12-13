@@ -29,12 +29,12 @@ const Guilds: CollectionConfig = {
 				},
 			};
 		},
-		create: (req) => checkRole(req, 'superadmin'),
-		update: (req) => {
+		create: ({ req }) => checkRole(req, 'superadmin'),
+		update: ({ req, data }) => {
 			const isSuperadmin = checkRole(req, 'superadmin');
 			if (isSuperadmin) return true;
-			const { req: { user } }: { req: PayloadRequest } = req;
-			return req.data.staff ? req.data.staff.includes(user.id) : false;
+
+			return data.staff ? data.staff.includes(req.user.id) : false;
 		},
 	},
 	versions: {
