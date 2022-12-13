@@ -12,9 +12,9 @@ async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boole
 		depth: 1,
 	});
 
-	const staffList = ((project.organizer as Guild).staff ?? [])
+	const staffList = (((project.organizer as Guild).staff ?? []) as string[])
 		.concat(
-			project.collaborators ?? [],
+			(project.collaborators ?? []) as string[],
 		);
 
 	return staffList?.includes(req.user.id);
