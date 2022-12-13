@@ -3,6 +3,7 @@ export default async (path: string) => {
 		method: 'POST',
 		headers: {
 			Authorization: process.env.REVALIDATE_SECRET,
+			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({
 			path,

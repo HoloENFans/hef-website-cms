@@ -80,15 +80,20 @@ const Projects: CollectionConfig = {
 	typescript: {
 		interface: 'Project',
 	},
-	versions: {
-		drafts: {
-			autosave: true,
-		},
-	},
 	hooks: {
 		afterChange: [
-			() => revalidatePath('/projects'),
-			({ doc }) => revalidatePath(`/projects/${doc.slug}`),
+			({ doc, previousDoc }) => {
+				// eslint-disable-next-line no-underscore-dangle
+				if (doc.status !== 'draft') {
+					revalidatePath('/projects');
+					revalidatePath(`/projects/${doc.slug}`);
+
+					// eslint-disable-next-line no-underscore-dangle
+					if (previousDoc.status !== 'draft') {
+						revalidatePath(`/projects/${previousDoc.slug}`);
+					}
+				}
+			},
 		],
 	},
 	fields: [
