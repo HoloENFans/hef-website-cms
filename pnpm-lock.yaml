@@ -6,7 +6,7 @@ overrides:
 specifiers:
   '@aws-sdk/client-s3': ^3.226.0
   '@payloadcms/plugin-cloud-storage': ^1.0.12
-  '@types/express': 4.17.14
+  '@types/express': 4.17.15
   '@types/node': 18.11.15
   '@typescript-eslint/eslint-plugin': 5.46.1
   '@typescript-eslint/parser': 5.46.1
@@ -33,7 +33,7 @@ dependencies:
   sanitize-filename: 1.6.3
 
 devDependencies:
-  '@types/express': 4.17.14
+  '@types/express': 4.17.15
   '@types/node': 18.11.15
   '@typescript-eslint/eslint-plugin': 5.46.1_imrg37k3svwu377c6q7gkarwmi
   '@typescript-eslint/parser': 5.46.1_ha6vam6werchizxrnqvarmz2zu
@@ -3134,8 +3134,8 @@ packages:
       '@types/range-parser': 1.2.4
     dev: true
 
-  /@types/express/4.17.14:
-    resolution: {integrity: sha512-TEbt+vaPFQ+xpxFLFssxUDXj5cWCxZJjIcB7Yg0k0GMHGtgtQgpvx/MUQUeAkNbA9AAGrwkAsoeItdTgS7FMyg==}
+  /@types/express/4.17.15:
+    resolution: {integrity: sha512-Yv0k4bXGOH+8a+7bELd2PqHQsuiANB+A8a4gnQrkRWzrkKlb6KHaVvyXhqs04sVW/OWlbPyYxRgYlIXLfrufMQ==}
     dependencies:
       '@types/body-parser': 1.19.2
       '@types/express-serve-static-core': 4.17.31
