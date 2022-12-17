@@ -19,27 +19,6 @@ const Media: CollectionConfig = {
 	},
 	upload: {
 		staticDir: '../storage/submissions',
-		imageSizes: [
-			{
-				name: 'icon',
-				width: 128,
-				height: null,
-				crop: 'center',
-			},
-			{
-				name: 'thumbnail',
-				width: 1024,
-				height: null,
-				crop: 'center',
-			},
-			{
-				name: 'tanabata',
-				width: 400,
-				height: 1280,
-				crop: 'center',
-			},
-		],
-		adminThumbnail: 'thumbnail',
 		mimeTypes: ['image/*'],
 	},
 	fields: [],

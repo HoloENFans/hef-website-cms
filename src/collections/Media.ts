@@ -15,27 +15,6 @@ const Media: CollectionConfig = {
 	},
 	upload: {
 		staticDir: '../storage/media',
-		imageSizes: [
-			{
-				name: 'icon',
-				width: 200,
-				height: null,
-				crop: 'center',
-			},
-			{
-				name: 'opengraph',
-				width: null,
-				height: 630,
-				crop: 'center',
-			},
-			{
-				name: 'thumbnail',
-				width: 1024,
-				height: null,
-				crop: 'center',
-			},
-		],
-		adminThumbnail: 'icon',
 		mimeTypes: ['image/*'],
 	},
 	fields: [],
