@@ -38,7 +38,7 @@ const Projects: CollectionConfig = {
 		defaultColumns: ['title', 'shortDescription', 'status', 'date'],
 		preview: (doc) => {
 			if (doc?.slug) {
-				return `${process.env.PAYLOAD_PUBLIC_WEBSITE_URL}/projects/${doc.slug}`;
+				return `${process.env.PAYLOAD_PUBLIC_WEBSITE_URL ?? 'https://holoen.fans'}/projects/${doc.slug}`;
 			}
 
 			return null;
