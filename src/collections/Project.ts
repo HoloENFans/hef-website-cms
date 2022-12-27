@@ -49,9 +49,6 @@ const Projects: CollectionConfig = {
 			if (req.user) return true;
 
 			return {
-				_status: {
-					equals: 'published',
-				},
 				status: {
 					not_equals: 'draft',
 				},
