@@ -18,7 +18,7 @@ specifiers:
   eslint-plugin-import: 2.26.0
   express: ^4.18.2
   nodemon: 2.0.20
-  payload: 1.4.1
+  payload: 1.4.2
   process: 0.11.10
   sanitize-filename: ^1.6.3
   ts-node: 10.9.1
@@ -26,10 +26,10 @@ specifiers:
 
 dependencies:
   '@aws-sdk/client-s3': 3.226.0
-  '@payloadcms/plugin-cloud-storage': 1.0.12_6wq6bqqe6xwxms4fnxnqsfv43e
+  '@payloadcms/plugin-cloud-storage': 1.0.12_ktrytl2ikexwc5jnizlrzwz3zq
   dotenv: 16.0.3
   express: 4.18.2
-  payload: 1.4.1_z6wznmtyb6ovnulj6iujpct7um
+  payload: 1.4.2_z6wznmtyb6ovnulj6iujpct7um
   sanitize-filename: 1.6.3
 
 devDependencies:
@@ -3030,7 +3030,7 @@ packages:
       fastq: 1.14.0
     dev: true
 
-  /@payloadcms/plugin-cloud-storage/1.0.12_6wq6bqqe6xwxms4fnxnqsfv43e:
+  /@payloadcms/plugin-cloud-storage/1.0.12_ktrytl2ikexwc5jnizlrzwz3zq:
     resolution: {integrity: sha512-TG4D/Dq8rzFZchapQ/BNXJ2PTqK1ZGUgW3XB1OY3/d7glGW3M6hcXrUCwuY8aOQZQglP69EAFkNP+XRDs2+QJA==}
     peerDependencies:
       '@aws-sdk/client-s3': ^3.142.0
@@ -3046,7 +3046,7 @@ packages:
         optional: true
     dependencies:
       '@aws-sdk/client-s3': 3.226.0
-      payload: 1.4.1_z6wznmtyb6ovnulj6iujpct7um
+      payload: 1.4.2_z6wznmtyb6ovnulj6iujpct7um
     dev: false
 
   /@polka/url/1.0.0-next.21:
@@ -8702,8 +8702,8 @@ packages:
     resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
     dev: false
 
-  /payload/1.4.1_z6wznmtyb6ovnulj6iujpct7um:
-    resolution: {integrity: sha512-bVwMjIHfz3UD/TIW6x/4Q6DsiDkR8TMwmOqXS5NS2C5G+B8R+ygmB6jCcngHNXGihpZaPjbz+mv+bfrbuDEWSg==}
+  /payload/1.4.2_z6wznmtyb6ovnulj6iujpct7um:
+    resolution: {integrity: sha512-IEeAQ2Ga1MLvsQAmQ+kpfLuEy7NyGNvJcigy77SPnm52MjwszV4uec86Tkh8PjG6vYHHVzPHLWxKkDewnESU8g==}
     engines: {node: '>=14', yarn: '>=1.22 <2'}
     hasBin: true
     dependencies:
