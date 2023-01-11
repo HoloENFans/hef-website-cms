@@ -18,7 +18,7 @@ specifiers:
   eslint-plugin-import: 2.26.0
   express: ^4.18.2
   nodemon: 2.0.20
-  payload: 1.5.4
+  payload: 1.5.5
   process: 0.11.10
   sanitize-filename: ^1.6.3
   ts-node: 10.9.1
@@ -26,10 +26,10 @@ specifiers:
 
 dependencies:
   '@aws-sdk/client-s3': 3.226.0
-  '@payloadcms/plugin-cloud-storage': 1.0.12_vz2itmsjh752bzsc2hjxqnevpa
+  '@payloadcms/plugin-cloud-storage': 1.0.12_j4ophk3xkv5hnjngql6tvnvkjm
   dotenv: 16.0.3
   express: 4.18.2
-  payload: 1.5.4_typescript@4.9.4
+  payload: 1.5.5_typescript@4.9.4
   sanitize-filename: 1.6.3
 
 devDependencies:
@@ -1534,7 +1534,7 @@ packages:
       fastq: 1.14.0
     dev: true
 
-  /@payloadcms/plugin-cloud-storage/1.0.12_vz2itmsjh752bzsc2hjxqnevpa:
+  /@payloadcms/plugin-cloud-storage/1.0.12_j4ophk3xkv5hnjngql6tvnvkjm:
     resolution: {integrity: sha512-TG4D/Dq8rzFZchapQ/BNXJ2PTqK1ZGUgW3XB1OY3/d7glGW3M6hcXrUCwuY8aOQZQglP69EAFkNP+XRDs2+QJA==}
     peerDependencies:
       '@aws-sdk/client-s3': ^3.142.0
@@ -1550,7 +1550,7 @@ packages:
         optional: true
     dependencies:
       '@aws-sdk/client-s3': 3.226.0
-      payload: 1.5.4_typescript@4.9.4
+      payload: 1.5.5_typescript@4.9.4
     dev: false
 
   /@polka/url/1.0.0-next.21:
@@ -5076,11 +5076,6 @@ packages:
       saslprep: 1.0.3
     dev: false
 
-  /mongoose-aggregate-paginate-v2/1.0.6:
-    resolution: {integrity: sha512-UuALu+mjhQa1K9lMQvjLL3vm3iALvNw8PQNIh2gp1b+tO5hUa0NC0Wf6/8QrT9PSJVTihXaD8hQVy3J4e0jO0Q==}
-    engines: {node: '>=4.0.0'}
-    dev: false
-
   /mongoose-paginate-v2/1.7.1:
     resolution: {integrity: sha512-J8DJw3zRXcXOKoZv+RvO9tt5HotRnbo2iCR3lke+TtsQsYwQvbY3EgUkPqZXw6qCX2IByvXrW5SGNdAB0od/Cw==}
     engines: {node: '>=4.0.0'}
@@ -5532,8 +5527,8 @@ packages:
     resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
     dev: false
 
-  /payload/1.5.4_typescript@4.9.4:
-    resolution: {integrity: sha512-Oo2HgTl+kGzyiU+wHT0NHHMpJWUYysRh2kTyZ2ejF/6IC5+bBJ4H47EBr+4dGItCJ3Z9GD2fns1pnKFGcYGkEQ==}
+  /payload/1.5.5_typescript@4.9.4:
+    resolution: {integrity: sha512-gB+hreuyvX2MjrbvTNWFBj2izw9J+8eVO7jEidSCbfsmtqsZ2rv0k3d3JW5AVoMz+N3JQzq0wzyw3HIROzifoQ==}
     engines: {node: '>=14', yarn: '>=1.22 <2'}
     hasBin: true
     dependencies:
@@ -5591,7 +5586,6 @@ packages:
       minimist: 1.2.7
       mkdirp: 1.0.4
       mongoose: 6.5.0
-      mongoose-aggregate-paginate-v2: 1.0.6
       mongoose-paginate-v2: 1.7.1
       nodemailer: 6.8.0
       object-to-formdata: 4.4.2
