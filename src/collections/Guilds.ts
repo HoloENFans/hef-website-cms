@@ -1,5 +1,4 @@
 import { CollectionConfig } from 'payload/types';
-import { PayloadRequest } from 'payload/dist/express/types';
 import checkRole from '../lib/checkRole';
 import revalidatePath from '../lib/revalidatePath';
 
@@ -34,7 +33,7 @@ const Guilds: CollectionConfig = {
 			const isSuperadmin = checkRole(req, 'superadmin');
 			if (isSuperadmin) return true;
 
-			return data.staff ? data.staff.includes(req.user.id) : false;
+			return data?.staff ? data.staff.includes(req.user.id) : false;
 		},
 	},
 	versions: {

@@ -6,5 +6,7 @@ export default ({ user }: PayloadRequest, role: string | string[]) => {
 	if (role instanceof Array) {
 		const map = role.map((roleName) => (user.roles as string[]).includes(roleName));
 		return map.includes(true);
-	} return (user.roles as string[]).includes(role);
+	}
+
+	return (user.roles as string[]).includes(role);
 };

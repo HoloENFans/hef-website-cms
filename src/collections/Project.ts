@@ -260,6 +260,10 @@ const Projects: CollectionConfig = {
 		},
 		{
 			name: 'ogImage',
+			label: 'OpenGraph image',
+			admin: {
+				description: 'This is the image that shows up in embeds on social media platforms like Discord, Facebook, Twitter etc.',
+			},
 			type: 'upload',
 			relationTo: 'media',
 			access: {
