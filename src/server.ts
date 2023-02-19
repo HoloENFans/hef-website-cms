@@ -10,28 +10,32 @@ app.get('/', (_, res) => {
 });
 
 // Initialize Payload
-payload.init({
-	secret: process.env.PAYLOAD_SECRET,
-	mongoURL: process.env.MONGODB_URI,
-	express: app,
-	onInit: () => {
-		payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
-	},
-	email: {
-		fromName: 'Hololive EN Fan Website - CMS',
-		fromAddress: 'cms@holoen.fans',
-		...(process.env.SMTP_HOST ? {
-			transportOptions: {
-				service: 'SendGrid',
-				auth: {
-					user: process.env.SMTP_USERNAME,
-					pass: process.env.SMTP_PASSWORD,
+const start = async () => {
+	await payload.init({
+		secret: process.env.PAYLOAD_SECRET,
+		mongoURL: process.env.MONGODB_URI,
+		express: app,
+		onInit: () => {
+			payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
+		},
+		email: {
+			fromName: 'Hololive EN Fan Website - CMS',
+			fromAddress: 'cms@holoen.fans',
+			...(process.env.SMTP_HOST ? {
+				transportOptions: {
+					service: 'SendGrid',
+					auth: {
+						user: process.env.SMTP_USERNAME,
+						pass: process.env.SMTP_PASSWORD,
+					},
 				},
-			},
-		} : {
-			logMockCredentials: true,
-		}),
-	},
-});
+			} : {
+				logMockCredentials: true,
+			}),
+		},
+	});
 
-app.listen(3001);
+	app.listen(3001);
+};
+
+start();

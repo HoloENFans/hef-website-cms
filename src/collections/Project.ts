@@ -1,12 +1,12 @@
 import { CollectionConfig } from 'payload/types';
 import { PayloadRequest } from 'payload/dist/express/types';
 import checkRole from '../lib/checkRole';
-import { Guild, Project } from '../payload-types';
+import { Guild } from '../payload-types';
 import revalidatePath from '../lib/revalidatePath';
 
 // Helper functions
 async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boolean> {
-	const project = await req.payload.findByID<Project>({
+	const project = await req.payload.findByID({
 		collection: 'projects',
 		id,
 		depth: 1,

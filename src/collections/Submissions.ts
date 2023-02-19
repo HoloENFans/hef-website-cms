@@ -35,7 +35,7 @@ const Submissions: CollectionConfig = {
 			if (!checkRole(req, ['project-owner', 'content-moderator'])) return false;
 
 			if (!id) return true;
-			const submission = await req.payload.findByID<Submission>({
+			const submission = await req.payload.findByID({
 				collection: 'submissions',
 				id: id as string,
 				depth: 2,
