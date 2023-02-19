@@ -116,9 +116,9 @@ const Projects: CollectionConfig = {
 			minLength: 4,
 			maxLength: 24,
 			validate: (value) => {
-				const regex = /^([0-z]|-)+$/gi;
+				const regex = /^[0-9A-Z-]+$/gi;
 				if (!regex.test(value)) {
-					return 'String may only contain alphanumeric characters and "-" (/^([0-z]|-)+$/gi)';
+					return 'String may only contain alphanumeric characters and "-" (/^[0-9A-Z-]+$/gi)';
 				}
 				return true;
 			},
