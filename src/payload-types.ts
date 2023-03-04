@@ -122,17 +122,19 @@ export interface Submission {
 	project: string | Project;
 	author: string;
 	srcIcon?: string | SubmissionMedia;
-	type: 'text' | 'image' | 'video';
-	subtype?: 'artwork' | 'picture' | 'other';
 	message?: string;
-	media?: string | SubmissionMedia;
-	url?: string;
+	media: {
+		type: 'image' | 'video';
+		subtype?: 'artwork' | 'picture' | 'other';
+		image?: string | SubmissionMedia;
+		url?: string;
+		id?: string;
+	}[];
 	devprops: {
 		key: string;
 		value: string;
 		id?: string;
 	}[];
-	_status?: 'draft' | 'published';
 	createdAt: string;
 	updatedAt: string;
 }

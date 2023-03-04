@@ -14,7 +14,7 @@ const Submissions: CollectionConfig = {
 		defaultColumns: ['author', '_status', 'project', 'id'],
 	},
 	access: {
-		read: ({ req }) => {
+		read: async ({ req, id }) => {
 			// If there is a user logged in,
 			// let them retrieve all documents
 			if (req.user) return true;
@@ -37,16 +37,11 @@ const Submissions: CollectionConfig = {
 			if (!id) return true;
 			const submission = await req.payload.findByID({
 				collection: 'submissions',
-				id: id as string,
+				id,
 				depth: 2,
 			});
 			const staffList = ((submission.project as Project).organizer as Guild).staff;
 			return staffList?.includes(req.user.id);
-		},
-	},
-	versions: {
-		drafts: {
-			autosave: true,
 		},
 	},
 	labels: {
@@ -56,13 +51,16 @@ const Submissions: CollectionConfig = {
 	hooks: {
 		afterDelete: [
 			async ({ req, doc }: { req: PayloadRequest, doc: Submission }) => {
-				if (doc.type === 'image' && doc.media) {
-					await req.payload.delete({
-						collection: 'submission-media',
-						id: (doc.media as SubmissionMedia | undefined)?.id ?? doc.media as string,
-						overrideAccess: true,
-					});
-				}
+				// Delete any images connected to this submission
+				await Promise.all(doc.media.map(async (media) => {
+					if (media.type === 'image' && media.image) {
+						await req.payload.delete({
+							collection: 'submission-media',
+							id: (media.image as SubmissionMedia | undefined)?.id ?? media.image as string,
+							overrideAccess: true,
+						});
+					}
+				}));
 			},
 		],
 		afterChange: [
@@ -100,66 +98,68 @@ const Submissions: CollectionConfig = {
 			relationTo: 'submission-media',
 		},
 		{
-			name: 'type',
-			type: 'select',
-			required: true,
-			defaultValue: 'text',
-			options: [
-				{
-					label: 'Text',
-					value: 'text',
-				},
-				{
-					label: 'Image',
-					value: 'image',
-				},
-				{
-					label: 'Video',
-					value: 'video',
-				},
-			],
-		},
-		{
-			name: 'subtype',
-			type: 'select',
-			defaultValue: 'artwork',
-			options: [
-				{
-					label: 'Artwork',
-					value: 'artwork',
-				},
-				{
-					label: 'Picture',
-					value: 'picture',
-				},
-				{
-					label: 'Other',
-					value: 'other',
-				},
-			],
-			admin: {
-				condition: (data) => data.type === 'image',
-			},
-		},
-		{
 			name: 'message',
 			type: 'textarea',
 		},
 		{
 			name: 'media',
-			type: 'upload',
-			relationTo: 'submission-media',
-			admin: {
-				condition: (data) => data.type === 'image',
-			},
-		},
-		{
-			name: 'url',
-			type: 'text',
-			admin: {
-				condition: (data) => data.type === 'video',
-				description: 'URL to the video to display',
-			},
+			type: 'array',
+			fields: [
+				{
+					name: 'type',
+					type: 'select',
+					required: true,
+					defaultValue: 'image',
+					options: [
+						{
+							label: 'Image',
+							value: 'image',
+						},
+						{
+							label: 'Video',
+							value: 'video',
+						},
+					],
+				},
+				{
+					name: 'subtype',
+					type: 'select',
+					defaultValue: 'artwork',
+					options: [
+						{
+							label: 'Artwork',
+							value: 'artwork',
+						},
+						{
+							label: 'Picture',
+							value: 'picture',
+						},
+						{
+							label: 'Other',
+							value: 'other',
+						},
+					],
+					admin: {
+						condition: (_, siblingData) => siblingData.type === 'image',
+					},
+				},
+				{
+					name: 'image',
+					type: 'upload',
+					relationTo: 'submission-media',
+					admin: {
+						condition: (_, siblingData) => siblingData.type === 'image',
+					},
+				},
+				{
+					name: 'url',
+					type: 'text',
+					admin: {
+						condition: (_, siblingData) => siblingData.type === 'video',
+						description: 'URL to the video to display',
+					},
+				},
+			],
 		},
 		{
 			name: 'devprops',
