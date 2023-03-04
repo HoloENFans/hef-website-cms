@@ -14,20 +14,18 @@ const Submissions: CollectionConfig = {
 		defaultColumns: ['author', '_status', 'project', 'id'],
 	},
 	access: {
-		read: async ({ req, id }) => {
-			// If there is a user logged in,
-			// let them retrieve all documents
-			if (req.user) return true;
+		read: async () => true,
+		// TODO: Approval checking
+		// If there is a user logged in,
+		// let them retrieve all documents
+		/* if (req.user) return true;
 
-			// If there is no user,
-			// restrict the documents that are returned
-			// to only those where `_status` is equal to `published`
 			return {
 				_status: {
 					equals: 'published',
 				},
-			};
-		},
+			}; */
+
 		create: ({ req }) => checkRole(req, 'project-owner'),
 		update: ({ req }) => checkRole(req, ['project-owner', 'content-moderator']),
 		delete: async ({ req, id }) => {
