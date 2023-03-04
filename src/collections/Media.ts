@@ -10,7 +10,7 @@ const Media: CollectionConfig = {
 	access: {
 		read: () => true,
 		create: ({ req }) => checkRole(req, 'project-owner'),
-		update: () => false,
+		update: ({ req }) => checkRole(req, 'superadmin'),
 		delete: ({ req }) => checkRole(req, 'project-owner'),
 	},
 	upload: {

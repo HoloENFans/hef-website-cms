@@ -14,8 +14,8 @@ const Media: CollectionConfig = {
 	access: {
 		read: () => true,
 		create: ({ req }) => checkRole(req, 'project-owner'),
-		update: () => false,
-		delete: () => false,
+		update: ({ req }) => checkRole(req, 'superadmin'),
+		delete: ({ req }) => checkRole(req, 'superadmin'),
 	},
 	upload: {
 		staticDir: '../storage/submissions',
