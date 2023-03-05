@@ -75,6 +75,7 @@ const start = async () => {
 		return {
 			type: null,
 			subtype: null,
+			media: [],
 		};
 	});
 

@@ -160,10 +160,38 @@ const Submissions: CollectionConfig = {
 			],
 		},
 		{
+			name: 'filterableAttributes',
+			label: 'Filterable attributes',
+			labels: {
+				singular: 'Attribute',
+				plural: 'Filterable attributes',
+			},
+			type: 'array',
+			fields: [
+				{
+					name: 'name',
+					type: 'text',
+					required: true,
+				},
+				{
+					name: 'values',
+					type: 'array',
+					minRows: 1,
+					fields: [
+						{
+							name: 'value',
+							type: 'text',
+							required: true,
+						},
+					],
+				},
+			],
+		},
+		{
 			name: 'devprops',
 			label: 'Developer properties',
 			labels: {
-				singular: 'property',
+				singular: 'Property',
 				plural: 'Developer properties',
 			},
 			type: 'array',
