@@ -1,6 +1,7 @@
 import { GlobalConfig } from 'payload/types';
 import checkRole from '../lib/checkRole';
 import revalidatePath from '../lib/revalidatePath';
+import { languages } from '../payload.config';
 
 const FeaturedProjects: GlobalConfig = {
 	slug: 'featured-projects',
@@ -11,7 +12,13 @@ const FeaturedProjects: GlobalConfig = {
 	},
 	hooks: {
 		afterChange: [
-			() => revalidatePath('/'),
+			async () => {
+				const tasks = languages.map(async (language) => {
+					await revalidatePath(`/${language}`);
+				});
+
+				await Promise.all(tasks);
+			},
 		],
 	},
 	fields: [

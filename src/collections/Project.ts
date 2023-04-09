@@ -3,6 +3,7 @@ import { PayloadRequest } from 'payload/dist/express/types';
 import checkRole from '../lib/checkRole';
 import { Guild } from '../payload-types';
 import revalidatePath from '../lib/revalidatePath';
+import { languages } from '../payload.config';
 
 // Helper functions
 async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boolean> {
@@ -36,9 +37,9 @@ const Projects: CollectionConfig = {
 		useAsTitle: 'title',
 		description: 'Project list',
 		defaultColumns: ['title', 'shortDescription', 'status', 'date'],
-		preview: (doc) => {
+		preview: (doc, options) => {
 			if (doc?.slug) {
-				return `${process.env.PAYLOAD_PUBLIC_WEBSITE_URL ?? 'https://holoen.fans'}/projects/${doc.slug}`;
+				return `${process.env.PAYLOAD_PUBLIC_WEBSITE_URL ?? 'https://holoen.fans'}/${options.locale}/projects/${doc.slug}`;
 			}
 
 			return null;
@@ -79,16 +80,20 @@ const Projects: CollectionConfig = {
 	},
 	hooks: {
 		afterChange: [
-			({ doc, previousDoc }) => {
+			async ({ doc, previousDoc }) => {
 				// eslint-disable-next-line no-underscore-dangle
 				if (doc.status !== 'draft') {
-					revalidatePath('/projects');
-					revalidatePath(`/projects/${doc.slug}`);
+					const tasks = languages.map(async (language) => {
+						await revalidatePath(`${language}/projects`);
+						await revalidatePath(`${language}/projects/${doc.slug}`);
 
-					// eslint-disable-next-line no-underscore-dangle
-					if (previousDoc.status !== 'draft') {
-						revalidatePath(`/projects/${previousDoc.slug}`);
-					}
+						// eslint-disable-next-line no-underscore-dangle
+						if (previousDoc.status !== 'draft') {
+							await revalidatePath(`${language}/projects/${previousDoc.slug}`);
+						}
+					});
+
+					await Promise.all(tasks);
 				}
 			},
 		],

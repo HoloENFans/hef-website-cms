@@ -27,6 +27,8 @@ const adapter = s3Adapter({
 	bucket: process.env.S3_BUCKET,
 });
 
+export const languages = ['en', 'jp'];
+
 export default buildConfig({
 	serverURL: process.env.PUBLIC_URL,
 	csrf: [
@@ -53,10 +55,7 @@ export default buildConfig({
 		},
 	},
 	localization: {
-		locales: [
-			'en',
-			'jp',
-		],
+		locales: languages,
 		defaultLocale: 'en',
 		fallback: true,
 	},

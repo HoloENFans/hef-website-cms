@@ -5,6 +5,7 @@ import {
 	Guild, Project, Submission, SubmissionMedia,
 } from '../payload-types';
 import revalidatePath from '../lib/revalidatePath';
+import { languages } from '../payload.config';
 
 const Submissions: CollectionConfig = {
 	slug: 'submissions',
@@ -69,9 +70,17 @@ const Submissions: CollectionConfig = {
 						id: doc.project,
 						depth: 0,
 					});
-					await revalidatePath(`/projects/${project.slug}`);
+					const tasks = languages.map(async (language) => {
+						await revalidatePath(`${language}/projects/${project.slug}`);
+					});
+
+					await Promise.all(tasks);
 				} else {
-					await revalidatePath(`/projects/${doc.project.slug}`);
+					const tasks = languages.map(async (language) => {
+						await revalidatePath(`${language}/projects/${doc.project.slug}`);
+					});
+
+					await Promise.all(tasks);
 				}
 			},
 		],
