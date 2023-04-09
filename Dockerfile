@@ -1,7 +1,7 @@
 # Rebuild the source code only when needed
 FROM node:18-bullseye-slim AS builder
 WORKDIR /app
-COPY .npmrc package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml ./
 
 RUN npm install --location=global pnpm \
   && pnpm install --frozen-lockfile
@@ -25,7 +25,7 @@ RUN addgroup --system --gid 1001 nodejs \
 USER nodejs
 WORKDIR /app
 
-COPY --chown=nodejs:nodejs .npmrc package.json pnpm-lock.yaml ./
+COPY --chown=nodejs:nodejs package.json pnpm-lock.yaml ./
 
 RUN pnpm install --frozen-lockfile
 
