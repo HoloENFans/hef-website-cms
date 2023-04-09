@@ -14,14 +14,14 @@ ENV NODE_ENV production
 RUN pnpm build
 
 # Production image, copy all the files and run next
-FROM node:16-bullseye-slim AS runner
+FROM node:18-bullseye-slim AS runner
 ENV NODE_ENV production
 ENV PAYLOAD_CONFIG_PATH dist/payload.config.js
 
 RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 nodejs \
   && npm install --location=global pnpm
-  
+
 USER nodejs
 WORKDIR /app
 
