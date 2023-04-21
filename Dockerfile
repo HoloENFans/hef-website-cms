@@ -1,5 +1,5 @@
 # Rebuild the source code only when needed
-FROM node:18-bullseye-slim AS builder
+FROM node:20-bullseye-slim AS builder
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
@@ -14,7 +14,7 @@ ENV NODE_ENV production
 RUN pnpm build
 
 # Production image, copy all the files and run next
-FROM node:18-bullseye-slim AS runner
+FROM node:20-bullseye-slim AS runner
 ENV NODE_ENV production
 ENV PAYLOAD_CONFIG_PATH dist/payload.config.js
 
