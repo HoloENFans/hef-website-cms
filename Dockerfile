@@ -11,7 +11,8 @@ COPY . .
 
 ENV NODE_ENV production
 
-RUN pnpm build
+RUN pnpm build \
+  && pnpm prune --prod
 
 # Production image, copy all the files and run next
 FROM node:18-bullseye-slim AS runner
@@ -19,16 +20,15 @@ ENV NODE_ENV production
 ENV PAYLOAD_CONFIG_PATH dist/payload.config.js
 
 RUN addgroup --system --gid 1001 nodejs \
-  && adduser --system --uid 1001 nodejs \
-  && npm install --location=global pnpm
+  && adduser --system --uid 1001 nodejs
 
 USER nodejs
 WORKDIR /app
 
-COPY --chown=nodejs:nodejs package.json pnpm-lock.yaml ./
+# Copy dependencies
+COPY --from=builder /app/node_modules ./node_modules
 
-RUN pnpm install --frozen-lockfile
-
+# Copy transpiled code
 COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
 COPY --from=builder --chown=nodejs:nodejs /app/build ./build
 

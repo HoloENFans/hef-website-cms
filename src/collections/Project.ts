@@ -306,6 +306,9 @@ const Projects: CollectionConfig = {
 				create: ({ req }) => checkRole(req, 'developer'),
 				update: ({ req }) => checkRole(req, 'developer'),
 			},
+			admin: {
+				condition: (_data, _siblingData, req) => checkRole(req, 'developer'),
+			},
 		},
 		{
 			name: 'devprops',
@@ -330,6 +333,9 @@ const Projects: CollectionConfig = {
 			access: {
 				create: ({ req }) => checkRole(req, 'developer'),
 				update: ({ req }) => checkRole(req, 'developer'),
+			},
+			admin: {
+				condition: (_data, _siblingData, req) => checkRole(req, 'developer'),
 			},
 		},
 	],
