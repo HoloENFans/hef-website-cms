@@ -13,6 +13,8 @@ import Submissions from './collections/Submissions';
 import FeaturedProjects from './globals/FeaturedProjects';
 import Flags from './collections/Flags';
 import Notice from './globals/Notice';
+import Events from './collections/Events';
+import EventMedia from './collections/EventsMedia';
 
 const adapter = s3Adapter({
 	config: {
@@ -67,6 +69,8 @@ export default buildConfig({
 		Projects,
 		Submissions,
 		Flags,
+		Events,
+		EventMedia,
 	],
 	globals: [
 		FeaturedProjects,

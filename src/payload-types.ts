@@ -6,155 +6,185 @@
  */
 
 export interface Config {
-	collections: {
-		users: User;
-		media: Media;
-		guilds: Guild;
-		'submission-media': SubmissionMedia;
-		projects: Project;
-		submissions: Submission;
-		flags: Flag;
-	};
-	globals: {
-		'featured-projects': FeaturedProject;
-		notice: Notice;
-	};
+  collections: {
+    users: User;
+    media: Media;
+    guilds: Guild;
+    'submission-media': SubmissionMedia;
+    projects: Project;
+    submissions: Submission;
+    flags: Flag;
+    events: Event;
+    'events-media': EventsMedia;
+  };
+  globals: {
+    'featured-projects': FeaturedProject;
+    notice: Notice;
+  };
 }
 export interface User {
-	id: string;
-	name: string;
-	roles: ('superadmin' | 'project-owner' | 'content-moderator' | 'developer' | 'translator')[];
-	enableAPIKey?: boolean;
-	apiKey?: string;
-	apiKeyIndex?: string;
-	email?: string;
-	resetPasswordToken?: string;
-	resetPasswordExpiration?: string;
-	_verified?: boolean;
-	_verificationToken?: string;
-	loginAttempts?: number;
-	lockUntil?: string;
-	createdAt: string;
-	updatedAt: string;
-	password?: string;
+  id: string;
+  name: string;
+  roles: ('superadmin' | 'project-owner' | 'content-moderator' | 'developer' | 'translator')[];
+  updatedAt: string;
+  createdAt: string;
+  enableAPIKey?: boolean;
+  apiKey?: string;
+  apiKeyIndex?: string;
+  email?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpiration?: string;
+  _verified?: boolean;
+  _verificationToken?: string;
+  loginAttempts?: number;
+  lockUntil?: string;
+  password?: string;
 }
 export interface Media {
-	id: string;
-	prefix?: string;
-	url?: string;
-	filename?: string;
-	mimeType?: string;
-	filesize?: number;
-	width?: number;
-	height?: number;
-	createdAt: string;
-	updatedAt: string;
+  id: string;
+  prefix?: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string;
+  filename?: string;
+  mimeType?: string;
+  filesize?: number;
+  width?: number;
+  height?: number;
 }
 export interface Guild {
-	id: string;
-	name: string;
-	description: string;
-	debutDate: string;
-	invite: string;
-	icon: string | Media;
-	color?: string;
-	staff?: string[] | User[];
-	_status?: 'draft' | 'published';
-	createdAt: string;
-	updatedAt: string;
+  id: string;
+  name: string;
+  description: string;
+  debutDate: string;
+  invite: string;
+  icon: string | Media;
+  color?: string;
+  staff?: string[] | User[];
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
 }
 export interface SubmissionMedia {
-	id: string;
-	prefix?: string;
-	url?: string;
-	filename?: string;
-	mimeType?: string;
-	filesize?: number;
-	width?: number;
-	height?: number;
-	createdAt: string;
-	updatedAt: string;
+  id: string;
+  prefix?: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string;
+  filename?: string;
+  mimeType?: string;
+  filesize?: number;
+  width?: number;
+  height?: number;
 }
 export interface Project {
-	id: string;
-	title: string;
-	slug: string;
-	shortDescription: string;
-	description: {
-		[k: string]: unknown;
-	}[];
-	organizer: string | Guild;
-	status: 'draft' | 'ongoing' | 'past';
-	links: {
-		name: string;
-		url: string;
-		id?: string;
-	}[];
-	media: {
-		type: 'image' | 'video';
-		media?: string | Media;
-		url?: string;
-		id?: string;
-	}[];
-	date: string;
-	image: string | Media;
-	ogImage?: string | Media;
-	'submission-url'?: string;
-	collaborators?: string[] | User[];
-	flags?: string[] | Flag[];
-	devprops: {
-		key: string;
-		value: string;
-		id?: string;
-	}[];
-	createdAt: string;
-	updatedAt: string;
+  id: string;
+  title: string;
+  slug: string;
+  shortDescription: string;
+  description: {
+    [k: string]: unknown;
+  }[];
+  organizer: string | Guild;
+  status: 'draft' | 'ongoing' | 'past';
+  links: {
+    name: string;
+    url: string;
+    id?: string;
+  }[];
+  media: {
+    type: 'image' | 'video';
+    media?: string | Media;
+    url?: string;
+    id?: string;
+  }[];
+  date: string;
+  image: string | Media;
+  ogImage?: string | Media;
+  'submission-url'?: string;
+  collaborators?: string[] | User[];
+  flags?: string[] | Flag[];
+  devprops?: {
+    key: string;
+    value: string;
+    id?: string;
+  }[];
+  updatedAt: string;
+  createdAt: string;
 }
 export interface Flag {
-	id: string;
-	code: string;
-	name: string;
-	createdAt: string;
-	updatedAt: string;
+  id: string;
+  code: string;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface Submission {
-	id: string;
-	project: string | Project;
-	author: string;
-	srcIcon?: string | SubmissionMedia;
-	message?: string;
-	media: {
-		type: 'image' | 'video';
-		subtype?: 'artwork' | 'picture' | 'other';
-		image?: string | SubmissionMedia;
-		url?: string;
-		id?: string;
-	}[];
-	filterableAttributes: {
-		name: string;
-		values: {
-			value: string;
-			id?: string;
-		}[];
-		id?: string;
-	}[];
-	devprops: {
-		key: string;
-		value: string;
-		id?: string;
-	}[];
-	createdAt: string;
-	updatedAt: string;
+  id: string;
+  project: string | Project;
+  author: string;
+  srcIcon?: string | SubmissionMedia;
+  message?: string;
+  media: {
+    type: 'image' | 'video';
+    subtype?: 'artwork' | 'picture' | 'other';
+    image?: string | SubmissionMedia;
+    url?: string;
+    id?: string;
+  }[];
+  filterableAttributes: {
+    name: string;
+    values: {
+      value: string;
+      id?: string;
+    }[];
+    id?: string;
+  }[];
+  devprops: {
+    key: string;
+    value: string;
+    id?: string;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Event {
+  id: string;
+  project: string | Project;
+  date: string;
+  title: string;
+  images: {
+    image?: string | EventsMedia;
+    id?: string;
+  }[];
+  background_image?: string | EventsMedia;
+  content: {
+    [k: string]: unknown;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+export interface EventsMedia {
+  id: string;
+  alt?: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string;
+  filename?: string;
+  mimeType?: string;
+  filesize?: number;
+  width?: number;
+  height?: number;
 }
 export interface FeaturedProject {
-	id: string;
-	projects?: string[] | Project[];
+  id: string;
+  projects?: string[] | Project[];
 }
 export interface Notice {
-	id: string;
-	enabled?: boolean;
-	description?: string;
-	message?: {
-		[k: string]: unknown;
-	}[];
+  id: string;
+  enabled?: boolean;
+  description?: string;
+  message?: {
+    [k: string]: unknown;
+  }[];
 }
