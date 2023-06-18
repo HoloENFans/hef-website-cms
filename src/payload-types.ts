@@ -157,7 +157,7 @@ export interface Event {
     image?: string | EventMedia;
     id?: string;
   }[];
-  background_image?: string | EventMedia;
+  backgroundImage?: string | EventMedia;
   content: {
     [k: string]: unknown;
   }[];
