@@ -1,6 +1,6 @@
 import type { CollectionConfig, PayloadRequest } from 'payload/types';
 import {
-	Project, Event, EventsMedia, Guild,
+	Project, Event, EventMedia, Guild,
 } from '../payload-types';
 import revalidatePath from '../lib/revalidatePath';
 import { languages } from '../payload.config';
@@ -48,7 +48,7 @@ const Events: CollectionConfig = {
 				await Promise.all(doc.images.map(async (media) => {
 					await req.payload.delete({
 						collection: 'event-media',
-						id: (media.image as EventsMedia | undefined)?.id ?? media.image as string,
+						id: (media.image as EventMedia | undefined)?.id ?? media.image as string,
 						overrideAccess: true,
 					});
 				}));

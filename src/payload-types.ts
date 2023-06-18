@@ -15,7 +15,7 @@ export interface Config {
     submissions: Submission;
     flags: Flag;
     events: Event;
-    'events-media': EventsMedia;
+    'event-media': EventMedia;
   };
   globals: {
     'featured-projects': FeaturedProject;
@@ -154,19 +154,20 @@ export interface Event {
   date: string;
   title: string;
   images: {
-    image?: string | EventsMedia;
+    image?: string | EventMedia;
     id?: string;
   }[];
-  background_image?: string | EventsMedia;
+  background_image?: string | EventMedia;
   content: {
     [k: string]: unknown;
   }[];
   updatedAt: string;
   createdAt: string;
 }
-export interface EventsMedia {
+export interface EventMedia {
   id: string;
   alt?: string;
+  prefix?: string;
   updatedAt: string;
   createdAt: string;
   url?: string;
