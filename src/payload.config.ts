@@ -14,7 +14,7 @@ import FeaturedProjects from './globals/FeaturedProjects';
 import Flags from './collections/Flags';
 import Notice from './globals/Notice';
 import Events from './collections/Events';
-import EventMedia from './collections/EventsMedia';
+import EventMedia from './collections/EventMedia';
 
 const adapter = s3Adapter({
 	config: {
@@ -88,6 +88,12 @@ export default buildConfig({
 				'submission-media': {
 					adapter,
 					prefix: 'submissions',
+					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
+					disableLocalStorage: process.env.NODE_ENV === 'production',
+				},
+				'event-media': {
+					adapter,
+					prefix: 'event-media',
 					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
 					disableLocalStorage: process.env.NODE_ENV === 'production',
 				},

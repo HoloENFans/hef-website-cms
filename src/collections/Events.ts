@@ -1,5 +1,7 @@
 import type { CollectionConfig, PayloadRequest } from 'payload/types';
-import { Project, Event, EventsMedia, Guild } from '../payload-types';
+import {
+	Project, Event, EventsMedia, Guild,
+} from '../payload-types';
 import revalidatePath from '../lib/revalidatePath';
 import { languages } from '../payload.config';
 import checkRole from '../lib/checkRole';
@@ -45,7 +47,7 @@ const Events: CollectionConfig = {
 				// Delete any images connected to this event
 				await Promise.all(doc.images.map(async (media) => {
 					await req.payload.delete({
-						collection: 'events-media',
+						collection: 'event-media',
 						id: (media.image as EventsMedia | undefined)?.id ?? media.image as string,
 						overrideAccess: true,
 					});
@@ -101,12 +103,7 @@ const Events: CollectionConfig = {
 				{
 					name: 'image',
 					type: 'upload',
-					relationTo: 'events-media',
-					filterOptions: {
-						mimeType: {
-							or: [{ equals: 'image/jpeg' }, { equals: 'image/png' }, { equals: 'image/bmp' }]
-						},
-					},
+					relationTo: 'event-media',
 				},
 			],
 		},
@@ -114,12 +111,7 @@ const Events: CollectionConfig = {
 			name: 'background_image',
 			type: 'upload',
 			required: false,
-			relationTo: 'events-media',
-			filterOptions: {
-				mimeType: {
-					or: [{ equals: 'image/jpeg' }, { equals: 'image/png' }, { equals: 'image/bmp' }]
-				},
-			},
+			relationTo: 'event-media',
 		},
 		{
 			name: 'content',
