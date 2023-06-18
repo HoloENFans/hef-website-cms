@@ -108,7 +108,7 @@ const Events: CollectionConfig = {
 			],
 		},
 		{
-			name: 'background_image',
+			name: 'backgroundImage',
 			type: 'upload',
 			required: false,
 			relationTo: 'event-media',
