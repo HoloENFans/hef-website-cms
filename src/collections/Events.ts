@@ -89,6 +89,14 @@ const Events: CollectionConfig = {
 			name: 'date',
 			type: 'date',
 			required: true,
+			admin: {
+				description:
+					'Date and time of the event. Enter in your local time, it will be auto converted to UTC. You can also edit the date/time value directly in the text box.',
+				date: {
+					pickerAppearance: 'dayAndTime',
+					timeIntervals: 15,
+				},
+			},
 		},
 		{
 			name: 'title',
