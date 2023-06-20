@@ -29,7 +29,7 @@ const Events: CollectionConfig = {
 		update: ({ req }) => checkRole(req, ['project-owner', 'content-moderator']),
 		delete: async ({ req, id }) => {
 			if (checkRole(req, 'superadmin')) return true;
-			if (!checkRole(req, ['project-owner', 'content-moderator'])) return false;
+			if (!checkRole(req, ['project-owner', 'content-moderator'])) { return false; }
 
 			if (!id) return true;
 			const submission = await req.payload.findByID({
@@ -37,21 +37,27 @@ const Events: CollectionConfig = {
 				id,
 				depth: 2,
 			});
-			const staffList = ((submission.project as Project).organizer as Guild).staff;
+			const staffList = (
+				(submission.project as Project).organizer as Guild
+			).staff;
 			return staffList?.includes(req.user.id);
 		},
 	},
 	hooks: {
 		afterDelete: [
-			async ({ req, doc }: { req: PayloadRequest, doc: Event }) => {
+			async ({ req, doc }: { req: PayloadRequest; doc: Event }) => {
 				// Delete any images connected to this event
-				await Promise.all(doc.images.map(async (media) => {
-					await req.payload.delete({
-						collection: 'event-media',
-						id: (media.image as EventMedia | undefined)?.id ?? media.image as string,
-						overrideAccess: true,
-					});
-				}));
+				await Promise.all(
+					doc.images.map(async (media) => {
+						await req.payload.delete({
+							collection: 'event-media',
+							id:
+								(media.image as EventMedia | undefined)?.id
+								?? (media.image as string),
+							overrideAccess: true,
+						});
+					}),
+				);
 			},
 		],
 		afterChange: [
@@ -63,13 +69,17 @@ const Events: CollectionConfig = {
 						depth: 0,
 					});
 					const tasks = languages.map(async (language) => {
-						await revalidatePath(`${language}/projects/${project.slug}`);
+						await revalidatePath(
+							`${language}/projects/${project.slug}`,
+						);
 					});
 
 					await Promise.all(tasks);
 				} else {
 					const tasks = languages.map(async (language) => {
-						await revalidatePath(`${language}/projects/${doc.project.slug}`);
+						await revalidatePath(
+							`${language}/projects/${doc.project.slug}`,
+						);
 					});
 
 					await Promise.all(tasks);
@@ -89,6 +99,14 @@ const Events: CollectionConfig = {
 			name: 'date',
 			type: 'date',
 			required: true,
+			admin: {
+				description:
+					'Date and time of the event. Enter in your local time, it will be auto converted to UTC. You can also edit the date/time value directly in the text box.',
+				date: {
+					pickerAppearance: 'dayAndTime',
+					timeIntervals: 15,
+				},
+			},
 		},
 		{
 			name: 'title',
