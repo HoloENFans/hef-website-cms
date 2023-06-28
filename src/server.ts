@@ -38,4 +38,4 @@ const start = async () => {
 	app.listen(3001);
 };
 
-start();
+void start();
