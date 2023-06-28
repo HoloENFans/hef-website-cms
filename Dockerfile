@@ -14,7 +14,8 @@ COPY . .
 
 ENV NODE_ENV production
 
-RUN pnpm build \
+RUN npm pkg delete scripts.prepare  \
+  && pnpm build \
   && pnpm prune --prod
 
 # Production image, copy all the files and run next
