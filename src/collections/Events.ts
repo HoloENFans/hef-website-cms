@@ -8,6 +8,11 @@ import checkRole from '../lib/checkRole';
 
 const Events: CollectionConfig = {
 	slug: 'events',
+	admin: {
+		useAsTitle: 'title',
+		description: 'Event list',
+		defaultColumns: ['title', 'project'],
+	},
 	labels: {
 		singular: 'Event',
 		plural: 'Events',
@@ -79,6 +84,11 @@ const Events: CollectionConfig = {
 	},
 	fields: [
 		{
+			name: 'title',
+			type: 'text',
+			required: true,
+		},
+		{
 			name: 'project',
 			type: 'relationship',
 			relationTo: 'projects',
@@ -97,11 +107,6 @@ const Events: CollectionConfig = {
 					timeIntervals: 15,
 				},
 			},
-		},
-		{
-			name: 'title',
-			type: 'text',
-			required: true,
 		},
 		{
 			name: 'images',
