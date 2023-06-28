@@ -1,10 +1,13 @@
 # Rebuild the source code only when needed
-FROM node:18-bullseye-slim AS builder
+FROM node:lts-alpine AS builder
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
-RUN npm install --location=global pnpm \
-  && pnpm install --frozen-lockfile
+RUN apk add --no-cache --virtual .gyp python3 make g++ \
+    && corepack enable \
+	&& corepack prepare pnpm@latest --activate \
+    && npm pkg delete scripts.prepare \
+    && pnpm i --frozen-lockfile
 
 WORKDIR /app
 COPY . .
@@ -15,7 +18,7 @@ RUN pnpm build \
   && pnpm prune --prod
 
 # Production image, copy all the files and run next
-FROM node:18-bullseye-slim AS runner
+FROM node:lts-alpine AS runner
 ENV NODE_ENV production
 ENV PAYLOAD_CONFIG_PATH dist/payload.config.js
 
