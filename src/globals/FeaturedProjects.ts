@@ -6,6 +6,9 @@ import { languages } from '../payload.config';
 const FeaturedProjects: GlobalConfig = {
 	slug: 'featured-projects',
 	label: 'Featured projects',
+	admin: {
+		hidden: (req) => !checkRole(req, 'superadmin'),
+	},
 	access: {
 		read: () => true,
 		update: ({ req }) => checkRole(req, 'superadmin'),

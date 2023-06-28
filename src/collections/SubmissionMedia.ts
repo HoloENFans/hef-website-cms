@@ -6,6 +6,7 @@ const Media: CollectionConfig = {
 	admin: {
 		disableDuplicate: true,
 		description: 'Media for project submissions',
+		hidden: (req) => !checkRole(req, 'superadmin'),
 	},
 	labels: {
 		singular: 'Submission media',

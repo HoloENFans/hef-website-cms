@@ -7,6 +7,11 @@ const EventMedia: CollectionConfig = {
 		singular: 'Event Media',
 		plural: 'Event Media',
 	},
+	admin: {
+		disableDuplicate: true,
+		description: 'Event media',
+		hidden: (req) => !checkRole(req, 'superadmin'),
+	},
 	access: {
 		read: () => true,
 		create: ({ req }) => checkRole(req, 'project-owner'),

@@ -4,6 +4,9 @@ import checkRole from '../lib/checkRole';
 const Notice: GlobalConfig = {
 	slug: 'notice',
 	label: 'Notice banner',
+	admin: {
+		hidden: (req) => !checkRole(req, 'superadmin'),
+	},
 	access: {
 		read: () => true,
 		update: ({ req }) => checkRole(req, 'developer'),

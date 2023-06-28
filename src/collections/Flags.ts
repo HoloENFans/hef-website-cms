@@ -6,6 +6,7 @@ const Flags: CollectionConfig = {
 	admin: {
 		useAsTitle: 'name',
 		defaultColumns: ['name', 'code'],
+		hidden: (req) => !checkRole(req, 'developer'),
 	},
 	access: {
 		read: () => true,
