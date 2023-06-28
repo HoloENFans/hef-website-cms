@@ -38,4 +38,5 @@ const start = async () => {
 	app.listen(3001);
 };
 
+// eslint-disable-next-line no-void
 void start();
