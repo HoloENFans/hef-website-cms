@@ -1,4 +1,5 @@
 import type { CollectionConfig, PayloadRequest } from 'payload/types';
+import { User } from 'payload/auth';
 import {
 	Project, Event, EventMedia, Guild,
 } from '../payload-types';
@@ -18,18 +19,7 @@ const Events: CollectionConfig = {
 		plural: 'Events',
 	},
 	access: {
-		read: async () => true,
-		// TODO: Approval checking
-		// If there is a user logged in,
-		// let them retrieve all documents
-		/* if (req.user) return true;
-
-			return {
-				_status: {
-					equals: 'published',
-				},
-			}; */
-
+		read: () => true,
 		create: ({ req }) => checkRole(req, 'project-owner'),
 		update: ({ req }) => checkRole(req, ['project-owner', 'content-moderator']),
 		delete: async ({ req, id }) => {
@@ -37,13 +27,15 @@ const Events: CollectionConfig = {
 			if (!checkRole(req, ['project-owner', 'content-moderator'])) return false;
 
 			if (!id) return true;
-			const submission = await req.payload.findByID({
-				collection: 'submissions',
+			const event: Event = await req.payload.findByID({
+				collection: 'events',
 				id,
 				depth: 2,
 			});
-			const staffList = ((submission.project as Project).organizer as Guild).staff;
-			return staffList?.includes(req.user.id);
+			const project = event.project as Project;
+			const staffList = (project.organizer as Guild).staff as string[];
+			const collaborators = (project.collaborators as unknown as User[]).map((user) => user.id);
+			return collaborators?.includes(req.user.id) || staffList?.includes(req.user.id);
 		},
 	},
 	hooks: {
