@@ -78,24 +78,22 @@ export default buildConfig({
 	],
 	plugins: [
 		cloudStorage({
+			enabled: process.env.NODE_ENV === 'production',
 			collections: {
 				media: {
 					adapter,
 					prefix: 'media',
 					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
-					disableLocalStorage: process.env.NODE_ENV === 'production',
 				},
 				'submission-media': {
 					adapter,
 					prefix: 'submissions',
 					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
-					disableLocalStorage: process.env.NODE_ENV === 'production',
 				},
 				'event-media': {
 					adapter,
 					prefix: 'event-media',
 					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
-					disableLocalStorage: process.env.NODE_ENV === 'production',
 				},
 			},
 		}),
