@@ -60,13 +60,13 @@ const Events: CollectionConfig = {
 						depth: 0,
 					});
 					const tasks = languages.map(async (language) => {
-						await revalidatePath(`${language}/projects/${project.slug}`);
+						await revalidatePath(`/${language}/projects/${project.slug}`);
 					});
 
 					await Promise.all(tasks);
 				} else {
 					const tasks = languages.map(async (language) => {
-						await revalidatePath(`${language}/projects/${doc.project.slug}`);
+						await revalidatePath(`/${language}/projects/${doc.project.slug}`);
 					});
 
 					await Promise.all(tasks);

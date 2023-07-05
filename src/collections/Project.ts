@@ -84,12 +84,12 @@ const Projects: CollectionConfig = {
 				// eslint-disable-next-line no-underscore-dangle
 				if (doc.status !== 'draft') {
 					const tasks = languages.map(async (language) => {
-						await revalidatePath(`${language}/projects`);
-						await revalidatePath(`${language}/projects/${doc.slug}`);
+						await revalidatePath(`/${language}/projects`);
+						await revalidatePath(`/${language}/projects/${doc.slug}`);
 
 						// eslint-disable-next-line no-underscore-dangle
 						if (previousDoc.status !== 'draft') {
-							await revalidatePath(`${language}/projects/${previousDoc.slug}`);
+							await revalidatePath(`/${language}/projects/${previousDoc.slug}`);
 						}
 					});
 
