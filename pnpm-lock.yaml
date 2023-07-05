@@ -13,7 +13,7 @@ dependencies:
     version: 3.360.0(@aws-sdk/abort-controller@3.357.0)(@aws-sdk/client-s3@3.360.0)
   '@payloadcms/plugin-cloud-storage':
     specifier: 1.0.19
-    version: 1.0.19(@aws-sdk/client-s3@3.360.0)(@aws-sdk/lib-storage@3.360.0)(payload@1.10.2)
+    version: 1.0.19(@aws-sdk/client-s3@3.360.0)(@aws-sdk/lib-storage@3.360.0)(payload@1.11.0)
   dotenv:
     specifier: 16.3.1
     version: 16.3.1
@@ -21,8 +21,8 @@ dependencies:
     specifier: 4.18.2
     version: 4.18.2
   payload:
-    specifier: 1.10.2
-    version: 1.10.2(typescript@5.1.5)
+    specifier: 1.11.0
+    version: 1.11.0(typescript@5.1.5)
   sanitize-filename:
     specifier: 1.6.3
     version: 1.6.3
@@ -1832,7 +1832,7 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@payloadcms/plugin-cloud-storage@1.0.19(@aws-sdk/client-s3@3.360.0)(@aws-sdk/lib-storage@3.360.0)(payload@1.10.2):
+  /@payloadcms/plugin-cloud-storage@1.0.19(@aws-sdk/client-s3@3.360.0)(@aws-sdk/lib-storage@3.360.0)(payload@1.11.0):
     resolution: {integrity: sha512-D0sKZ9NQB0Wia42TE++GM3XyyZiqY/W5+1wvg4jLUegG6Nv4W8dpNnS9RcoLePfS/pbEXQ5t2krSU3HdV6s8Rw==}
     peerDependencies:
       '@aws-sdk/client-s3': ^3.142.0
@@ -1852,7 +1852,7 @@ packages:
     dependencies:
       '@aws-sdk/client-s3': 3.360.0
       '@aws-sdk/lib-storage': 3.360.0(@aws-sdk/abort-controller@3.357.0)(@aws-sdk/client-s3@3.360.0)
-      payload: 1.10.2(typescript@5.1.5)
+      payload: 1.11.0(typescript@5.1.5)
       range-parser: 1.2.1
     dev: false
 
@@ -6479,8 +6479,8 @@ packages:
     resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
     dev: false
 
-  /payload@1.10.2(typescript@5.1.5):
-    resolution: {integrity: sha512-7Ie8WlcfDDKRVSAK4NGnMtEt8lNuCboYSHbERJMLYbtYNOyHXCmHiRgW3dWZeF+vTtpd8gRPyjwDWr+4hQQayQ==}
+  /payload@1.11.0(typescript@5.1.5):
+    resolution: {integrity: sha512-rs7Cgyg07Aa4/wsA2PG9UFYx4fQSvw1WJz6H9iut32jvEB553RBaZsquKUA0XYPDFlmQFCvjcP5LUYTrjgcnRg==}
     engines: {node: '>=14', yarn: '>=1.22 <2'}
     hasBin: true
     dependencies:
