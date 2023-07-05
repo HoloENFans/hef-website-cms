@@ -4,6 +4,7 @@ import checkRole from '../lib/checkRole';
 import { Guild } from '../payload-types';
 import revalidatePath from '../lib/revalidatePath';
 import { languages } from '../payload.config';
+import revalidateTag from '../lib/revalidateTag';
 
 // Helper functions
 async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boolean> {
@@ -86,10 +87,12 @@ const Projects: CollectionConfig = {
 					const tasks = languages.map(async (language) => {
 						await revalidatePath(`/${language}/projects`);
 						await revalidatePath(`/${language}/projects/${doc.slug}`);
+						await revalidateTag(doc.slug);
 
 						// eslint-disable-next-line no-underscore-dangle
 						if (previousDoc.status !== 'draft') {
 							await revalidatePath(`/${language}/projects/${previousDoc.slug}`);
+							await revalidateTag(previousDoc.slug);
 						}
 					});
 

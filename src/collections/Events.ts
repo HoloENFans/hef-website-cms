@@ -6,6 +6,7 @@ import {
 import revalidatePath from '../lib/revalidatePath';
 import { languages } from '../payload.config';
 import checkRole from '../lib/checkRole';
+import revalidateTag from '../lib/revalidateTag';
 
 const Events: CollectionConfig = {
 	slug: 'events',
@@ -64,12 +65,16 @@ const Events: CollectionConfig = {
 					});
 
 					await Promise.all(tasks);
+
+					await revalidateTag(project.slug);
 				} else {
 					const tasks = languages.map(async (language) => {
 						await revalidatePath(`/${language}/projects/${doc.project.slug}`);
 					});
 
 					await Promise.all(tasks);
+
+					await revalidateTag(doc.project.slug);
 				}
 			},
 		],

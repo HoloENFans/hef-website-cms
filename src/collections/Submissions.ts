@@ -6,6 +6,7 @@ import {
 } from '../payload-types';
 import revalidatePath from '../lib/revalidatePath';
 import { languages } from '../payload.config';
+import revalidateTag from '../lib/revalidateTag';
 
 const Submissions: CollectionConfig = {
 	slug: 'submissions',
@@ -75,10 +76,14 @@ const Submissions: CollectionConfig = {
 					});
 
 					await Promise.all(tasks);
+
+					await revalidateTag(project.slug);
 				} else {
 					const tasks = languages.map(async (language) => {
 						await revalidatePath(`/${language}/projects/${doc.project.slug}`);
 					});
+
+					await revalidateTag(doc.project.slug);
 
 					await Promise.all(tasks);
 				}
