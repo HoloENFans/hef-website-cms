@@ -2,6 +2,7 @@ import { CollectionConfig } from 'payload/types';
 import checkRole from '../lib/checkRole';
 import revalidatePath from '../lib/revalidatePath';
 import { languages } from '../payload.config';
+import revalidateTag from '../lib/revalidateTag';
 
 const Guilds: CollectionConfig = {
 	slug: 'guilds',
@@ -15,20 +16,7 @@ const Guilds: CollectionConfig = {
 		plural: 'Guilds',
 	},
 	access: {
-		read: ({ req }) => {
-			// If there is a user logged in,
-			// let them retrieve all documents
-			if (req.user) return true;
-
-			// If there is no user,
-			// restrict the documents that are returned
-			// to only those where `_status` is equal to `published`
-			return {
-				_status: {
-					equals: 'published',
-				},
-			};
-		},
+		read: () => true,
 		create: ({ req }) => checkRole(req, 'superadmin'),
 		update: ({ req, data }) => {
 			const isSuperadmin = checkRole(req, 'superadmin');
@@ -37,17 +25,13 @@ const Guilds: CollectionConfig = {
 			return data?.staff ? data.staff.includes(req.user.id) : false;
 		},
 	},
-	versions: {
-		drafts: {
-			autosave: true,
-		},
-	},
 	hooks: {
 		afterChange: [
 			async () => {
 				const tasks = languages.map(async (language) => {
 					await revalidatePath(`/${language}`);
 				});
+				await revalidateTag('guilds');
 
 				await Promise.all(tasks);
 			},

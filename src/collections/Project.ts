@@ -87,16 +87,17 @@ const Projects: CollectionConfig = {
 					const tasks = languages.map(async (language) => {
 						await revalidatePath(`/${language}/projects`);
 						await revalidatePath(`/${language}/projects/${doc.slug}`);
-						await revalidateTag(doc.slug);
 
-						// eslint-disable-next-line no-underscore-dangle
 						if (previousDoc.status !== 'draft') {
 							await revalidatePath(`/${language}/projects/${previousDoc.slug}`);
-							await revalidateTag(previousDoc.slug);
 						}
 					});
 
 					await Promise.all(tasks);
+
+					await revalidateTag(doc.slug);
+					await revalidateTag(previousDoc.slug);
+					await revalidateTag('projectList');
 				}
 			},
 		],

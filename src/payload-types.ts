@@ -48,7 +48,6 @@ export interface User {
 
 export interface Media {
 	id: string;
-	prefix?: string;
 	updatedAt: string;
 	createdAt: string;
 	url?: string;
@@ -70,12 +69,10 @@ export interface Guild {
 	staff?: string[] | User[];
 	updatedAt: string;
 	createdAt: string;
-	_status?: 'draft' | 'published';
 }
 
 export interface SubmissionMedia {
 	id: string;
-	prefix?: string;
 	updatedAt: string;
 	createdAt: string;
 	url?: string;
@@ -180,7 +177,6 @@ export interface Event {
 export interface EventMedia {
 	id: string;
 	alt?: string;
-	prefix?: string;
 	updatedAt: string;
 	createdAt: string;
 	url?: string;
