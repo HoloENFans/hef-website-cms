@@ -148,13 +148,16 @@ const Events: CollectionConfig = {
 				},
 				{
 					name: 'value',
-					type: 'json',
+					type: 'text',
 					required: true,
 				},
 			],
 			access: {
 				create: ({ req }) => checkRole(req, 'developer'),
 				update: ({ req }) => checkRole(req, 'developer'),
+			},
+			admin: {
+				condition: (_data, _siblingData, req) => checkRole(req, 'developer'),
 			},
 		},
 	],
