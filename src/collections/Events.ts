@@ -132,6 +132,31 @@ const Events: CollectionConfig = {
 				leaves: ['bold', 'italic', 'underline', 'strikethrough'],
 			},
 		},
+		{
+			name: 'devprops',
+			label: 'Developer properties',
+			labels: {
+				singular: 'Property',
+				plural: 'Developer properties',
+			},
+			type: 'array',
+			fields: [
+				{
+					name: 'key',
+					type: 'text',
+					required: true,
+				},
+				{
+					name: 'value',
+					type: 'json',
+					required: true,
+				},
+			],
+			access: {
+				create: ({ req }) => checkRole(req, 'developer'),
+				update: ({ req }) => checkRole(req, 'developer'),
+			},
+		},
 	],
 };
 
