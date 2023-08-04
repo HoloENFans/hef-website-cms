@@ -1,3 +1,8 @@
+/**
+ * We have received permission to use Tripetto without a license.
+ * See their normal pricing here: https://tripetto.com/versions/
+ */
+
 import { useField } from 'payload/components/forms';
 import React, { useState } from 'react';
 import { TripettoBuilder } from '@tripetto/builder/react';
@@ -28,7 +33,9 @@ import '@tripetto/block-yes-no';
 type Props = { path: string };
 
 export default function FormBuilder({ path }: Props) {
-	const { value, setValue } = useField<IDefinition>({ path });
+	const {
+		value, setValue, showError, errorMessage,
+	} = useField<IDefinition>({ path });
 	const [isOpen, setIsOpen] = useState(false);
 
 	function onChange(definition: IDefinition) {
@@ -48,6 +55,11 @@ export default function FormBuilder({ path }: Props) {
 				>
 					<span className="btn__content"><span className="btn__label">Open form builder</span></span>
 				</button>
+				{showError && (
+					<p className="error error-message">
+						{errorMessage}
+					</p>
+				)}
 			</div>
 
 			{isOpen && (

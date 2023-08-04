@@ -1,5 +1,7 @@
 import { CollectionConfig } from 'payload/types';
-import FormBuilder from '../components/tripetto/FormBuilder.tsx';
+import { relationship } from 'payload/dist/fields/validations';
+// eslint-disable-next-line import/extensions
+import FormBuilder from '../components/tripetto/FormBuilder';
 
 const Forms: CollectionConfig = {
 	slug: 'forms',
@@ -23,6 +25,52 @@ const Forms: CollectionConfig = {
 		{
 			name: 'description',
 			type: 'textarea',
+			required: true,
+		},
+		{
+			name: 'isSubmissionForm',
+			label: 'Submission form',
+			type: 'radio',
+			options: [
+				{
+					value: 'true',
+					label: 'Yes',
+				},
+				{
+					value: 'false',
+					label: 'No',
+				},
+			],
+			admin: {
+				description: 'If this is a submission form, it should follow the guide in Discord.',
+			},
+			required: true,
+		},
+		{
+			name: 'project',
+			type: 'relationship',
+			relationTo: 'projects',
+			validate: (val, args) => {
+				if (args.siblingData.isSubmissionForm === 'true' && !val) {
+					return 'Project cannot be empty if form is a submission form';
+				}
+
+				return relationship(val, args);
+			},
+		},
+		{
+			name: 'status',
+			type: 'select',
+			options: [
+				{
+					value: 'open',
+					label: 'Open',
+				},
+				{
+					value: 'closed',
+					label: 'Closed',
+				},
+			],
 			required: true,
 		},
 		{

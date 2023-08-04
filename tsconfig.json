@@ -8,7 +8,6 @@
 		],
 		"strict": false,
 		"esModuleInterop": true,
-		"allowImportingTsExtensions": true,
 		"skipLibCheck": true,
 		"outDir": "./dist",
 		"rootDir": "./src",
@@ -20,5 +19,10 @@
 	},
 	"ts-node": {
 		"transpileOnly": true
-	}
+	},
+	"exclude": [
+		"node_modules",
+		"dist",
+		"build",
+	]
 }
