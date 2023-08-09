@@ -2,6 +2,7 @@ import { CollectionConfig } from 'payload/types';
 import { relationship } from 'payload/dist/fields/validations';
 // eslint-disable-next-line import/extensions
 import FormBuilder from '../components/tripetto/FormBuilder';
+import checkRole from '../lib/checkRole';
 
 const Forms: CollectionConfig = {
 	slug: 'forms',
@@ -14,7 +15,20 @@ const Forms: CollectionConfig = {
 		singular: 'Form',
 		plural: 'Forms',
 	},
-	access: {},
+	access: {
+		read: ({ req }) => {
+			if (req.user) return true;
+
+			return {
+				status: {
+					equals: 'open',
+				},
+			};
+		},
+		create: ({ req }) => checkRole(req, 'project-owner'),
+		update: ({ req }) => checkRole(req, 'project-owner'),
+		delete: ({ req }) => checkRole(req, 'superadmin'),
+	},
 	hooks: {},
 	fields: [
 		{

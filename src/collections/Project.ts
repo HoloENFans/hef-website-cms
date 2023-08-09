@@ -57,14 +57,12 @@ const Projects: CollectionConfig = {
 			};
 		},
 		create: async ({ req, id }) => {
-			if (checkRole(req, 'superadmin')) return true;
 			if (!checkRole(req, 'project-owner')) return false;
 
 			if (!id) return true;
 			return checkProjectOwner(req, id as string);
 		},
 		update: async ({ req, id }) => {
-			if (checkRole(req, 'superadmin')) return true;
 			if (!checkRole(req, 'project-owner')) return false;
 
 			if (!id) return true;

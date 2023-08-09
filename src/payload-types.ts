@@ -17,6 +17,8 @@ export interface Config {
     flags: Flag;
     events: Event;
     'event-media': EventMedia;
+    forms: Form;
+    'form-submissions': FormSubmission;
   };
   globals: {
     'featured-projects': FeaturedProject;
@@ -132,6 +134,7 @@ export interface Submission {
     url?: string;
     id?: string;
   }[];
+  status: 'unchecked' | 'rejected' | 'accepted';
   filterableAttributes?: {
     name: string;
     values?: {
@@ -180,6 +183,44 @@ export interface EventMedia {
   filesize?: number;
   width?: number;
   height?: number;
+}
+export interface Form {
+  id: string;
+  name: string;
+  description: string;
+  isSubmissionForm: 'true' | 'false';
+  project?: string | Project;
+  status: 'open' | 'closed';
+  form:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface FormSubmission {
+  id: string;
+  form: string | Form;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  media?: {
+    image?: string | SubmissionMedia;
+    id?: string;
+  }[];
+  updatedAt: string;
+  createdAt: string;
 }
 export interface FeaturedProject {
   id: string;

@@ -21,6 +21,7 @@ import Forms from './collections/Forms';
 /* eslint-disable import/extensions */
 import Icon from './components/branding/Icon';
 import Logo from './components/branding/Logo';
+import FormSubmissions from './collections/FormSubmissions';
 /* eslint-enable */
 
 const adapter = s3Adapter({
@@ -87,6 +88,7 @@ export default buildConfig({
 		Events,
 		EventMedia,
 		Forms,
+		FormSubmissions,
 	],
 	globals: [
 		FeaturedProjects,
