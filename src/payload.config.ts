@@ -17,6 +17,12 @@ import Events from './collections/Events';
 import EventMedia from './collections/EventMedia';
 import Forms from './collections/Forms';
 
+// Components
+/* eslint-disable import/extensions */
+import Icon from './components/branding/Icon';
+import Logo from './components/branding/Logo';
+/* eslint-enable */
+
 const adapter = s3Adapter({
 	config: {
 		endpoint: process.env.S3_ENDPOINT,
@@ -54,7 +60,15 @@ export default buildConfig({
 	admin: {
 		user: Users.slug,
 		meta: {
-			titleSuffix: '- HoloEN Fan Website',
+			titleSuffix: '- HoloEN Fan Website CMS',
+			favicon: '/assets/favicon.svg',
+		},
+		css: path.resolve(__dirname, 'styles/styles.css'),
+		components: {
+			graphics: {
+				Icon,
+				Logo,
+			},
 		},
 	},
 	localization: {

@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import payload from 'payload';
+import path from 'path';
 
 const app = express();
 
@@ -8,6 +9,8 @@ const app = express();
 app.get('/', (_, res) => {
 	res.redirect('/admin');
 });
+
+app.use('/assets', express.static(path.resolve(__dirname, '../assets')));
 
 // Initialize Payload
 const start = async () => {

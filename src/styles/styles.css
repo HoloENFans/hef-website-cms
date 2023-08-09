@@ -1,0 +1,18 @@
+:root {
+	--color-branding-primary: #FF3E3C;
+	--color-branding-secondary: white;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--color-branding-primary: #FF3E3C;
+		--color-branding-secondary: white;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-branding-primary: white;
+		--color-branding-secondary: #FF3E3C;
+	}
+}
