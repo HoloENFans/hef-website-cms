@@ -5,7 +5,17 @@ import path from 'path';
 
 const app = express();
 
-// Redirect root to Admin panel
+// Order matters!
+app.get('/robots.txt', (_, res) => {
+	res.type('text/plain');
+	res.send('User-agent: *\nDisallow: /');
+});
+
+app.use((_, res, next) => {
+	res.header('X-Robots-Tag', 'noindex');
+	next();
+});
+
 app.get('/', (_, res) => {
 	res.redirect('/admin');
 });
