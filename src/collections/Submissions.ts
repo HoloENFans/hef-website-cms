@@ -16,22 +16,18 @@ const Submissions: CollectionConfig = {
 		defaultColumns: ['author', '_status', 'project', 'id'],
 	},
 	access: {
-		read: async () => true,
-		// TODO: Approval checking
-		// If there is a user logged in,
-		// let them retrieve all documents
-		/* if (req.user) return true;
+		read: ({ req }) => {
+			if (req.user) return true;
 
 			return {
-				_status: {
-					equals: 'published',
+				status: {
+					equals: 'accepted',
 				},
-			}; */
-
+			};
+		},
 		create: ({ req }) => checkRole(req, 'project-owner'),
 		update: ({ req }) => checkRole(req, ['project-owner', 'content-moderator']),
 		delete: async ({ req, id }) => {
-			if (checkRole(req, 'superadmin')) return true;
 			if (!checkRole(req, ['project-owner', 'content-moderator'])) return false;
 
 			if (!id) return true;
@@ -172,6 +168,25 @@ const Submissions: CollectionConfig = {
 					},
 				},
 			],
+		},
+		{
+			name: 'status',
+			type: 'select',
+			options: [
+				{
+					value: 'unchecked',
+					label: 'Unchecked',
+				},
+				{
+					value: 'rejected',
+					label: 'Rejected',
+				},
+				{
+					value: 'accepted',
+					label: 'Accepted',
+				},
+			],
+			required: true,
 		},
 		{
 			name: 'filterableAttributes',

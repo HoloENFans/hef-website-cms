@@ -19,5 +19,10 @@
 	},
 	"ts-node": {
 		"transpileOnly": true
-	}
+	},
+	"exclude": [
+		"node_modules",
+		"dist",
+		"build",
+	]
 }

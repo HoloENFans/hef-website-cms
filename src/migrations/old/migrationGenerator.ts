@@ -1,21 +1,22 @@
 import 'dotenv/config';
 import payload from 'payload';
-import { PaginatedDocs } from 'payload/dist/mongoose/types';
 import { Options } from 'payload/dist/collections/operations/local/findByID';
 import path from 'path';
+import type { PaginatedDocs } from 'payload/database';
 
 // eslint-disable-next-line max-len
-export default async function runMigrationFunction<O = any, R = O>(collectionSlug: string, migrationFn: (doc: O) => Promise<Partial<R>>, dry = false, overrideFindOptions: Partial<Options<string>> = {}) {
+export default async function runMigrationFunction<O = any, R = O>(collectionSlug: string, migrationFn: (doc: O) => Promise<Partial<R>>, dry = false, overrideFindOptions: Partial<Options<any>> = {}) {
 	process.env.PAYLOAD_CONFIG_PATH = path.resolve(__dirname, '../payload.config.ts');
 
 	await payload.init({
 		secret: process.env.PAYLOAD_SECRET,
+		// @ts-ignore
 		mongoURL: process.env.MONGODB_URI,
 		local: true,
 	});
 
 	const results: PaginatedDocs<O> = await payload.find({
-		collection: collectionSlug,
+		collection: collectionSlug as any,
 		depth: 0,
 		limit: 20000,
 		...overrideFindOptions,
@@ -33,7 +34,7 @@ export default async function runMigrationFunction<O = any, R = O>(collectionSlu
 						console.log(`Running dry, would be updating '${id}' with:`, dataChange);
 					} else {
 						await payload.update({
-							collection: collectionSlug,
+							collection: collectionSlug as any,
 							id,
 							data: dataChange,
 						});

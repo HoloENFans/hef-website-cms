@@ -17,43 +17,60 @@ export interface Config {
     flags: Flag;
     events: Event;
     'event-media': EventMedia;
+    forms: Form;
+    'form-submissions': FormSubmission;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
   };
   globals: {
     'featured-projects': FeaturedProject;
     notice: Notice;
   };
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
 export interface User {
   id: string;
   name: string;
   roles: ('superadmin' | 'project-owner' | 'content-moderator' | 'developer' | 'translator')[];
   updatedAt: string;
   createdAt: string;
-  enableAPIKey?: boolean;
-  apiKey?: string;
-  apiKeyIndex?: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
   email: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  salt?: string;
-  hash?: string;
-  _verified?: boolean;
-  _verificationToken?: string;
-  loginAttempts?: number;
-  lockUntil?: string;
-  password?: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  _verified?: boolean | null;
+  _verificationToken?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
 export interface Media {
   id: string;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
-  url?: string;
-  filename?: string;
-  mimeType?: string;
-  filesize?: number;
-  width?: number;
-  height?: number;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "guilds".
+ */
 export interface Guild {
   id: string;
   name: string;
@@ -61,22 +78,31 @@ export interface Guild {
   debutDate: string;
   invite: string;
   icon: string | Media;
-  color?: string;
-  staff?: string[] | User[];
+  color?: string | null;
+  staff?: (string | User)[] | null;
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "submission-media".
+ */
 export interface SubmissionMedia {
   id: string;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
-  url?: string;
-  filename?: string;
-  mimeType?: string;
-  filesize?: number;
-  width?: number;
-  height?: number;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
 export interface Project {
   id: string;
   title: string;
@@ -87,31 +113,41 @@ export interface Project {
   }[];
   organizer: string | Guild;
   status: 'draft' | 'ongoing' | 'past';
-  links?: {
-    name: string;
-    url: string;
-    id?: string;
-  }[];
-  media?: {
-    type: 'image' | 'video';
-    media?: string | Media;
-    url?: string;
-    id?: string;
-  }[];
+  links?:
+    | {
+        name: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  media?:
+    | {
+        type: 'image' | 'video';
+        media?: string | Media | null;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   date: string;
   image: string | Media;
-  ogImage?: string | Media;
-  'submission-url'?: string;
-  collaborators?: string[] | User[];
-  flags?: string[] | Flag[];
-  devprops?: {
-    key: string;
-    value: string;
-    id?: string;
-  }[];
+  ogImage?: string | Media | null;
+  'submission-url'?: string | null;
+  collaborators?: (string | User)[] | null;
+  flags?: (string | Flag)[] | null;
+  devprops?:
+    | {
+        key: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "flags".
+ */
 export interface Flag {
   id: string;
   code: string;
@@ -119,81 +155,202 @@ export interface Flag {
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "submissions".
+ */
 export interface Submission {
   id: string;
   project: string | Project;
   author: string;
-  srcIcon?: string | SubmissionMedia;
-  message?: string;
-  media?: {
-    type: 'image' | 'video';
-    subtype?: 'artwork' | 'picture' | 'other';
-    image?: string | SubmissionMedia;
-    url?: string;
-    id?: string;
-  }[];
-  filterableAttributes?: {
-    name: string;
-    values?: {
-      value: string;
-      id?: string;
-    }[];
-    id?: string;
-  }[];
-  devprops?: {
-    key: string;
-    value: string;
-    id?: string;
-  }[];
+  srcIcon?: string | SubmissionMedia | null;
+  message?: string | null;
+  media?:
+    | {
+        type: 'image' | 'video';
+        subtype?: ('artwork' | 'picture' | 'other') | null;
+        image?: string | SubmissionMedia | null;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  status: 'unchecked' | 'rejected' | 'accepted';
+  filterableAttributes?:
+    | {
+        name: string;
+        values?:
+          | {
+              value: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  devprops?:
+    | {
+        key: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
 export interface Event {
   id: string;
   title: string;
   project: string | Project;
   date: string;
   images: {
-    image?: string | EventMedia;
-    id?: string;
+    image?: string | EventMedia | null;
+    id?: string | null;
   }[];
-  backgroundImage?: string | EventMedia;
+  backgroundImage?: string | EventMedia | null;
   content: {
     [k: string]: unknown;
   }[];
-  devprops?: {
-    key: string;
-    value: string;
-    id?: string;
-  }[];
+  devprops?:
+    | {
+        key: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-media".
+ */
 export interface EventMedia {
   id: string;
-  alt?: string;
+  alt?: string | null;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
-  url?: string;
-  filename?: string;
-  mimeType?: string;
-  filesize?: number;
-  width?: number;
-  height?: number;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms".
+ */
+export interface Form {
+  id: string;
+  name: string;
+  description: string;
+  isSubmissionForm: 'true' | 'false';
+  project?: (string | null) | Project;
+  status: 'open' | 'closed';
+  form:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions".
+ */
+export interface FormSubmission {
+  id: string;
+  form: string | Form;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  media?:
+    | {
+        image?: string | SubmissionMedia | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences".
+ */
+export interface PayloadPreference {
+  id: string;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  key?: string | null;
+  value?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations".
+ */
+export interface PayloadMigration {
+  id: string;
+  name?: string | null;
+  batch?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "featured-projects".
+ */
 export interface FeaturedProject {
   id: string;
-  projects?: string[] | Project[];
-  updatedAt?: string;
-  createdAt?: string;
+  projects?: (string | Project)[] | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notice".
+ */
 export interface Notice {
   id: string;
-  enabled?: boolean;
-  description?: string;
-  message?: {
-    [k: string]: unknown;
-  }[];
-  updatedAt?: string;
-  createdAt?: string;
+  enabled?: boolean | null;
+  description?: string | null;
+  message?:
+    | {
+        [k: string]: unknown;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+
+
+declare module 'payload' {
+  export interface GeneratedTypes extends Config {}
 }

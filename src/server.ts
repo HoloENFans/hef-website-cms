@@ -1,19 +1,31 @@
 import 'dotenv/config';
 import express from 'express';
 import payload from 'payload';
+import path from 'path';
 
 const app = express();
 
-// Redirect root to Admin panel
+// Order matters!
+app.get('/robots.txt', (_, res) => {
+	res.type('text/plain');
+	res.send('User-agent: *\nDisallow: /');
+});
+
+app.use((_, res, next) => {
+	res.header('X-Robots-Tag', 'noindex');
+	next();
+});
+
 app.get('/', (_, res) => {
 	res.redirect('/admin');
 });
+
+app.use('/assets', express.static(path.resolve(__dirname, '../assets')));
 
 // Initialize Payload
 const start = async () => {
 	await payload.init({
 		secret: process.env.PAYLOAD_SECRET,
-		mongoURL: process.env.MONGODB_URI,
 		express: app,
 		onInit: () => {
 			payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);

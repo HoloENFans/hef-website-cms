@@ -2,6 +2,10 @@ import { buildConfig } from 'payload/config';
 import path from 'path';
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
 import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
+import { mongooseAdapter } from '@payloadcms/db-mongodb';
+import { slateEditor } from '@payloadcms/richtext-slate';
+// import { viteBundler } from '@payloadcms/bundler-vite';
+import { webpackBundler } from '@payloadcms/bundler-webpack';
 
 // Collections
 import Users from './collections/Users';
@@ -15,6 +19,14 @@ import Flags from './collections/Flags';
 import Notice from './globals/Notice';
 import Events from './collections/Events';
 import EventMedia from './collections/EventMedia';
+import Forms from './collections/Forms';
+
+// Components
+/* eslint-disable import/extensions */
+import Icon from './components/branding/Icon';
+import Logo from './components/branding/Logo';
+import FormSubmissions from './collections/FormSubmissions';
+/* eslint-enable */
 
 const adapter = s3Adapter({
 	config: {
@@ -51,11 +63,21 @@ export default buildConfig({
 		skip: (req) => req.header('X-RateLimit-Bypass') === process.env.PAYLOAD_BYPASS_RATE_LIMIT_KEY,
 	},
 	admin: {
+		bundler: webpackBundler(),
 		user: Users.slug,
 		meta: {
-			titleSuffix: '- HoloEN Fan Website',
+			titleSuffix: '- HoloEN Fan Website CMS',
+			favicon: '/assets/favicon.svg',
+		},
+		css: path.resolve(__dirname, 'styles/styles.css'),
+		components: {
+			graphics: {
+				Icon,
+				Logo,
+			},
 		},
 	},
+	editor: slateEditor({}),
 	localization: {
 		locales: languages,
 		defaultLocale: 'en',
@@ -71,6 +93,8 @@ export default buildConfig({
 		Flags,
 		Events,
 		EventMedia,
+		Forms,
+		FormSubmissions,
 	],
 	globals: [
 		FeaturedProjects,
@@ -110,4 +134,7 @@ export default buildConfig({
 		outputFile: path.resolve(__dirname, 'payload-types.ts'),
 	},
 	maxDepth: 10,
+	db: mongooseAdapter({
+		url: process.env.MONGODB_URI,
+	}),
 });

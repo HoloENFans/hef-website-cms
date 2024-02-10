@@ -9,7 +9,7 @@ const Guilds: CollectionConfig = {
 	admin: {
 		useAsTitle: 'name',
 		description: 'Server list on the website',
-		preview: () => `${process.env.PAYLOAD_PUBLIC_WEBSITE_URL}/guilds`,
+		preview: () => `${process.env.PAYLOAD_PUBLIC_WEBSITE_URL}`,
 	},
 	labels: {
 		singular: 'Guild',
@@ -19,8 +19,7 @@ const Guilds: CollectionConfig = {
 		read: () => true,
 		create: ({ req }) => checkRole(req, 'superadmin'),
 		update: ({ req, data }) => {
-			const isSuperadmin = checkRole(req, 'superadmin');
-			if (isSuperadmin) return true;
+			if (checkRole(req, 'superadmin')) return true;
 
 			return data?.staff ? data.staff.includes(req.user.id) : false;
 		},

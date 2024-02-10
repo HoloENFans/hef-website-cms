@@ -24,7 +24,6 @@ const Events: CollectionConfig = {
 		create: ({ req }) => checkRole(req, 'project-owner'),
 		update: ({ req }) => checkRole(req, ['project-owner', 'content-moderator']),
 		delete: async ({ req, id }) => {
-			if (checkRole(req, 'superadmin')) return true;
 			if (!checkRole(req, ['project-owner', 'content-moderator'])) return false;
 
 			if (!id) return true;
@@ -127,10 +126,6 @@ const Events: CollectionConfig = {
 			name: 'content',
 			type: 'richText',
 			required: true,
-			admin: {
-				elements: ['link', 'blockquote', 'ul', 'ol', 'indent'],
-				leaves: ['bold', 'italic', 'underline', 'strikethrough'],
-			},
 		},
 		{
 			name: 'devprops',
