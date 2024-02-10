@@ -126,10 +126,6 @@ const Events: CollectionConfig = {
 			name: 'content',
 			type: 'richText',
 			required: true,
-			admin: {
-				elements: ['link', 'blockquote', 'ul', 'ol', 'indent'],
-				leaves: ['bold', 'italic', 'underline', 'strikethrough'],
-			},
 		},
 		{
 			name: 'devprops',

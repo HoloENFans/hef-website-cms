@@ -1,5 +1,5 @@
 import runMigrationFunction from './migrationGenerator';
-import { Project, SubmissionMedia } from '../payload-types';
+import { Project, SubmissionMedia } from '../../payload-types';
 
 interface OldSubmission {
 	id: string;

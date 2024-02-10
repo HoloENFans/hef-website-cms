@@ -8,6 +8,8 @@ import revalidateTag from '../lib/revalidateTag';
 
 // Helper functions
 async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boolean> {
+	if (checkRole(req, 'superadmin')) return true;
+
 	const project = await req.payload.findByID({
 		collection: 'projects',
 		id,
