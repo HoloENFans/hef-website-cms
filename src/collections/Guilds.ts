@@ -69,11 +69,6 @@ const Guilds: CollectionConfig = {
 			required: true,
 		},
 		{
-			// TODO: Replace with custom component
-			name: 'color',
-			type: 'text',
-		},
-		{
 			name: 'staff',
 			type: 'relationship',
 			relationTo: 'users',

@@ -1,7 +1,6 @@
 import { CollectionConfig } from 'payload/types';
 import { PayloadRequest } from 'payload/dist/express/types';
 import checkRole from '../lib/checkRole';
-import { Guild } from '../payload-types';
 import revalidatePath from '../lib/revalidatePath';
 import { languages } from '../payload.config';
 import revalidateTag from '../lib/revalidateTag';
@@ -16,12 +15,12 @@ async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boole
 		depth: 1,
 	});
 
-	const staffList = (((project.organizer as Guild).staff ?? []) as string[])
+	const staffList = (project.organizers.flatMap((guild) => guild.staff ?? []) as string[])
 		.concat(
 			(project.collaborators ?? []) as string[],
 		);
 
-	return staffList?.includes(req.user.id);
+	return staffList.includes(req.user.id);
 }
 
 async function fieldCheckProjectOwner(req: PayloadRequest, id?: string): Promise<boolean> {
@@ -156,8 +155,10 @@ const Projects: CollectionConfig = {
 			},
 		},
 		{
-			name: 'organizer',
+			name: 'organizers',
 			type: 'relationship',
+			hasMany: true,
+			minRows: 1,
 			relationTo: 'guilds',
 			required: true,
 			access: {
@@ -300,6 +301,86 @@ const Projects: CollectionConfig = {
 				read: ({ req }) => !!req.user,
 				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
+		},
+		{
+			name: 'skin',
+			type: 'select',
+			required: true,
+			defaultValue: 'HoloEN',
+			options: [
+				{
+					label: 'HoloEN',
+					value: 'holoEN',
+				},
+				{
+					label: 'Ina',
+					value: 'ina',
+				},
+				{
+					label: 'Amelia',
+					value: 'amelia',
+				},
+				{
+					label: 'Gura',
+					value: 'gura',
+				},
+				{
+					label: 'Kiara',
+					value: 'kiara',
+				},
+				{
+					label: 'Mori',
+					value: 'mori',
+				},
+				{
+					label: 'IRyS',
+					value: 'irys',
+				},
+				{
+					label: 'Sana',
+					value: 'sana',
+				},
+				{
+					label: 'Fauna',
+					value: 'fauna',
+				},
+				{
+					label: 'Kronii',
+					value: 'kronii',
+				},
+				{
+					label: 'Mumei',
+					value: 'mumei',
+				},
+				{
+					label: 'Baelz',
+					value: 'baelz',
+				},
+				{
+					label: 'Shiori',
+					value: 'shiori',
+				},
+				{
+					label: 'Bijou',
+					value: 'bijou',
+				},
+				{
+					label: 'Nerissa',
+					value: 'nerissa',
+				},
+				{
+					label: 'Fuwawa',
+					value: 'fuwawa',
+				},
+				{
+					label: 'Mococo',
+					value: 'mococo',
+				},
+				{
+					label: 'FuwaMoco',
+					value: 'fuwamoco',
+				},
+			],
 		},
 		{
 			name: 'flags',

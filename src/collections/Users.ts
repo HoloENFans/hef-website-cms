@@ -16,9 +16,9 @@ const Users: CollectionConfig = {
 		plural: 'Users',
 	},
 	access: {
-		read: ({ req }) => checkRole(req, 'superadmin'),
+		read: ({ req, id }) => req.user?.id === id || checkRole(req, 'superadmin'),
 		create: ({ req }) => checkRole(req, 'superadmin'),
-		update: ({ req }) => checkRole(req, 'superadmin'),
+		update: ({ req, id }) => req.user?.id === id || checkRole(req, 'superadmin'),
 		delete: ({ req }) => checkRole(req, 'superadmin'),
 	},
 	fields: [

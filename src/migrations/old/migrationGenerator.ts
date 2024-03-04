@@ -6,7 +6,7 @@ import type { PaginatedDocs } from 'payload/database';
 
 // eslint-disable-next-line max-len
 export default async function runMigrationFunction<O = any, R = O>(collectionSlug: string, migrationFn: (doc: O) => Promise<Partial<R>>, dry = false, overrideFindOptions: Partial<Options<any>> = {}) {
-	process.env.PAYLOAD_CONFIG_PATH = path.resolve(__dirname, '../payload.config.ts');
+	process.env.PAYLOAD_CONFIG_PATH = path.resolve(__dirname, '../../payload.config.ts');
 
 	await payload.init({
 		secret: process.env.PAYLOAD_SECRET,
