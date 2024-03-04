@@ -1,5 +1,5 @@
 import { CollectionConfig } from 'payload/types';
-import checkRole from '../lib/checkRole';
+import checkRole from '@/lib/checkRole';
 
 const Media: CollectionConfig = {
 	slug: 'submission-media',

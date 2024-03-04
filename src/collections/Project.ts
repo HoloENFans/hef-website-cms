@@ -1,9 +1,10 @@
 import { CollectionConfig } from 'payload/types';
 import { PayloadRequest } from 'payload/dist/express/types';
-import checkRole from '../lib/checkRole';
-import revalidatePath from '../lib/revalidatePath';
-import { languages } from '../payload.config';
-import revalidateTag from '../lib/revalidateTag';
+import { Guild } from 'payload/generated-types';
+import checkRole from '@/lib/checkRole';
+import revalidatePath from '@/lib/revalidatePath';
+import { languages } from '@/payload.config';
+import revalidateTag from '@/lib/revalidateTag';
 
 // Helper functions
 async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boolean> {
@@ -15,7 +16,8 @@ async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boole
 		depth: 1,
 	});
 
-	const staffList = (project.organizers.flatMap((guild) => guild.staff ?? []) as string[])
+	const staffList = ((project.organizers as Guild[])
+		.flatMap((guild) => guild.staff ?? []) as string[])
 		.concat(
 			(project.collaborators ?? []) as string[],
 		);

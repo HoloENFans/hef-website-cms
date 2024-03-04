@@ -1,12 +1,12 @@
 import { CollectionConfig } from 'payload/types';
 import { PayloadRequest } from 'payload/dist/express/types';
-import checkRole from '../lib/checkRole';
+import checkRole from '@/lib/checkRole';
 import {
 	Guild, Project, Submission, SubmissionMedia,
-} from '../payload-types';
-import revalidatePath from '../lib/revalidatePath';
-import { languages } from '../payload.config';
-import revalidateTag from '../lib/revalidateTag';
+} from 'payload/generated-types';
+import revalidatePath from '@/lib/revalidatePath';
+import { languages } from '@/payload.config';
+import revalidateTag from '@/lib/revalidateTag';
 
 const Submissions: CollectionConfig = {
 	slug: 'submissions',
@@ -36,8 +36,9 @@ const Submissions: CollectionConfig = {
 				id,
 				depth: 2,
 			});
-			const staffList = ((submission.project as Project).organizer as Guild).staff;
-			return staffList?.includes(req.user.id);
+			const staffList = ((submission.project as Project).organizers as Guild[])
+				.flatMap((guild) => guild.staff) as string[];
+			return staffList.includes(req.user.id);
 		},
 	},
 	labels: {

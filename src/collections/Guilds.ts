@@ -1,8 +1,8 @@
 import { CollectionConfig } from 'payload/types';
-import checkRole from '../lib/checkRole';
-import revalidatePath from '../lib/revalidatePath';
-import { languages } from '../payload.config';
-import revalidateTag from '../lib/revalidateTag';
+import checkRole from '@/lib/checkRole';
+import revalidatePath from '@/lib/revalidatePath';
+import { languages } from '@/payload.config';
+import revalidateTag from '@/lib/revalidateTag';
 
 const Guilds: CollectionConfig = {
 	slug: 'guilds',

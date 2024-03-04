@@ -1,8 +1,8 @@
 import { CollectionConfig } from 'payload/types';
 import { relationship } from 'payload/dist/fields/validations';
 // eslint-disable-next-line import/extensions
-import FormBuilder from '../components/tripetto/FormBuilder';
-import checkRole from '../lib/checkRole';
+import FormBuilder from '@/components/tripetto/FormBuilder';
+import checkRole from '@/lib/checkRole';
 
 const Forms: CollectionConfig = {
 	slug: 'forms',

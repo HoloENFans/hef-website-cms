@@ -1,7 +1,7 @@
 import { CollectionConfig } from 'payload/types';
 import { PayloadRequest } from 'payload/dist/express/types';
-import checkRole from '../lib/checkRole';
-import { FormSubmission, SubmissionMedia } from '../payload-types';
+import checkRole from '@/lib/checkRole';
+import { FormSubmission, SubmissionMedia } from 'payload/generated-types';
 
 const FormSubmissions: CollectionConfig = {
 	slug: 'form-submissions',

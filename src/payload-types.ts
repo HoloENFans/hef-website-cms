@@ -57,7 +57,6 @@ export interface User {
  */
 export interface Media {
   id: string;
-  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -78,7 +77,6 @@ export interface Guild {
   debutDate: string;
   invite: string;
   icon: string | Media;
-  color?: string | null;
   staff?: (string | User)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -89,7 +87,6 @@ export interface Guild {
  */
 export interface SubmissionMedia {
   id: string;
-  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -111,7 +108,7 @@ export interface Project {
   description: {
     [k: string]: unknown;
   }[];
-  organizer: string | Guild;
+  organizers: (string | Guild)[];
   status: 'draft' | 'ongoing' | 'past';
   links?:
     | {
@@ -133,6 +130,25 @@ export interface Project {
   ogImage?: string | Media | null;
   'submission-url'?: string | null;
   collaborators?: (string | User)[] | null;
+  skin:
+    | 'holoEN'
+    | 'ina'
+    | 'amelia'
+    | 'gura'
+    | 'kiara'
+    | 'mori'
+    | 'irys'
+    | 'sana'
+    | 'fauna'
+    | 'kronii'
+    | 'mumei'
+    | 'baelz'
+    | 'shiori'
+    | 'bijou'
+    | 'nerissa'
+    | 'fuwawa'
+    | 'mococo'
+    | 'fuwamoco';
   flags?: (string | Flag)[] | null;
   devprops?:
     | {
@@ -231,7 +247,6 @@ export interface Event {
 export interface EventMedia {
   id: string;
   alt?: string | null;
-  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;

@@ -1,7 +1,7 @@
 import { GlobalConfig } from 'payload/types';
-import checkRole from '../lib/checkRole';
-import revalidatePath from '../lib/revalidatePath';
-import { languages } from '../payload.config';
+import checkRole from '@/lib/checkRole';
+import revalidatePath from '@/lib/revalidatePath';
+import { languages } from '@/payload.config';
 
 const FeaturedProjects: GlobalConfig = {
 	slug: 'featured-projects',

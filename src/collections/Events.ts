@@ -2,11 +2,11 @@ import type { CollectionConfig, PayloadRequest } from 'payload/types';
 import { User } from 'payload/auth';
 import {
 	Project, Event, EventMedia, Guild,
-} from '../payload-types';
-import revalidatePath from '../lib/revalidatePath';
-import { languages } from '../payload.config';
-import checkRole from '../lib/checkRole';
-import revalidateTag from '../lib/revalidateTag';
+} from 'payload/generated-types';
+import revalidatePath from '@/lib/revalidatePath';
+import { languages } from '@/payload.config';
+import checkRole from '@/lib/checkRole';
+import revalidateTag from '@/lib/revalidateTag';
 
 const Events: CollectionConfig = {
 	slug: 'events',
@@ -33,7 +33,8 @@ const Events: CollectionConfig = {
 				depth: 2,
 			});
 			const project = event.project as Project;
-			const staffList = (project.organizer as Guild).staff as string[];
+			const staffList = ((project.organizers as Guild[])
+				.flatMap((guild) => guild.staff)) as string[];
 			const collaborators = (project.collaborators as unknown as User[]).map((user) => user.id);
 			return collaborators?.includes(req.user.id) || staffList?.includes(req.user.id);
 		},

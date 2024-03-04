@@ -1,5 +1,5 @@
 import { GlobalConfig } from 'payload/types';
-import checkRole from '../lib/checkRole';
+import checkRole from '@/lib/checkRole';
 
 const Notice: GlobalConfig = {
 	slug: 'notice',

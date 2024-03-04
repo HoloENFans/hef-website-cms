@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload/types';
-import checkRole from '../lib/checkRole';
+import checkRole from '@/lib/checkRole';
 
 const EventMedia: CollectionConfig = {
 	slug: 'event-media',
