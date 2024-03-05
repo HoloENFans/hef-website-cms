@@ -1,10 +1,10 @@
 import { CollectionConfig } from 'payload/types';
 import { PayloadRequest } from 'payload/dist/express/types';
-import { Guild } from 'payload/generated-types';
-import checkRole from '@/lib/checkRole';
-import revalidatePath from '@/lib/revalidatePath';
-import { languages } from '@/payload.config';
-import revalidateTag from '@/lib/revalidateTag';
+import checkRole from '../lib/checkRole';
+import revalidatePath from '../lib/revalidatePath';
+import { languages } from '../payload.config';
+import revalidateTag from '../lib/revalidateTag';
+import { Guild } from '../payload-types';
 
 // Helper functions
 async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boolean> {

@@ -2,11 +2,11 @@ import type { CollectionConfig, PayloadRequest } from 'payload/types';
 import { User } from 'payload/auth';
 import {
 	Project, Event, EventMedia, Guild,
-} from 'payload/generated-types';
-import revalidatePath from '@/lib/revalidatePath';
-import { languages } from '@/payload.config';
-import checkRole from '@/lib/checkRole';
-import revalidateTag from '@/lib/revalidateTag';
+} from '../payload-types';
+import revalidatePath from '../lib/revalidatePath';
+import { languages } from '../payload.config';
+import checkRole from '../lib/checkRole';
+import revalidateTag from '../lib/revalidateTag';
 
 const Events: CollectionConfig = {
 	slug: 'events',

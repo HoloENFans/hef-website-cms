@@ -16,19 +16,7 @@ module.exports = {
 	},
 	plugins: [
 		'@typescript-eslint',
-		'import'
 	],
-	settings: {
-		'import/parsers': {
-			'@typescript-eslint/parser': ['.ts', '.tsx'],
-		},
-		'import/resolver': {
-			typescript: {
-				alwaysTryTypes: true,
-				project: './tsconfig.json'
-			},
-		},
-	},
 	rules: {
 		indent: 'off',
 		'no-bitwise': 'off',
