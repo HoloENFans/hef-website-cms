@@ -171,11 +171,19 @@ const Projects: CollectionConfig = {
 			name: 'status',
 			type: 'select',
 			required: true,
-			defaultValue: 'ongoing',
+			defaultValue: 'draft',
 			options: [
 				{
 					label: 'Draft',
 					value: 'draft',
+				},
+				{
+					label: 'Submissions open',
+					value: 'submissions-open',
+				},
+				{
+					label: 'Submissions closed',
+					value: 'submissions-closed',
 				},
 				{
 					label: 'Ongoing',
