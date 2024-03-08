@@ -48,6 +48,10 @@ const Submissions: CollectionConfig = {
 	hooks: {
 		afterDelete: [
 			async ({ req, doc }: { req: PayloadRequest, doc: Submission }) => {
+				if (req.user.name.toLowerCase().startsWith('service-')) {
+					return;
+				}
+
 				// Delete any images connected to this submission
 				await Promise.all(doc.media.map(async (media) => {
 					if (media.type === 'image' && media.image) {
@@ -62,6 +66,10 @@ const Submissions: CollectionConfig = {
 		],
 		afterChange: [
 			async ({ req, doc }) => {
+				if (req.user.name.toLowerCase().startsWith('service-')) {
+					return;
+				}
+
 				if (doc.project instanceof String) {
 					const project: Project = await req.payload.findByID({
 						collection: 'projects',
