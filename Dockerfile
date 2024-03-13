@@ -31,6 +31,7 @@ WORKDIR /app
 
 # Copy dependencies
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/assets ./assets
 
 # Copy transpiled code
 COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
