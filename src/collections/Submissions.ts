@@ -48,7 +48,7 @@ const Submissions: CollectionConfig = {
 	hooks: {
 		afterDelete: [
 			async ({ req, doc }: { req: PayloadRequest, doc: Submission }) => {
-				if (req.user.name.toLowerCase().startsWith('service-')) {
+				if (req.user.email.toLowerCase().endsWith('service.holoen.fans')) {
 					return;
 				}
 
@@ -66,7 +66,7 @@ const Submissions: CollectionConfig = {
 		],
 		afterChange: [
 			async ({ req, doc }) => {
-				if (req.user.name.toLowerCase().startsWith('service-')) {
+				if (req.user.email.toLowerCase().endsWith('service.holoen.fans')) {
 					return;
 				}
 
