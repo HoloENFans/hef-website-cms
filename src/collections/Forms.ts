@@ -88,6 +88,86 @@ const Forms: CollectionConfig = {
 			required: true,
 		},
 		{
+			name: 'skin',
+			type: 'select',
+			required: true,
+			defaultValue: 'HoloEN',
+			options: [
+				{
+					label: 'HoloEN',
+					value: 'holoEN',
+				},
+				{
+					label: 'Ina',
+					value: 'ina',
+				},
+				{
+					label: 'Amelia',
+					value: 'amelia',
+				},
+				{
+					label: 'Gura',
+					value: 'gura',
+				},
+				{
+					label: 'Kiara',
+					value: 'kiara',
+				},
+				{
+					label: 'Mori',
+					value: 'mori',
+				},
+				{
+					label: 'IRyS',
+					value: 'irys',
+				},
+				{
+					label: 'Sana',
+					value: 'sana',
+				},
+				{
+					label: 'Fauna',
+					value: 'fauna',
+				},
+				{
+					label: 'Kronii',
+					value: 'kronii',
+				},
+				{
+					label: 'Mumei',
+					value: 'mumei',
+				},
+				{
+					label: 'Baelz',
+					value: 'baelz',
+				},
+				{
+					label: 'Shiori',
+					value: 'shiori',
+				},
+				{
+					label: 'Bijou',
+					value: 'bijou',
+				},
+				{
+					label: 'Nerissa',
+					value: 'nerissa',
+				},
+				{
+					label: 'Fuwawa',
+					value: 'fuwawa',
+				},
+				{
+					label: 'Mococo',
+					value: 'mococo',
+				},
+				{
+					label: 'FuwaMoco',
+					value: 'fuwamoco',
+				},
+			],
+		},
+		{
 			name: 'form',
 			type: 'json',
 			admin: {
