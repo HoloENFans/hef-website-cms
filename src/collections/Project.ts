@@ -265,6 +265,7 @@ const Projects: CollectionConfig = {
 			type: 'date',
 			defaultValue: new Date().toISOString(),
 			required: true,
+			label: 'Event date',
 			access: {
 				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
@@ -274,6 +275,10 @@ const Projects: CollectionConfig = {
 			type: 'upload',
 			relationTo: 'media',
 			required: true,
+			label: 'Poster',
+			admin: {
+				description: 'This is the image that shows up on the projects listing page',
+			},
 			access: {
 				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
@@ -309,6 +314,18 @@ const Projects: CollectionConfig = {
 			},
 			access: {
 				read: ({ req }) => !!req.user,
+				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
+			},
+		},
+		{
+			name: 'hasSubmissions',
+			type: 'checkbox',
+			defaultValue: true,
+			label: 'Has submissions page',
+			admin: {
+				description: 'Enable if your project has submissions, otherwise the submissions page will be disabled.',
+			},
+			access: {
 				update: ({ req, data }) => fieldCheckProjectOwner(req, data?.id),
 			},
 		},

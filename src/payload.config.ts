@@ -3,11 +3,11 @@ import path from 'path';
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
 import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
-import { slateEditor } from '@payloadcms/richtext-slate';
 // import { viteBundler } from '@payloadcms/bundler-vite';
 import { webpackBundler } from '@payloadcms/bundler-webpack';
 
 // Collections
+import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import Users from './collections/Users';
 import Guilds from './collections/Guilds';
 import Media from './collections/Media';
@@ -77,7 +77,7 @@ export default buildConfig({
 			},
 		},
 	},
-	editor: slateEditor({}),
+	editor: lexicalEditor({}),
 	localization: {
 		locales: languages,
 		defaultLocale: 'en',
