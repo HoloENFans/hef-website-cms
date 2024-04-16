@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import payload from 'payload';
 import path from 'path';
+import formsRouter from './routers/forms';
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.get('/', (_, res) => {
 });
 
 app.use('/assets', express.static(path.resolve(__dirname, '../assets')));
+
+app.use('/forms', formsRouter);
 
 // Initialize Payload
 const start = async () => {
