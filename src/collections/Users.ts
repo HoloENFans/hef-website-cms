@@ -57,6 +57,10 @@ const Users: CollectionConfig = {
 					label: 'Translator',
 					value: 'translator',
 				},
+				{
+					label: 'Hololivefanbooth',
+					value: 'hololivefanbooth',
+				},
 			],
 			saveToJWT: true,
 		},
