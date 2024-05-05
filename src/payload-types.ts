@@ -34,7 +34,8 @@ export interface Config {
 export interface User {
   id: string;
   name: string;
-  roles: ('superadmin' | 'project-owner' | 'content-moderator' | 'developer' | 'translator')[];
+  sections: ('hefw' | 'timelinerys' | 'dokomi-fan-booth')[];
+  roles: ('superadmin' | 'project-owner' | 'content-moderator' | 'developer' | 'translator' | 'misc')[];
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
@@ -57,6 +58,7 @@ export interface User {
  */
 export interface Media {
   id: string;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -87,6 +89,7 @@ export interface Guild {
  */
 export interface SubmissionMedia {
   id: string;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -247,6 +250,7 @@ export interface Event {
 export interface EventMedia {
   id: string;
   alt?: string | null;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;

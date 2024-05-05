@@ -7,6 +7,7 @@ import {
 import revalidatePath from '../lib/revalidatePath';
 import { languages } from '../payload.config';
 import revalidateTag from '../lib/revalidateTag';
+import checkSection from '../lib/checkSection';
 
 const Submissions: CollectionConfig = {
 	slug: 'submissions',
@@ -14,6 +15,7 @@ const Submissions: CollectionConfig = {
 		useAsTitle: 'author',
 		description: 'Submissions for projects',
 		defaultColumns: ['author', '_status', 'project', 'id'],
+		hidden: (req) => !checkSection(req, 'hefw'),
 	},
 	access: {
 		read: ({ req }) => {

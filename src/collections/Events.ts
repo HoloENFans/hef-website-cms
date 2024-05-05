@@ -7,6 +7,7 @@ import revalidatePath from '../lib/revalidatePath';
 import { languages } from '../payload.config';
 import checkRole from '../lib/checkRole';
 import revalidateTag from '../lib/revalidateTag';
+import checkSection from '../lib/checkSection';
 
 const Events: CollectionConfig = {
 	slug: 'events',
@@ -14,6 +15,7 @@ const Events: CollectionConfig = {
 		useAsTitle: 'title',
 		description: 'Event list',
 		defaultColumns: ['title', 'project'],
+		hidden: (req) => !checkSection(req, 'timelinerys'),
 	},
 	labels: {
 		singular: 'Event',

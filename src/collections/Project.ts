@@ -5,6 +5,7 @@ import revalidatePath from '../lib/revalidatePath';
 import { languages } from '../payload.config';
 import revalidateTag from '../lib/revalidateTag';
 import { Guild } from '../payload-types';
+import checkSection from '../lib/checkSection';
 
 // Helper functions
 async function checkProjectOwner(req: PayloadRequest, id: string): Promise<boolean> {
@@ -48,6 +49,7 @@ const Projects: CollectionConfig = {
 
 			return null;
 		},
+		hidden: (req) => !checkSection(req, 'hefw'),
 	},
 	access: {
 		read: ({ req }) => {
