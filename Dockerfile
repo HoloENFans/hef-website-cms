@@ -30,8 +30,11 @@ USER nodejs
 WORKDIR /app
 
 # Copy dependencies
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/assets ./assets
+COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nodejs:nodejs /app/assets ./assets
+COPY --from=builder --chown=nodejs:nodejs /app/package.json ./package.json
+
+RUN npm pkg set scripts.payload=payload
 
 # Copy transpiled code
 COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
