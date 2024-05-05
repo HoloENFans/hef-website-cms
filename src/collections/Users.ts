@@ -10,6 +10,7 @@ const Users: CollectionConfig = {
 	admin: {
 		useAsTitle: 'name',
 		defaultColumns: ['name', 'email', 'group'],
+		hidden: (req) => !checkRole(req, 'superadmin'),
 	},
 	labels: {
 		singular: 'User',
@@ -27,6 +28,29 @@ const Users: CollectionConfig = {
 			type: 'text',
 			label: 'Name',
 			required: true,
+			saveToJWT: true,
+		},
+		{
+			name: 'sections',
+			type: 'select',
+			label: 'Sections',
+			defaultValue: 'hefw',
+			required: true,
+			hasMany: true,
+			options: [
+				{
+					label: 'HoloEN Fan Website',
+					value: 'hefw',
+				},
+				{
+					label: 'Timelinerys',
+					value: 'timelinerys',
+				},
+				{
+					label: 'DoKomi fan-booth',
+					value: 'dokomi-fan-booth',
+				},
+			],
 			saveToJWT: true,
 		},
 		{
@@ -56,6 +80,10 @@ const Users: CollectionConfig = {
 				{
 					label: 'Translator',
 					value: 'translator',
+				},
+				{
+					label: 'Misc',
+					value: 'misc',
 				},
 			],
 			saveToJWT: true,

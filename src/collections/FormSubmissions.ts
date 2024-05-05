@@ -10,8 +10,8 @@ const FormSubmissions: CollectionConfig = {
 	},
 	access: {
 		read: ({ req }) => !!req.user,
-		create: ({ req }) => checkRole(req, 'project-owner'),
-		update: ({ req }) => checkRole(req, 'project-owner'),
+		create: ({ req }) => checkRole(req, 'superadmin'),
+		update: ({ req }) => checkRole(req, 'superadmin'),
 		delete: ({ req }) => checkRole(req, 'superadmin'),
 	},
 	hooks: {

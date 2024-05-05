@@ -3,6 +3,7 @@ import checkRole from '../lib/checkRole';
 import revalidatePath from '../lib/revalidatePath';
 import { languages } from '../payload.config';
 import revalidateTag from '../lib/revalidateTag';
+import checkSection from '../lib/checkSection';
 
 const Guilds: CollectionConfig = {
 	slug: 'guilds',
@@ -10,6 +11,7 @@ const Guilds: CollectionConfig = {
 		useAsTitle: 'name',
 		description: 'Server list on the website',
 		preview: () => `${process.env.PAYLOAD_PUBLIC_WEBSITE_URL}`,
+		hidden: (req) => !checkSection(req, 'hefw'),
 	},
 	labels: {
 		singular: 'Guild',
