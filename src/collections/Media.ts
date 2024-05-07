@@ -6,7 +6,7 @@ const Media: CollectionConfig = {
 	admin: {
 		disableDuplicate: true,
 		description: 'Website media',
-		hidden: (req) => !checkRole(req, 'superadmin'),
+		hidden: (req) => !checkRole(req, 'project-owner'),
 	},
 	access: {
 		read: () => true,
