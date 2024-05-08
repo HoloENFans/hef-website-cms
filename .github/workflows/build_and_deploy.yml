@@ -69,6 +69,10 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
 
+      - name: Get short SHA
+        id: sha
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       - name: Deploy to the Kubernetes cluster
         uses: Azure/k8s-deploy@v5
         with:
@@ -76,4 +80,4 @@ jobs:
           manifests: |
             kubernetes
           images: |
-            ghcr.io/holoenfans/hef-website-cms:${{ github.sha }}
+            ghcr.io/holoenfans/hef-website-cms:sha-${{ steps.sha.outputs.sha_short }}
