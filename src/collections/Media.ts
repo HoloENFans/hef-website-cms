@@ -5,12 +5,11 @@ const Media: CollectionConfig = {
 	slug: 'media',
 	admin: {
 		disableDuplicate: true,
-		description: 'Website media',
-		hidden: (req) => !checkRole(req, 'project-owner'),
+		description: 'All media',
 	},
 	access: {
 		read: () => true,
-		create: ({ req }) => checkRole(req, 'project-owner'),
+		create: ({ req }) => checkRole(req, ['project-owner', 'developer']),
 		update: ({ req }) => checkRole(req, 'superadmin'),
 		delete: ({ req }) => checkRole(req, 'superadmin'),
 	},

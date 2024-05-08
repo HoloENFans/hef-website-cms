@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: hefw-cms
+spec: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: hefw-cms
+  name: hefw-cms
+  namespace: hefw-cms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: hefw-cms
+  template:
+    metadata:
+      labels:
+        run: hefw-cms
+        app: hefw-cms
+    spec:
+      initContainers:
+      - name: hefw-cms-migrations
+        image: ghcr.io/holoenfans/hef-website-cms:prod
+        imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: cms-env
+        command: ['npm', 'run', 'payload', 'migrate']
+      containers:
+      - image: ghcr.io/holoenfans/hef-website-cms:prod
+        name: hefw-cms
+        envFrom:
+        - secretRef:
+            name: cms-env
+      imagePullSecrets:
+        - name: ghcr-secret
