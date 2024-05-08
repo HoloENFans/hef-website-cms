@@ -1,4 +1,4 @@
-name: Create Docker image and deploy
+name: Deployment
 on:
   push:
     branches:
@@ -55,11 +55,12 @@ jobs:
   deploy:
     name: Deploy to k8s
     needs: [ build ]
+    environment: production
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'ci(skip):')" # If the commit contains "ci skip" this action won't run
     steps:
       - name: Set the Kubernetes context
-        uses: azure/k8s-set-context@v2
+        uses: Azure/k8s-set-context@v4
         with:
           method: service-account
           k8s-url: ${{ secrets.KUBERNETES_SERVER }}
@@ -69,12 +70,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Deploy to the Kubernetes cluster
-        uses: azure/k8s-deploy@v4
+        uses: Azure/k8s-deploy@v5
         with:
-          namespace: default
+          namespace: hefw-cms
           manifests: |
-            kubernetes/deployment.yaml
-            kubernetes/ingress.yaml
-            kubernetes/service.yaml
+            kubernetes
           images: |
             ghcr.io/holoenfans/hef-website-cms:${{ github.sha }}
