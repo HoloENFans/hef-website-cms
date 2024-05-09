@@ -20,12 +20,13 @@ import Notice from './globals/Notice';
 import Events from './collections/Events';
 import EventMedia from './collections/EventMedia';
 import Forms from './collections/Forms';
+import FormSubmissions from './collections/FormSubmissions';
+import Fanmerch from './collections/Fanmerch';
 
 // Components
 /* eslint-disable import/extensions */
 import Icon from './components/branding/Icon';
 import Logo from './components/branding/Logo';
-import FormSubmissions from './collections/FormSubmissions';
 /* eslint-enable */
 
 const adapter = s3Adapter({
@@ -95,6 +96,7 @@ export default buildConfig({
 		EventMedia,
 		Forms,
 		FormSubmissions,
+		Fanmerch,
 	],
 	globals: [
 		FeaturedProjects,
