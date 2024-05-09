@@ -65,7 +65,7 @@ const Fanmerch: CollectionConfig = {
 		{
 			name: 'project',
 			type: 'relationship',
-			relationTo: 'project',
+			relationTo: 'projects',
 		},
 	],
 };
