@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload/types';
-import checkSection from 'lib/checkSection';
+import checkSection from '../lib/checkSection';
 
 const Fanmerch: CollectionConfig = {
 	slug: 'fanmerch',
