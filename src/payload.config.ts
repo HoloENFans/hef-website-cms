@@ -22,6 +22,8 @@ import EventMedia from './collections/EventMedia';
 import Forms from './collections/Forms';
 import FormSubmissions from './collections/FormSubmissions';
 import Fanmerch from './collections/Fanmerch';
+import People from './collections/People';
+import Links from './collections/Links';
 
 // Components
 /* eslint-disable import/extensions */
@@ -61,7 +63,8 @@ export default buildConfig({
 	],
 	rateLimit: {
 		trustProxy: true,
-		skip: (req) => req.header('X-RateLimit-Bypass') === process.env.PAYLOAD_BYPASS_RATE_LIMIT_KEY,
+		skip: (req) => req.header('X-RateLimit-Bypass')
+			=== process.env.PAYLOAD_BYPASS_RATE_LIMIT_KEY,
 	},
 	admin: {
 		bundler: webpackBundler(),
@@ -97,11 +100,10 @@ export default buildConfig({
 		Forms,
 		FormSubmissions,
 		Fanmerch,
+		People,
+		Links,
 	],
-	globals: [
-		FeaturedProjects,
-		Notice,
-	],
+	globals: [FeaturedProjects, Notice],
 	plugins: [
 		cloudStorage({
 			enabled: process.env.NODE_ENV === 'production',
@@ -109,17 +111,23 @@ export default buildConfig({
 				media: {
 					adapter,
 					prefix: 'media',
-					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
+					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${
+						prefix ? `${prefix}/` : ''
+					}${filename}`,
 				},
 				'submission-media': {
 					adapter,
 					prefix: 'submissions',
-					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
+					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${
+						prefix ? `${prefix}/` : ''
+					}${filename}`,
 				},
 				'event-media': {
 					adapter,
 					prefix: 'event-media',
-					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
+					generateFileURL: ({ filename, prefix }) => `${process.env.S3_PUBLIC_URL}/${
+						prefix ? `${prefix}/` : ''
+					}${filename}`,
 				},
 			},
 		}),
