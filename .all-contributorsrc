@@ -40,7 +40,17 @@
       "contributions": [
         "tool"
       ]
+    },
+    {
+      "login": "DaniruKun",
+      "name": "Daniils Petrovs",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5202322?v=4",
+      "profile": "http://danirukun.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "commitType": "docs"
 }
