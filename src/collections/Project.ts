@@ -180,6 +180,10 @@ const Projects: CollectionConfig = {
 					value: 'draft',
 				},
 				{
+					label: 'Hidden',
+					value: 'hidden',
+				},
+				{
 					label: 'Submissions open',
 					value: 'submissions-open',
 				},
