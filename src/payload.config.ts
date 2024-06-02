@@ -13,6 +13,7 @@ import Guilds from './collections/Guilds';
 import Media from './collections/Media';
 import SubmissionMedia from './collections/SubmissionMedia';
 import Projects from './collections/Project';
+import ExternalProjects from './collections/ExternalProjects';
 import Submissions from './collections/Submissions';
 import FeaturedProjects from './globals/FeaturedProjects';
 import Flags from './collections/Flags';
@@ -93,6 +94,7 @@ export default buildConfig({
 		Guilds,
 		SubmissionMedia,
 		Projects,
+		ExternalProjects,
 		Submissions,
 		Flags,
 		Events,
