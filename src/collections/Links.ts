@@ -4,7 +4,7 @@ import checkRole from '../lib/checkRole';
 const Links: CollectionConfig = {
 	slug: 'links',
 	admin: {
-		useAsTitle: 'kind',
+		useAsTitle: 'url',
 		description: 'Links to other platforms',
 	},
 	access: {
