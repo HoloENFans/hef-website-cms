@@ -2,11 +2,14 @@ import 'dotenv/config';
 import express from 'express';
 import payload from 'payload';
 import path from 'path';
+import helmet from 'helmet';
 import formsRouter from './routers/forms';
 
 const app = express();
 
 // Order matters!
+app.use(helmet());
+
 app.get('/robots.txt', (_, res) => {
 	res.type('text/plain');
 	res.send('User-agent: *\nDisallow: /');

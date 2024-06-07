@@ -3,11 +3,11 @@ import path from 'path';
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
 import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
-// import { viteBundler } from '@payloadcms/bundler-vite';
 import { webpackBundler } from '@payloadcms/bundler-webpack';
+import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import corsList from './lib/corsList';
 
 // Collections
-import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import Users from './collections/Users';
 import Guilds from './collections/Guilds';
 import Media from './collections/Media';
@@ -55,13 +55,7 @@ export default buildConfig({
 		'https://dev.holoen.fans',
 		'http://localhost:3000',
 	],
-	cors: [
-		'https://holoen.fans',
-		'https://dev.holoen.fans',
-		'https://www.astrogirl.space',
-		'https://www.sanallites.space',
-		'http://localhost:3000',
-	],
+	cors: corsList,
 	rateLimit: {
 		trustProxy: true,
 		skip: (req) => req.header('X-RateLimit-Bypass')
