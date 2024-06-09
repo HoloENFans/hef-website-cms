@@ -34,7 +34,6 @@
 		"@payloadcms/db-mongodb": "^1.5.1",
 		"@payloadcms/plugin-cloud-storage": "1.1.2",
 		"@payloadcms/richtext-lexical": "^0.8.0",
-		"@payloadcms/richtext-slate": "^1.5.2",
 		"@tripetto/block-checkbox": "^6.0.2",
 		"@tripetto/block-checkboxes": "^7.1.1",
 		"@tripetto/block-dropdown": "^7.0.0",
@@ -62,7 +61,7 @@
 		"helmet": "^7.1.0",
 		"nanoid": "^3.3.7",
 		"payload": "2.12.1",
-		"react": "^18.3.1",
+		"react": "18.2.0",
 		"sanitize-filename": "1.6.3"
 	},
 	"devDependencies": {
