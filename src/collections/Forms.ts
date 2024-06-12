@@ -21,7 +21,7 @@ const Forms: CollectionConfig = {
 
 			return {
 				status: {
-					equals: 'open',
+					not_equals: 'draft',
 				},
 			};
 		},
@@ -77,6 +77,10 @@ const Forms: CollectionConfig = {
 			type: 'select',
 			options: [
 				{
+					value: 'draft',
+					label: 'Draft',
+				},
+				{
 					value: 'open',
 					label: 'Open',
 				},
@@ -85,6 +89,7 @@ const Forms: CollectionConfig = {
 					label: 'Closed',
 				},
 			],
+			defaultValue: 'draft',
 			required: true,
 		},
 		{
