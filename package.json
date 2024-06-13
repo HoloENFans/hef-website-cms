@@ -55,6 +55,7 @@
 		"@tripetto/block-variable": "^3.0.3",
 		"@tripetto/block-yes-no": "^6.0.0",
 		"@tripetto/builder": "^6.2.1",
+		"@tripetto/runner": "^8.2.0",
 		"cors": "^2.8.5",
 		"dotenv": "16.4.5",
 		"express": "4.19.2",

@@ -92,6 +92,9 @@ importers:
       '@tripetto/builder':
         specifier: ^6.2.1
         version: 6.2.1
+      '@tripetto/runner':
+        specifier: ^8.2.0
+        version: 8.2.0
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -1813,6 +1816,9 @@ packages:
     resolution: {integrity: sha512-3HB/io2Kojb3zc2CGFjND6WFQwbd+uvL0PHyyMQBMOEP1M/P6n/a6bIogZpkPfsmk2UrbQ0+5DaLObaYCGcpZA==}
     engines: {node: '>=10.12.0'}
     hasBin: true
+
+  '@tripetto/runner@8.2.0':
+    resolution: {integrity: sha512-45m393x4bmJJa0pIzwVB3lozXG2bLkaFsC5xd9Dvf6ivLMSg4hZHKr/Q7O8Ze2k8QoYLKfChlJ9jBT+Y5PlFQQ==}
 
   '@tsconfig/node10@1.0.9':
     resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
@@ -8798,6 +8804,8 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
+
+  '@tripetto/runner@8.2.0': {}
 
   '@tsconfig/node10@1.0.9': {}
 

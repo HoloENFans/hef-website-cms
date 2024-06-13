@@ -1,12 +1,11 @@
 import { CollectionConfig } from 'payload/types';
-import { PayloadRequest } from 'payload/dist/express/types';
 import checkRole from '../lib/checkRole';
-import { FormSubmission, SubmissionMedia } from '../payload-types';
 
 const FormSubmissions: CollectionConfig = {
 	slug: 'form-submissions',
 	admin: {
-		defaultColumns: ['id', 'form'],
+		defaultColumns: ['id', 'form', 'status'],
+		useAsTitle: 'id',
 	},
 	access: {
 		read: ({ req }) => !!req.user,
@@ -14,22 +13,7 @@ const FormSubmissions: CollectionConfig = {
 		update: ({ req }) => checkRole(req, 'superadmin'),
 		delete: ({ req }) => checkRole(req, 'superadmin'),
 	},
-	hooks: {
-		afterDelete: [
-			async ({ req, doc }: { req: PayloadRequest, doc: FormSubmission }) => {
-				// Delete any images connected to this submission
-				await Promise.all(doc.media.map(async (media) => {
-					if (media.image) {
-						await req.payload.delete({
-							collection: 'submission-media',
-							id: (media.image as SubmissionMedia | undefined)?.id ?? media.image as string,
-							overrideAccess: true,
-						});
-					}
-				}));
-			},
-		],
-	},
+	hooks: {},
 	labels: {
 		singular: 'Form submission',
 		plural: 'Form submissions',
@@ -45,18 +29,27 @@ const FormSubmissions: CollectionConfig = {
 		{
 			name: 'data',
 			type: 'json',
-			required: true,
 		},
 		{
-			name: 'media',
-			type: 'array',
-			fields: [
+			name: 'checksum',
+			type: 'text',
+			hidden: true,
+		},
+		{
+			name: 'status',
+			type: 'select',
+			options: [
 				{
-					name: 'image',
-					type: 'upload',
-					relationTo: 'submission-media',
+					value: 'pending',
+					label: 'Pending',
+				},
+				{
+					value: 'received',
+					label: 'Received',
 				},
 			],
+			required: true,
+			defaultValue: 'pending',
 		},
 	],
 };

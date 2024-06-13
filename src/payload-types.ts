@@ -13,12 +13,16 @@ export interface Config {
     guilds: Guild;
     'submission-media': SubmissionMedia;
     projects: Project;
+    'external-projects': ExternalProject;
     submissions: Submission;
     flags: Flag;
     events: Event;
     'event-media': EventMedia;
     forms: Form;
     'form-submissions': FormSubmission;
+    fanmerch: Fanmerch;
+    people: Person;
+    links: Link;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -124,7 +128,7 @@ export interface Project {
     [k: string]: unknown;
   };
   organizers: (string | Guild)[];
-  status: 'draft' | 'submissions-open' | 'submissions-closed' | 'ongoing' | 'past';
+  status: 'draft' | 'hidden' | 'submissions-open' | 'submissions-closed' | 'ongoing' | 'past';
   links?:
     | {
         name: string;
@@ -184,6 +188,56 @@ export interface Flag {
   id: string;
   code: string;
   name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "external-projects".
+ */
+export interface ExternalProject {
+  id: string;
+  name: string;
+  description: string;
+  project: string | Project;
+  media?: (string | Media)[] | null;
+  people?: (string | Person)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people".
+ */
+export interface Person {
+  id: string;
+  nickname: string;
+  role: string;
+  image?: (string | null) | Media;
+  links?: (string | Link)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "links".
+ */
+export interface Link {
+  id: string;
+  kind:
+    | 'website'
+    | 'discord'
+    | 'github'
+    | 'linkedin'
+    | 'x'
+    | 'mastodon'
+    | 'instagram'
+    | 'facebook'
+    | 'youtube'
+    | 'twitch'
+    | 'linktree'
+    | 'other';
+  url: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -295,7 +349,7 @@ export interface Form {
   description: string;
   isSubmissionForm: 'true' | 'false';
   project?: (string | null) | Project;
-  status: 'open' | 'closed';
+  status: 'draft' | 'open' | 'closed';
   skin:
     | 'holoEN'
     | 'ina'
@@ -315,6 +369,8 @@ export interface Form {
     | 'fuwawa'
     | 'mococo'
     | 'fuwamoco';
+  exportablesStencilFingerprint?: string | null;
+  actionablesStencilFingerprint?: string | null;
   form:
     | {
         [k: string]: unknown;
@@ -334,7 +390,7 @@ export interface Form {
 export interface FormSubmission {
   id: string;
   form: string | Form;
-  data:
+  data?:
     | {
         [k: string]: unknown;
       }
@@ -343,12 +399,25 @@ export interface FormSubmission {
     | number
     | boolean
     | null;
-  media?:
-    | {
-        image?: string | SubmissionMedia | null;
-        id?: string | null;
-      }[]
-    | null;
+  checksum?: string | null;
+  status: 'pending' | 'received';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fanmerch".
+ */
+export interface Fanmerch {
+  id: string;
+  name: string;
+  description?: string | null;
+  image?: (string | null) | Media;
+  price?: number | null;
+  quantity?: number | null;
+  category: 'button' | 'postcard' | 'keychain' | 'sticker' | 'other';
+  model?: string | null;
+  project?: (string | null) | Project;
   updatedAt: string;
   createdAt: string;
 }
