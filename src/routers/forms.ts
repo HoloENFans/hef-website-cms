@@ -6,6 +6,7 @@ import cors from 'cors';
 import payload from 'payload';
 import { checksum as calculateChecksum, powVerify, stencil } from '@tripetto/runner';
 import { Export } from '@tripetto/runner/lib/data/export';
+import rateLimit from 'express-rate-limit';
 import corsList from '../lib/corsList';
 
 const router = express.Router();
@@ -37,10 +38,16 @@ async function validateTurnstileResponse(turnstileResponse: string): Promise<boo
 	return data.success as boolean;
 }
 
+const limiter = rateLimit();
+
+router.use(limiter);
+
 router.use(express.json());
+
 router.options('*', cors({
 	origin: corsList,
 }));
+
 router.use(cors({
 	origin: corsList,
 }));
