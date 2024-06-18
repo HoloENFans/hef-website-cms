@@ -43,6 +43,9 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
 		overrideAccess: true,
 		disableErrors: true,
 		depth: 1,
+		context: {
+			action: 'migration',
+		},
 	});
 
 	await Promise.all(projects.docs.map(async (doc) => {
@@ -62,6 +65,9 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
 			data: {
 				description: converted,
 				hasSubmissions: true,
+			},
+			context: {
+				action: 'migration',
 			},
 		});
 	}));

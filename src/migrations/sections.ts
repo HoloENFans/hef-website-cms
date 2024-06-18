@@ -7,6 +7,9 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
 		data: {
 			sections: ['hefw'],
 		},
+		context: {
+			action: 'migration',
+		},
 	});
 }
 
@@ -16,6 +19,9 @@ export async function down({ payload }: MigrateDownArgs): Promise<void> {
 		where: {},
 		data: {
 			sections: null,
+		},
+		context: {
+			action: 'migration',
 		},
 	});
 }
