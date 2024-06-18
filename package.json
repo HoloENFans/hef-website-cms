@@ -34,7 +34,7 @@
 		"@payloadcms/bundler-webpack": "^1.0.7",
 		"@payloadcms/db-mongodb": "^1.5.1",
 		"@payloadcms/plugin-cloud-storage": "1.1.2",
-		"@payloadcms/richtext-lexical": "^0.8.0",
+		"@payloadcms/richtext-lexical": "^0.11.0",
 		"@tripetto/block-checkbox": "^6.0.2",
 		"@tripetto/block-checkboxes": "^7.1.1",
 		"@tripetto/block-dropdown": "^7.0.0",
