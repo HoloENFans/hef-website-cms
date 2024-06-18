@@ -41,7 +41,6 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
 		pagination: false,
 		showHiddenFields: true,
 		overrideAccess: true,
-		disableErrors: true,
 		depth: 1,
 		context: {
 			action: 'migration',
@@ -66,6 +65,7 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
 				description: converted,
 				hasSubmissions: true,
 			},
+			overrideAccess: true,
 			context: {
 				action: 'migration',
 			},
