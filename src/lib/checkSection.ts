@@ -1,8 +1,7 @@
-import { PayloadRequest } from 'payload/dist/express/types';
 import { User } from 'payload/auth';
 
-export default ({ user, context }: { user: User, context?: PayloadRequest['context'] }, section: string) => {
-	if (context?.action === 'migration') return true;
+export default ({ user }: { user: User }, section: string) => {
+	if (process.env.PAYLOAD_MIGRATING === 'true') return true;
 
 	if ((user.roles as string[]).includes('superadmin')) return true;
 

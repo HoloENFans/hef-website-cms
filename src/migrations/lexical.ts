@@ -40,11 +40,7 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
 		collection: 'projects',
 		pagination: false,
 		showHiddenFields: true,
-		overrideAccess: true,
 		depth: 1,
-		context: {
-			action: 'migration',
-		},
 	});
 
 	await Promise.all(projects.docs.map(async (doc) => {
@@ -64,10 +60,6 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
 			data: {
 				description: converted,
 				hasSubmissions: true,
-			},
-			overrideAccess: true,
-			context: {
-				action: 'migration',
 			},
 		});
 	}));
