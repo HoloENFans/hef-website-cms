@@ -38,7 +38,10 @@ async function validateTurnstileResponse(turnstileResponse: string): Promise<boo
 	return data.success as boolean;
 }
 
-const limiter = rateLimit();
+const limiter = rateLimit({
+	windowMs: 5 * 60 * 1000, // 5 minutes
+	limit: 100,
+});
 
 router.use(limiter);
 
@@ -183,8 +186,9 @@ router.post('/submit', async (req, res) => {
 
 	if (!updatedSubmission) return;
 
+	const uploadTypes = ['@tripetto/block-file-upload', '@holoenfans/tripetto-block-multi-file-upload'];
 	await Promise.all((exportables as Export.IExportables).fields.map(async (field) => {
-		if (field.type === '@tripetto/block-file-upload' && field.reference) {
+		if (uploadTypes.includes(field.type) && field.reference) {
 			const filename = field.reference;
 
 			const copyCommand = new CopyObjectCommand({
