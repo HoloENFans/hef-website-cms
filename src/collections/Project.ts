@@ -85,6 +85,7 @@ const Projects: CollectionConfig = {
 	hooks: {
 		afterChange: [
 			async ({ doc, previousDoc }) => {
+				if (process.env.PAYLOAD_MIGRATING === 'true') return;
 				// eslint-disable-next-line no-underscore-dangle
 				if (doc.status !== 'draft') {
 					const tasks = languages.map(async (language) => {

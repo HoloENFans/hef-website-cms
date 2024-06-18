@@ -63,6 +63,38 @@ export async function up({ payload }: MigrateUpArgs): Promise<void> {
 			},
 		});
 	}));
+
+	const jpProjects = await payload.find({
+		collection: 'projects',
+		pagination: false,
+		showHiddenFields: true,
+		depth: 1,
+		locale: 'jp',
+	});
+
+	await Promise.all(jpProjects.docs.map(async (doc) => {
+		const richText = doc.description as any;
+
+		let converted: any;
+		if (richText && Array.isArray(richText) && !('root' in richText)) {
+			converted = convertSlateToLexical({
+				converters,
+				slateData: richText.filter((node) => node.type !== 'thematic_break'),
+			});
+		}
+
+		if (converted) {
+			await payload.update({
+				collection: 'projects',
+				id: doc.id,
+				data: {
+					description: converted,
+				},
+				locale: 'jp',
+				fallbackLocale: 'en',
+			});
+		}
+	}));
 }
 
 export async function down(): Promise<void> {
