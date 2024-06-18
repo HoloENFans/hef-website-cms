@@ -5,6 +5,8 @@ import path from 'path';
 
 const app = express();
 
+app.set('trust proxy', 2);
+
 // Order matters!
 app.get('/robots.txt', (_, res) => {
 	res.type('text/plain');
@@ -46,6 +48,8 @@ const start = async () => {
 			}),
 		},
 	});
+
+	app.use('/forms', (await import('./routers/forms')).default);
 
 	app.listen(3001);
 };

@@ -1,5 +1,6 @@
 import { CollectionConfig } from 'payload/types';
 import { relationship } from 'payload/dist/fields/validations';
+import { calculateFingerprintAndStencil } from '@tripetto/runner';
 // eslint-disable-next-line import/extensions
 import FormBuilder from '../components/tripetto/FormBuilder';
 import checkRole from '../lib/checkRole';
@@ -21,7 +22,7 @@ const Forms: CollectionConfig = {
 
 			return {
 				status: {
-					equals: 'open',
+					not_equals: 'draft',
 				},
 			};
 		},
@@ -29,7 +30,32 @@ const Forms: CollectionConfig = {
 		update: ({ req }) => checkRole(req, 'project-owner'),
 		delete: ({ req }) => checkRole(req, 'superadmin'),
 	},
-	hooks: {},
+	hooks: {
+		afterChange: [
+			async ({ doc, req, context }) => {
+				if (doc.form && context.action !== 'fingerprintUpdate') {
+					const formStencil = calculateFingerprintAndStencil(doc.form);
+					if (!formStencil) {
+						throw new Error('Failed to calculate form stencil');
+					}
+
+					req.payload.update({
+						collection: 'forms',
+						id: doc.id,
+						overrideAccess: true,
+						showHiddenFields: true,
+						data: {
+							exportablesStencilFingerprint: formStencil.stencil('exportables'),
+							actionablesStencilFingerprint: formStencil.stencil('actionables'),
+						},
+						context: {
+							action: 'fingerprintUpdate',
+						},
+					}).then();
+				}
+			},
+		],
+	},
 	fields: [
 		{
 			name: 'name',
@@ -77,6 +103,10 @@ const Forms: CollectionConfig = {
 			type: 'select',
 			options: [
 				{
+					value: 'draft',
+					label: 'Draft',
+				},
+				{
 					value: 'open',
 					label: 'Open',
 				},
@@ -85,6 +115,7 @@ const Forms: CollectionConfig = {
 					label: 'Closed',
 				},
 			],
+			defaultValue: 'draft',
 			required: true,
 		},
 		{
@@ -166,6 +197,16 @@ const Forms: CollectionConfig = {
 					value: 'fuwamoco',
 				},
 			],
+		},
+		{
+			name: 'exportablesStencilFingerprint',
+			type: 'text',
+			hidden: true,
+		},
+		{
+			name: 'actionablesStencilFingerprint',
+			type: 'text',
+			hidden: true,
 		},
 		{
 			name: 'form',

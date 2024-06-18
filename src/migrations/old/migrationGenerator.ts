@@ -33,6 +33,7 @@ export default async function runMigrationFunction<O = any, R = O>(collectionSlu
 					if (dry) {
 						console.log(`Running dry, would be updating '${id}' with:`, dataChange);
 					} else {
+						console.log(`Updating ${id}...`);
 						await payload.update({
 							collection: collectionSlug as any,
 							id,
@@ -41,12 +42,16 @@ export default async function runMigrationFunction<O = any, R = O>(collectionSlu
 					}
 
 					console.log(`Document in '${collectionSlug}' with id '${id}' updated successfully`);
-				} catch { /* For whatever reason throws errors while actually successful */ }
+				} catch (e) {
+					/* For whatever reason throws errors while actually successful */
+					console.log(e);
+				}
 			} else {
 				console.log(`No document found in '${collectionSlug}' with id '${id}'`);
 			}
 		}));
 	} catch (e) {
+		console.error('Something went wrong...');
 		payload.logger.error('Something went wrong.');
 		payload.logger.error(e);
 	}
