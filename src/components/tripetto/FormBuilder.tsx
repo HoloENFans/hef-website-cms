@@ -29,6 +29,7 @@ import '@tripetto/block-textarea';
 import '@tripetto/block-url';
 import '@tripetto/block-variable';
 import '@tripetto/block-yes-no';
+import '@holoenfans/tripetto-block-multi-file-upload';
 
 type Props = { path: string };
 
