@@ -32,8 +32,8 @@ const Forms: CollectionConfig = {
 	},
 	hooks: {
 		afterChange: [
-			async ({ doc, req }) => {
-				if (doc.form) {
+			async ({ doc, req, context }) => {
+				if (doc.form && context.action !== 'fingerprintUpdate') {
 					const formStencil = calculateFingerprintAndStencil(doc.form);
 					if (!formStencil) {
 						throw new Error('Failed to calculate form stencil');
@@ -47,6 +47,9 @@ const Forms: CollectionConfig = {
 						data: {
 							exportablesStencilFingerprint: formStencil.stencil('exportables'),
 							actionablesStencilFingerprint: formStencil.stencil('actionables'),
+						},
+						context: {
+							action: 'fingerprintUpdate',
 						},
 					}).then();
 				}
