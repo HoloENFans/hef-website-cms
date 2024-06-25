@@ -9,13 +9,12 @@ const Guilds: CollectionConfig = {
 	slug: 'guilds',
 	admin: {
 		useAsTitle: 'name',
-		description: 'Server list on the website',
 		preview: () => `${process.env.PAYLOAD_PUBLIC_WEBSITE_URL}`,
 		hidden: (req) => !checkSection(req, 'hefw'),
 	},
 	labels: {
-		singular: 'Guild',
-		plural: 'Guilds',
+		singular: 'Organizer',
+		plural: 'Organizers',
 	},
 	access: {
 		read: () => true,
@@ -23,7 +22,7 @@ const Guilds: CollectionConfig = {
 		update: ({ req, data }) => {
 			if (checkRole(req, 'superadmin')) return true;
 
-			return data?.staff ? data.staff.includes(req.user.id) : false;
+			return data?.staff ? (data.staff.includes(req.user.id) || data.staff.findIndex((user) => user.id === req.user.id) > -1) : false;
 		},
 	},
 	hooks: {
