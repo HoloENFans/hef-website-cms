@@ -63,6 +63,15 @@ const Fanmerch: CollectionConfig = {
 			},
 		},
 		{
+			name: 'thumbnail',
+			type: 'upload',
+			relationTo: 'media',
+			label: 'Thumbnail',
+			admin: {
+				description: 'This is the image that shows up on the site if there is no 3D model and in is used for the SumUp app.',
+			},
+		},
+		{
 			name: 'project',
 			type: 'relationship',
 			relationTo: 'projects',
