@@ -31,12 +31,6 @@ const Fanmerch: CollectionConfig = {
 			maxLength: 500,
 		},
 		{
-			name: 'image',
-			type: 'relationship',
-			relationTo: 'media',
-			required: false,
-		},
-		{
 			name: 'price',
 			type: 'number',
 			required: false,
@@ -44,10 +38,10 @@ const Fanmerch: CollectionConfig = {
 		},
 		{
 			name: 'quantity',
+			label: 'Stock',
 			type: 'number',
 			required: false,
 			defaultValue: 0,
-			min: 0,
 		},
 		{
 			name: 'category',
@@ -75,6 +69,7 @@ const Fanmerch: CollectionConfig = {
 			name: 'project',
 			type: 'relationship',
 			relationTo: 'projects',
+			required: true,
 		},
 	],
 };

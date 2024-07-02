@@ -9,6 +9,7 @@ const Guilds: CollectionConfig = {
 	slug: 'guilds',
 	admin: {
 		useAsTitle: 'name',
+		description: 'Project organizers',
 		preview: () => `${process.env.PAYLOAD_PUBLIC_WEBSITE_URL}`,
 		hidden: (req) => !checkSection(req, 'hefw'),
 	},
@@ -22,7 +23,14 @@ const Guilds: CollectionConfig = {
 		update: ({ req, data }) => {
 			if (checkRole(req, 'superadmin')) return true;
 
-			return data?.staff ? (data.staff.includes(req.user.id) || data.staff.findIndex((user) => user.id === req.user.id) > -1) : false;
+			return (
+				data?.staff
+					? (
+						data.staff.includes(req.user.id)
+						|| data.staff.findIndex((user) => user.id === req.user.id) > -1
+					)
+					: false
+			);
 		},
 	},
 	hooks: {
@@ -44,38 +52,16 @@ const Guilds: CollectionConfig = {
 			required: true,
 		},
 		{
-			name: 'description',
-			type: 'textarea',
-			required: true,
-			localized: true,
-		},
-		{
-			name: 'debutDate',
-			label: 'Debut date',
-			type: 'date',
-			required: true,
-		},
-		{
-			name: 'invite',
-			type: 'text',
-			required: true,
-			admin: {
-				description: 'Only provide the invite code, so excluding "discord.gg"',
-			},
-		},
-		{
-			name: 'icon',
-			type: 'upload',
-			relationTo: 'media',
-			required: true,
-		},
-		{
 			name: 'staff',
 			type: 'relationship',
 			relationTo: 'users',
 			hasMany: true,
 			access: {
 				read: (context) => !!context.req.user,
+			},
+			defaultValue: ({ user }) => ([user.id]),
+			admin: {
+				description: 'Staff members, these are allowed to modify this document and projects associated with this organizer',
 			},
 		},
 	],
