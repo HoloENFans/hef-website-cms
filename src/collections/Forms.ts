@@ -32,7 +32,9 @@ const Forms: CollectionConfig = {
 	},
 	hooks: {
 		afterChange: [
-			async ({ doc, req, context }) => {
+			async ({ doc, previousDoc, req, context }) => {
+				if (process.env.PAYLOAD_MIGRATING === 'true') return;
+
 				if (doc.form && context.action !== 'fingerprintUpdate') {
 					const formStencil = calculateFingerprintAndStencil(doc.form);
 					if (!formStencil) {
@@ -52,6 +54,14 @@ const Forms: CollectionConfig = {
 							action: 'fingerprintUpdate',
 						},
 					}).then();
+				}
+
+				if (doc.status !== 'draft' || previousDoc.status !== 'draft') {
+					const tasks = languages.map(async (language) => {
+						await revalidatePath(`/${language}/forms/${doc.id}`);
+					});
+
+					await Promise.all(tasks);
 				}
 			},
 		],
