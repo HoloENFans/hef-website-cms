@@ -235,6 +235,7 @@ router.post('/upload', async (req, res) => {
 
 	res.status(201).json({
 		...post,
+		url: process.env.S3_PUBLIC_URL ?? post.url,
 		filename,
 	});
 });
