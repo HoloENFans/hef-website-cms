@@ -31,6 +31,7 @@
 		"@aws-sdk/lib-storage": "3.554.0",
 		"@aws-sdk/s3-presigned-post": "^3.598.0",
 		"@holoenfans/tripetto-block-multi-file-upload": "^0.0.4",
+		"@holoenfans/tripetto-block-spacer": "^0.0.1",
 		"@payloadcms/bundler-webpack": "^1.0.7",
 		"@payloadcms/db-mongodb": "^1.5.1",
 		"@payloadcms/plugin-cloud-storage": "1.1.2",
