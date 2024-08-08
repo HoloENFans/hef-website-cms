@@ -21,11 +21,13 @@ const s3 = new S3Client({
 	region: process.env.S3_REGION,
 });
 
-async function validateTurnstileResponse(turnstileResponse: string): Promise<boolean> {
+// eslint-disable-next-line max-len
+async function validateTurnstileResponse(turnstileResponse: string, clientId?: string): Promise<boolean> {
 	const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
 		body: JSON.stringify({
 			secret: process.env.TURNSTILE_SECRET,
 			response: turnstileResponse,
+			idempotency_key: clientId ?? undefined,
 		}),
 		headers: {
 			'Content-Type': 'application/json',
@@ -211,8 +213,14 @@ router.post('/submit', async (req, res) => {
 });
 
 router.post('/upload', async (req, res) => {
-	const { fileExt, turnstileResponse } = req.body;
-	if (!turnstileResponse || typeof turnstileResponse !== 'string' || turnstileResponse.trim().length === 0 || !await validateTurnstileResponse(turnstileResponse)) {
+	const { fileExt, turnstileResponse, clientId } = req.body;
+
+	if (!clientId || typeof clientId !== 'string' || clientId.trim().length === 0) {
+		res.status(400).send('Missing client ID');
+		return;
+	}
+
+	if (!turnstileResponse || typeof turnstileResponse !== 'string' || turnstileResponse.trim().length === 0 || !await validateTurnstileResponse(turnstileResponse, clientId)) {
 		res.status(401).send('Missing or invalid Turnstile response');
 		return;
 	}
@@ -241,8 +249,14 @@ router.post('/upload', async (req, res) => {
 });
 
 router.delete('/upload', async (req, res) => {
-	const { key, turnstileResponse } = req.body;
-	if (!turnstileResponse || typeof turnstileResponse !== 'string' || turnstileResponse.trim().length === 0 || !await validateTurnstileResponse(turnstileResponse)) {
+	const { key, turnstileResponse, clientId } = req.body;
+
+	if (!clientId || typeof clientId !== 'string' || clientId.trim().length === 0) {
+		res.status(400).send('Missing client ID');
+		return;
+	}
+
+	if (!turnstileResponse || typeof turnstileResponse !== 'string' || turnstileResponse.trim().length === 0 || !await validateTurnstileResponse(turnstileResponse, clientId)) {
 		res.status(401).send('Missing or invalid Turnstile response');
 		return;
 	}
