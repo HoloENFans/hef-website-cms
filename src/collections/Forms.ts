@@ -34,7 +34,9 @@ const Forms: CollectionConfig = {
 	},
 	hooks: {
 		afterChange: [
-			async ({ doc, previousDoc, req, context }) => {
+			async ({
+				doc, previousDoc, req, context,
+			}) => {
 				if (process.env.PAYLOAD_MIGRATING === 'true') return;
 
 				if (doc.form && context.action !== 'fingerprintUpdate') {
@@ -73,11 +75,13 @@ const Forms: CollectionConfig = {
 			name: 'name',
 			type: 'text',
 			required: true,
+			localized: true,
 		},
 		{
 			name: 'description',
 			type: 'textarea',
 			required: true,
+			localized: true,
 		},
 		{
 			name: 'isSubmissionForm',
