@@ -167,7 +167,8 @@ router.post('/submit', async (req, res) => {
 		return;
 	}
 
-	if (!powVerify(answer, 10, 1000 * 60 * 15, { exportables, actionables }, submission.id)) {
+	// eslint-disable-next-line max-len
+	if (!powVerify(answer, 10, 1000 * 60 * 15, { exportables, actionables }, submission.id as string)) {
 		res.status(400).send('Invalid proof of work');
 		return;
 	}

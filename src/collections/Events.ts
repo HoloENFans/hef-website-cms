@@ -15,11 +15,11 @@ const Events: CollectionConfig = {
 		useAsTitle: 'title',
 		description: 'Event list',
 		defaultColumns: ['title', 'project'],
-		hidden: (req) => !checkSection(req, 'timelinerys'),
+		hidden: (req) => !checkSection(req, 'timelinerys') && !checkSection(req, 'aqua-sendoff'),
 	},
 	labels: {
-		singular: 'Event',
-		plural: 'Events',
+		singular: 'Timeline Event',
+		plural: 'Timeline Events',
 	},
 	access: {
 		read: () => true,
@@ -86,6 +86,7 @@ const Events: CollectionConfig = {
 			name: 'title',
 			type: 'text',
 			required: true,
+			localized: true,
 		},
 		{
 			name: 'project',
@@ -129,6 +130,7 @@ const Events: CollectionConfig = {
 			name: 'content',
 			type: 'richText',
 			required: true,
+			localized: true,
 		},
 		{
 			name: 'devprops',

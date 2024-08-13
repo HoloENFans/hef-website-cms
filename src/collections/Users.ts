@@ -50,6 +50,10 @@ const Users: CollectionConfig = {
 					label: 'DoKomi fan-booth',
 					value: 'dokomi-fan-booth',
 				},
+				{
+					label: 'Aqua send off',
+					value: 'aqua-sendoff',
+				},
 			],
 			saveToJWT: true,
 		},

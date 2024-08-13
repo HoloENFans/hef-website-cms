@@ -38,7 +38,7 @@ export interface Config {
 export interface User {
   id: string;
   name: string;
-  sections: ('hefw' | 'timelinerys' | 'dokomi-fan-booth')[];
+  sections: ('hefw' | 'timelinerys' | 'dokomi-fan-booth' | 'aqua-sendoff')[];
   roles: ('superadmin' | 'project-owner' | 'content-moderator' | 'developer' | 'translator' | 'misc')[];
   updatedAt: string;
   createdAt: string;
@@ -71,6 +71,8 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -79,10 +81,6 @@ export interface Media {
 export interface Guild {
   id: string;
   name: string;
-  description: string;
-  debutDate: string;
-  invite: string;
-  icon: string | Media;
   staff?: (string | User)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -102,6 +100,8 @@ export interface SubmissionMedia {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -338,6 +338,8 @@ export interface EventMedia {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -412,12 +414,12 @@ export interface Fanmerch {
   id: string;
   name: string;
   description?: string | null;
-  image?: (string | null) | Media;
   price?: number | null;
   quantity?: number | null;
   category: 'button' | 'postcard' | 'keychain' | 'sticker' | 'other';
   model?: string | null;
-  project?: (string | null) | Project;
+  thumbnail?: string | Media | null;
+  project: string | Project;
   updatedAt: string;
   createdAt: string;
 }

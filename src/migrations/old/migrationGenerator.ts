@@ -15,6 +15,7 @@ export default async function runMigrationFunction<O = any, R = O>(collectionSlu
 		local: true,
 	});
 
+	// @ts-ignore
 	const results: PaginatedDocs<O> = await payload.find({
 		collection: collectionSlug as any,
 		depth: 0,

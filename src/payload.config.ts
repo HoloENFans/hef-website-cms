@@ -45,7 +45,7 @@ const adapter = s3Adapter({
 	bucket: process.env.S3_BUCKET,
 });
 
-export const languages = ['en', 'jp'];
+export const languages = ['en', 'jp', 'id', 'zh'];
 
 export default buildConfig({
 	serverURL: process.env.PUBLIC_URL,
